@@ -5,6 +5,10 @@ VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPregnancyTracker.Web", "MyPregnancyTracker.Web\MyPregnancyTracker.Web.csproj", "{00EF489F-E754-41AD-9AE5-BCC28A8430ED}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPregnancyTracker.Data", "MyPregnancyTracker.Data\MyPregnancyTracker.Data.csproj", "{E758AB54-1526-4C6E-BBF0-35E157542266}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPregnancyTracker.Services", "MyPregnancyTracker.Services\MyPregnancyTracker.Services.csproj", "{99C12AB1-3141-4F7B-AE65-1967BAFE12DA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{00EF489F-E754-41AD-9AE5-BCC28A8430ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{00EF489F-E754-41AD-9AE5-BCC28A8430ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{00EF489F-E754-41AD-9AE5-BCC28A8430ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E758AB54-1526-4C6E-BBF0-35E157542266}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E758AB54-1526-4C6E-BBF0-35E157542266}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E758AB54-1526-4C6E-BBF0-35E157542266}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E758AB54-1526-4C6E-BBF0-35E157542266}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99C12AB1-3141-4F7B-AE65-1967BAFE12DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99C12AB1-3141-4F7B-AE65-1967BAFE12DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99C12AB1-3141-4F7B-AE65-1967BAFE12DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99C12AB1-3141-4F7B-AE65-1967BAFE12DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
