@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Identity;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using MyPregnancyTracker.Data;
 using MyPregnancyTracker.Data.Repositories;
@@ -6,18 +6,26 @@ using MyPregnancyTracker.Data.Repositories;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+var connectionStringBuilder = new SqlConnectionStringBuilder(builder.Configuration[builder.Configuration.GetConnectionString("DefaultConnection")]);
+connectionStringBuilder.UserID = builder.Configuration["User"];
+connectionStringBuilder.Password = builder.Configuration["Password"];
+
+string connectionString = connectionStringBuilder.ConnectionString;
+
 builder.Services.AddDbContext<MyPregnancyTrackerDbContext>(options =>
     options.UseSqlServer(connectionString));
-
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<MyPregnancyTrackerDbContext>(); 
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
 builder.Services.AddControllers();
 
 var app = builder.Build();
+
+using (var serviceScope = app.Services.CreateScope())
+{
+    var dbContext = serviceScope.ServiceProvider.GetRequiredService<MyPregnancyTrackerDbContext>();
+    dbContext.Database.Migrate();
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

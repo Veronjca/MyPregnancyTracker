@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MyPregnancyTracker.Data.Models;
 
 namespace MyPregnancyTracker.Data
 {
-    public class MyPregnancyTrackerDbContext : IdentityDbContext
+    public class MyPregnancyTrackerDbContext : DbContext
     {
         public MyPregnancyTrackerDbContext(DbContextOptions<MyPregnancyTrackerDbContext> options)
             : base(options)
@@ -64,6 +63,12 @@ namespace MyPregnancyTracker.Data
                  .HasOne(t => t.User)
                  .WithMany(u => u.Topics)
                  .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<Article>()
+                .HasKey(a => a.Id);
+
+            builder.Entity<GestationalWeek>()
+                .HasKey(gw => gw.Id);
         }
         private void ApplyAuditInfoRules()
         {

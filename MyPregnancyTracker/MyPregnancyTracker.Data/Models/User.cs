@@ -1,4 +1,5 @@
 ﻿using MyPregnancyTracker.Data.Constants;
+using MyPregnancyTracker.Data.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace MyPregnancyTracker.Data.Models
@@ -41,6 +42,9 @@ namespace MyPregnancyTracker.Data.Models
         [Required]
         [Range(ValidationConstants.GESTATIONAL_WEEK_MIN_VALUE, ValidationConstants.GESTATIONAL_WEEK_MAX_VALUE)]
         public int GestationalWeek { get; set; }
+
+        [Required]
+        public RoleEnum Role { get; set; }
 
         public bool IsDeleted { get; set; }
 
