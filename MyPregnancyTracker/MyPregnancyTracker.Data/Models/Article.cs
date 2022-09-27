@@ -2,7 +2,7 @@
 
 namespace MyPregnancyTracker.Data.Models
 {
-    public class Article
+    public class Article : IAuditInfo
     {
         [Key]
         public int Id { get; set; }

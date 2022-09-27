@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using MyPregnancyTracker.Data.Models;
 
 namespace MyPregnancyTracker.Data
 {
-    public class MyPregnancyTrackerDbContext : DbContext
+    public class MyPregnancyTrackerDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, int>
     {
         public MyPregnancyTrackerDbContext(DbContextOptions<MyPregnancyTrackerDbContext> options)
             : base(options)
@@ -34,6 +35,8 @@ namespace MyPregnancyTracker.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            base.OnModelCreating(builder);
+
             builder.Entity<Comment>()
                  .HasOne(c => c.User)
                  .WithMany(u => u.Comments)
@@ -69,18 +72,39 @@ namespace MyPregnancyTracker.Data
 
             builder.Entity<GestationalWeek>()
                 .HasKey(gw => gw.Id);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(e => e.Claims)
+                .WithOne()
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(e => e.Logins)
+                .WithOne()
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(e => e.Roles)
+                .WithOne()
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Restrict);
         }
         private void ApplyAuditInfoRules()
         {
             var changedEntries = this.ChangeTracker
                 .Entries()
                 .Where(e =>
-                    e.Entity is User &&
+                    e.Entity is IAuditInfo &&
                     (e.State == EntityState.Added || e.State == EntityState.Modified));
 
             foreach (var entry in changedEntries)
             {
-                var entity = (User)entry.Entity;
+                var entity = (IAuditInfo)entry.Entity;
                 if (entry.State == EntityState.Added && entity.CreatedOn == default)
                 {
                     entity.CreatedOn = DateTime.UtcNow;

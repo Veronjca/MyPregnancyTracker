@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using MyPregnancyTracker.Data;
 
@@ -11,9 +12,10 @@ using MyPregnancyTracker.Data;
 namespace MyPregnancyTracker.Data.Migrations
 {
     [DbContext(typeof(MyPregnancyTrackerDbContext))]
-    partial class MyPregnancyTrackerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220927191801_InitalCreate")]
+    partial class InitalCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

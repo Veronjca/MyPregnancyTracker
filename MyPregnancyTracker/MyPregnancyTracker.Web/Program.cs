@@ -1,7 +1,10 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using MyPregnancyTracker.Data;
+using static MyPregnancyTracker.Data.Constants.ValidationConstants;
+using MyPregnancyTracker.Data.Models;
 using MyPregnancyTracker.Data.Repositories;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +18,29 @@ string connectionString = connectionStringBuilder.ConnectionString;
 builder.Services.AddDbContext<MyPregnancyTrackerDbContext>(options =>
     options.UseSqlServer(connectionString));
 
+builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(opt =>
+{
+    opt.User.RequireUniqueEmail = true;
+    opt.Password.RequireDigit = true;
+    opt.Password.RequiredLength = PASSWORD_MIN_LENGTH;
+    opt.Password.RequireLowercase = true;
+    opt.Password.RequireUppercase = true;
+    opt.Password.RequireNonAlphanumeric = true;
+    opt.SignIn.RequireConfirmedEmail = true;
+
+}).AddEntityFrameworkStores<MyPregnancyTrackerDbContext>();
+
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+
+builder.Services.AddSwaggerGen(opt =>
+{
+    opt.SwaggerDoc("v1", new OpenApiInfo 
+    { 
+        Version = "v1", 
+        Title = "MyPregnancyTracker.Api", 
+        Description = "Api for MyPregnancyTracker web app.Personal information source about pregnancy and all about it.",
+    });
+});
 
 builder.Services.AddControllers();
 
@@ -31,6 +56,8 @@ using (var serviceScope = app.Services.CreateScope())
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 }
 else
 {
@@ -40,6 +67,7 @@ else
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
+app.UseCookiePolicy();
 
 app.UseRouting();
 
@@ -48,9 +76,7 @@ app.UseAuthorization();
 
 app.UseEndpoints(endpoints =>
 {
-    endpoints.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    endpoints.MapControllers();
 });
 
 app.Run();

@@ -1,4 +1,4 @@
-﻿using MyPregnancyTracker.Data.Constants;
+﻿using static MyPregnancyTracker.Data.Constants.ValidationConstants;
 using System.ComponentModel.DataAnnotations;
 
 namespace MyPregnancyTracker.Data.Models
@@ -9,7 +9,7 @@ namespace MyPregnancyTracker.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [Range(ValidationConstants.GESTATIONAL_AGE_MIN_VALUE, ValidationConstants.GESTATIONAL_AGE_MAX_VALUE)]
+        [Range(GESTATIONAL_AGE_MIN_VALUE, GESTATIONAL_AGE_MAX_VALUE)]
         public int GestationalAge { get; set; }
 
         [Required]

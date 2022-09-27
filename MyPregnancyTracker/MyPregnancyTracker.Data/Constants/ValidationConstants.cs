@@ -2,7 +2,7 @@
 {
     public static class ValidationConstants
     {
-        public const string PASSWORD_VALIDATION_PATTERN = @"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,20}$";
+        public const int PASSWORD_MIN_LENGTH = 8;
 
         public const int GESTATIONAL_WEEK_MIN_VALUE = 1;
 
