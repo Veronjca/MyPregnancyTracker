@@ -1,0 +1,51 @@
+<div class="form-container">
+  <form [formGroup]="loginForm">
+    <div class="mat-form-fields-wrapper">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input
+          type="email"
+          matInput
+          formControlName="email"
+          placeholder="Ex. pat@example.com"
+        />
+        <mat-error
+          *ngIf="
+            loginForm.controls['email'].hasError('email') &&
+            !loginForm.controls['email'].hasError('required')
+          "
+        >
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput formControlName="password" />
+        <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+          Password is <strong>required</strong>
+        </mat-error>
+        <mat-error
+          *ngIf="
+            !loginForm.controls['password'].hasError('required') &&
+            loginForm.controls['password'].hasError('pattern')
+          "
+        >
+          Password should contain at least one uppercase letter, one lowercase
+          letter, one digit and one special symbol and should be at least 8
+          character long.
+        </mat-error>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        [disabled]="!loginForm.valid"
+        (click)="login()"
+        color="primary"
+      >
+        Влизане
+      </button>
+    </div>
+  </form>
+</div>

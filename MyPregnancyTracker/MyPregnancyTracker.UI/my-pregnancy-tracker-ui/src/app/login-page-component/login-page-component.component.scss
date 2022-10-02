@@ -1,0 +1,24 @@
+.form-container {
+    width: 50%;
+    margin: auto;
+    top: 25%;
+    left: 25%;
+    height: 50%;
+    position: absolute;
+    
+    border: 8px inset #F48FB1;
+  }
+  
+  mat-form-field{
+    display: block;
+    width: 50%;
+  }
+
+  .mat-form-fields-wrapper{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  
