@@ -1,4 +1,6 @@
+<div class="background"></div>
 <div class="form-container">
+  <p class="title"><strong>Влизане</strong></p>
   <form [formGroup]="loginForm">
     <div class="mat-form-fields-wrapper">
       <mat-form-field appearance="outline">
@@ -44,8 +46,9 @@
         (click)="login()"
         color="primary"
       >
-        Влизане
+        Напред
       </button>
     </div>
   </form>
+  <div class="forgotten-password"><a routerLink="">Забравена парола?</a></div>
 </div>
