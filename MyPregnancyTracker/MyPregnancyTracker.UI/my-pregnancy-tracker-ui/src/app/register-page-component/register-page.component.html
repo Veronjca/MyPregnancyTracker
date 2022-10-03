@@ -1,0 +1,121 @@
+<div class="background"></div>
+<div class="form-container">
+  <p class="title"><strong>Регистрация</strong></p>
+  <form [formGroup]="registerForm">
+    <div class="mat-form-fields-wrapper">
+      <!-- Input field for First Name -->
+      <mat-form-field appearance="outline">
+        <mat-label>Собствено име</mat-label>
+        <input matInput formControlName="firstName" />
+        <mat-error
+          *ngIf="registerForm.controls['firstName'].hasError('required')"
+        >
+          Полето е <strong>задължително!</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Input field for Last Name -->
+      <mat-form-field appearance="outline">
+        <mat-label>Фамилия</mat-label>
+        <input matInput formControlName="lastName" />
+        <mat-error
+          *ngIf="registerForm.controls['lastName'].hasError('required')"
+        >
+          Полето е <strong>задължително!</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Input field for User Name -->
+      <mat-form-field appearance="outline">
+        <mat-label>Потребителско име</mat-label>
+        <input matInput formControlName="userName" />
+        <mat-error
+          *ngIf="registerForm.controls['userName'].hasError('required')"
+        >
+          Полето е <strong>задължително!</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Input field for Email -->
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input
+          type="email"
+          matInput
+          formControlName="email"
+          placeholder="Ex. pat@example.com"
+        />
+        <mat-error
+          *ngIf="
+            registerForm.controls['email'].hasError('email') &&
+            !registerForm.controls['email'].hasError('required')
+          "
+        >
+          Please enter a valid email address
+        </mat-error>
+        <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
+          Email is <strong>required</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Input field for Password -->
+      <mat-form-field appearance="outline">
+        <mat-label>Парола</mat-label>
+        <input type="password" matInput formControlName="password" />
+        <mat-error
+          *ngIf="registerForm.controls['password'].hasError('required')"
+        >
+          Password is <strong>required</strong>
+        </mat-error>
+        <mat-error
+          *ngIf="
+            !registerForm.controls['password'].hasError('required') &&
+            registerForm.controls['password'].hasError('pattern')
+          "
+        >
+          Password should contain at least one uppercase letter, one lowercase
+          letter, one digit and one special symbol and should be at least 8
+          character long.
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Input field for Confirm Password -->
+      <mat-form-field appearance="outline">
+        <mat-label>Потвърждаване на парола</mat-label>
+        <input matInput formControlName="confirmPassword" />
+        <mat-error
+          *ngIf="
+            registerForm.controls['confirmPassword'].value !==
+            registerForm.controls['password'].value
+          "
+        >
+          Пaролите трябва да съвпадат!
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Input field for First Day of Last Menstruation -->
+      <mat-form-field appearance="outline">
+        <mat-label>Дата на първия ден на последната менструация</mat-label>
+        <input matInput formControlName="firstDayOfLastMenstruation" />
+        <mat-error
+          *ngIf="
+            registerForm.controls['firstDayOfLastMenstruation'].value !==
+            registerForm.controls['password'].value
+          "
+        >
+          Пaролите трябва да съвпадат!
+        </mat-error>
+      </mat-form-field>
+
+      <button
+        mat-raised-button
+        [disabled]="!registerForm.valid"
+        (click)="register()"
+        color="primary"
+      >
+        Напред
+      </button>
+    </div>
+  </form>
+  <div class="forgotten-password"><a routerLink="">Забравена парола?</a></div>
+</div>
