@@ -1,44 +1,46 @@
 <div class="background"></div>
 <div class="form-container">
-  <p class="title"><strong>Регистрация</strong></p>
+  <p class="title">
+    <strong>{{ registerPageConstants.REGISTER }}</strong>
+  </p>
   <form [formGroup]="registerForm">
     <div class="mat-form-fields-wrapper">
       <!-- Input field for First Name -->
       <mat-form-field appearance="outline">
-        <mat-label>Собствено име</mat-label>
+        <mat-label>{{ registerPageConstants.FIRST_NAME }}</mat-label>
         <input matInput formControlName="firstName" />
         <mat-error
           *ngIf="registerForm.controls['firstName'].hasError('required')"
         >
-          Полето е <strong>задължително!</strong>
+          {{ registerPageConstants.REQUIRED_FIELD }}
         </mat-error>
       </mat-form-field>
 
       <!-- Input field for Last Name -->
       <mat-form-field appearance="outline">
-        <mat-label>Фамилия</mat-label>
+        <mat-label>{{ registerPageConstants.LAST_NAME }}</mat-label>
         <input matInput formControlName="lastName" />
         <mat-error
           *ngIf="registerForm.controls['lastName'].hasError('required')"
         >
-          Полето е <strong>задължително!</strong>
+          {{ registerPageConstants.REQUIRED_FIELD }}
         </mat-error>
       </mat-form-field>
 
       <!-- Input field for User Name -->
       <mat-form-field appearance="outline">
-        <mat-label>Потребителско име</mat-label>
+        <mat-label>{{ registerPageConstants.USER_NAME }}</mat-label>
         <input matInput formControlName="userName" />
         <mat-error
           *ngIf="registerForm.controls['userName'].hasError('required')"
         >
-          Полето е <strong>задължително!</strong>
+          {{ registerPageConstants.REQUIRED_FIELD }}
         </mat-error>
       </mat-form-field>
 
       <!-- Input field for Email -->
       <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
+        <mat-label>{{ registerPageConstants.EMAIL }}</mat-label>
         <input
           type="email"
           matInput
@@ -51,21 +53,27 @@
             !registerForm.controls['email'].hasError('required')
           "
         >
-          Please enter a valid email address
+          {{ registerPageConstants.INVALID_EMAIL }}
         </mat-error>
         <mat-error *ngIf="registerForm.controls['email'].hasError('required')">
-          Email is <strong>required</strong>
+          {{ registerPageConstants.REQUIRED_FIELD }}
         </mat-error>
       </mat-form-field>
 
       <!-- Input field for Password -->
       <mat-form-field appearance="outline">
-        <mat-label>Парола</mat-label>
-        <input type="password" matInput formControlName="password" />
+        <mat-label>{{ registerPageConstants.PASSWORD }}</mat-label>
+        <input
+          type="password"
+          matInput
+          formControlName="password"
+          #passwordInput
+          (input)="onPasswordInput()"
+        />
         <mat-error
           *ngIf="registerForm.controls['password'].hasError('required')"
         >
-          Password is <strong>required</strong>
+          {{ registerPageConstants.REQUIRED_FIELD }}
         </mat-error>
         <mat-error
           *ngIf="
@@ -73,49 +81,59 @@
             registerForm.controls['password'].hasError('pattern')
           "
         >
-          Password should contain at least one uppercase letter, one lowercase
-          letter, one digit and one special symbol and should be at least 8
-          character long.
+          {{ registerPageConstants.INVALID_PASSWORD }}
         </mat-error>
       </mat-form-field>
 
       <!-- Input field for Confirm Password -->
       <mat-form-field appearance="outline">
-        <mat-label>Потвърждаване на парола</mat-label>
-        <input matInput formControlName="confirmPassword" />
-        <mat-error
-          *ngIf="
-            registerForm.controls['confirmPassword'].value !==
-            registerForm.controls['password'].value
-          "
-        >
-          Пaролите трябва да съвпадат!
+        <mat-label>{{ registerPageConstants.CONFIRM_PASSWORD }}</mat-label>
+        <input
+          type="password"
+          matInput
+          formControlName="confirmPassword"
+          (input)="onPasswordInput()"
+        />
+        <mat-error *ngIf="confirmPassword?.invalid">
+          {{ registerPageConstants.PASSWORDS_DONT_MATCH }}
         </mat-error>
       </mat-form-field>
 
       <!-- Input field for First Day of Last Menstruation -->
-      <mat-form-field appearance="outline">
-        <mat-label>Дата на първия ден на последната менструация</mat-label>
-        <input matInput formControlName="firstDayOfLastMenstruation" />
+      <mat-form-field appearance="outline" class="example-form-field">
+        <mat-label>{{ registerPageConstants.CHOOSE_A_DATE }}</mat-label>
+        <input
+          matInput
+          [matDatepicker]="datepicker"
+          formControlName="firstDayOfLastMenstruation"
+        />
+        <mat-hint>{{ registerPageConstants.DATE_FORMAT }}</mat-hint>
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="datepicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #datepicker> </mat-datepicker>
         <mat-error
           *ngIf="
-            registerForm.controls['firstDayOfLastMenstruation'].value !==
-            registerForm.controls['password'].value
+            registerForm.controls['firstDayOfLastMenstruation'].hasError(
+              'required'
+            )
           "
+          >_|_</mat-error
         >
-          Пaролите трябва да съвпадат!
-        </mat-error>
       </mat-form-field>
-
-      <button
-        mat-raised-button
-        [disabled]="!registerForm.valid"
-        (click)="register()"
-        color="primary"
-      >
-        Напред
+      <div>
+        <mat-checkbox color="primary" formControlName="acceptTACCheckbox"
+          >{{ registerPageConstants.TERMS_OF_AGREEMENT_TEXT1 }}
+          <a routerLink="">{{
+            registerPageConstants.TERMS_OF_AGREEMENT_HYPERLINK
+          }}</a>
+          {{ registerPageConstants.TERMS_OF_AGREEMENT_TEXT2 }}</mat-checkbox
+        >
+      </div>
+      <button mat-raised-button (click)="register()" color="primary">
+        {{ registerPageConstants.SEND }}
       </button>
     </div>
   </form>
-  <div class="forgotten-password"><a routerLink="">Забравена парола?</a></div>
 </div>

@@ -1,10 +1,12 @@
 <div class="background"></div>
 <div class="form-container">
-  <p class="title"><strong>Влизане</strong></p>
+  <p class="title">
+    <strong>{{ loginPageConstants.FORM_TITLE }}</strong>
+  </p>
   <form [formGroup]="loginForm">
     <div class="mat-form-fields-wrapper">
       <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
+        <mat-label>{{ loginPageConstants.EMAIL_INPUT_FIELD_TITLE }}</mat-label>
         <input
           type="email"
           matInput
@@ -17,17 +19,19 @@
             !loginForm.controls['email'].hasError('required')
           "
         >
-          Please enter a valid email address
+          {{ loginPageConstants.INVALID_EMAIL }}
         </mat-error>
         <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
-          Email is <strong>required</strong>
+          {{ loginPageConstants.REQUIRED_FIELD }}
         </mat-error>
       </mat-form-field>
       <mat-form-field appearance="outline">
-        <mat-label>Парола</mat-label>
+        <mat-label>{{
+          loginPageConstants.PASSWORD_INPUT_FIELD_TITLE
+        }}</mat-label>
         <input type="password" matInput formControlName="password" />
         <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
-          Password is <strong>required</strong>
+          {{ loginPageConstants.REQUIRED_FIELD }}
         </mat-error>
         <mat-error
           *ngIf="
@@ -35,9 +39,7 @@
             loginForm.controls['password'].hasError('pattern')
           "
         >
-          Password should contain at least one uppercase letter, one lowercase
-          letter, one digit and one special symbol and should be at least 8
-          character long.
+          {{ loginPageConstants.INVALID_PASSWORD }}
         </mat-error>
       </mat-form-field>
       <button
@@ -46,9 +48,11 @@
         (click)="login()"
         color="primary"
       >
-        Напред
+        {{ loginPageConstants.LOGIN }}
       </button>
     </div>
   </form>
-  <div class="forgotten-password"><a routerLink="">Забравена парола?</a></div>
+  <div class="forgotten-password">
+    <a routerLink="">{{ loginPageConstants.FORGOTTEN_PASSWORD }}</a>
+  </div>
 </div>
