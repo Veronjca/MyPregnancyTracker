@@ -5,6 +5,10 @@ using static MyPregnancyTracker.Data.Constants.ValidationConstants;
 using MyPregnancyTracker.Data.Models;
 using MyPregnancyTracker.Data.Repositories;
 using Microsoft.OpenApi.Models;
+using Microsoft.AspNetCore.Identity;
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,14 +25,42 @@ builder.Services.AddDbContext<MyPregnancyTrackerDbContext>(options =>
 builder.Services.AddIdentity<ApplicationUser, ApplicationRole>(opt =>
 {
     opt.User.RequireUniqueEmail = true;
-    opt.Password.RequireDigit = true;
+
     opt.Password.RequiredLength = PASSWORD_MIN_LENGTH;
-    opt.Password.RequireLowercase = true;
-    opt.Password.RequireUppercase = true;
-    opt.Password.RequireNonAlphanumeric = true;
+
     opt.SignIn.RequireConfirmedEmail = true;
 
-}).AddEntityFrameworkStores<MyPregnancyTrackerDbContext>();
+    opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(15);
+
+}).AddEntityFrameworkStores<MyPregnancyTrackerDbContext>()
+.AddDefaultTokenProviders();
+
+var jwtKey = Encoding.ASCII.GetBytes(builder.Configuration["JwtSecretKey"]);
+
+
+builder.Services
+    .AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+    .AddJwtBearer(options =>
+{
+    options.RequireHttpsMetadata = false;
+    options.SaveToken = true;
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(jwtKey),
+        ValidateIssuer = false,
+        ValidateAudience = false
+    };
+});
+
+builder.Services.AddAuthorization();
+builder.Services.AddDataProtection();
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
@@ -39,6 +71,27 @@ builder.Services.AddSwaggerGen(opt =>
         Version = "v1", 
         Title = "MyPregnancyTracker.Api", 
         Description = "Api for MyPregnancyTracker web app.Personal information source about pregnancy and all about it.",
+    });
+
+    var jwtSecurityScheme = new OpenApiSecurityScheme
+    {
+        Scheme = "Bearer",
+        BearerFormat = "Jwt",
+        Name = "JwtAuthentication",
+        In = ParameterLocation.Header,
+        Type = SecuritySchemeType.Http,
+        Description = "Insert your token value without the 'Bearer' key word.",
+        Reference = new OpenApiReference
+        {
+            Id = JwtBearerDefaults.AuthenticationScheme,
+            Type = ReferenceType.SecurityScheme
+        }
+    };
+
+    opt.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+    opt.AddSecurityRequirement(new OpenApiSecurityRequirement
+    {
+        {jwtSecurityScheme, Array.Empty<String>() }
     });
 });
 
@@ -64,6 +117,11 @@ app.UseStaticFiles();
 app.UseCookiePolicy();
 
 app.UseRouting();
+
+app.UseCors(options => options
+    .AllowAnyOrigin()
+    .AllowAnyMethod()
+    .AllowAnyHeader());
 
 app.UseAuthentication();
 app.UseAuthorization();
