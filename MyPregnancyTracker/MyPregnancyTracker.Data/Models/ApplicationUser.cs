@@ -1,5 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using static MyPregnancyTracker.Data.Constants.ValidationConstants;
+using static MyPregnancyTracker.Data.Constants.ValidationConstants.ApplicationUser;
 using System.ComponentModel.DataAnnotations;
 
 namespace MyPregnancyTracker.Data.Models
@@ -57,5 +57,11 @@ namespace MyPregnancyTracker.Data.Models
         public int ReactionId { get; set; }
 
         public virtual ICollection<Reaction> Reactions { get; set; }
+
+        public string? AccessToken { get; set; }
+
+        public string? RefreshToken { get; set; }
+
+        public DateTime? RefreshTokenExpirationDate { get; set; }
     }
 }

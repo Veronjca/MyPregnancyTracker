@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MyPregnancyTracker.Data\MyPregnancyTracker.Data.csproj" />
+    <ProjectReference Include="..\MyPregnancyTracker.Services\MyPregnancyTracker.Services.csproj" />
   </ItemGroup>
 
 </Project>
