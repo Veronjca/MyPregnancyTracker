@@ -1,4 +1,4 @@
-﻿using static MyPregnancyTracker.Data.Constants.ValidationConstants;
+﻿using static MyPregnancyTracker.Data.Constants.ValidationConstants.Topic;
 using MyPregnancyTracker.Data.Enums;
 using System.ComponentModel.DataAnnotations;
 

@@ -1,7 +1,7 @@
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using MyPregnancyTracker.Data;
-using static MyPregnancyTracker.Data.Constants.ValidationConstants;
+using static MyPregnancyTracker.Web.Constants.Constants.Validation;
 using MyPregnancyTracker.Data.Models;
 using MyPregnancyTracker.Data.Repositories;
 using Microsoft.OpenApi.Models;
@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using MyPregnancyTracker.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -62,6 +63,7 @@ builder.Services.AddDataProtection();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddServiceLayer();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
 
 builder.Services.AddSwaggerGen(opt =>

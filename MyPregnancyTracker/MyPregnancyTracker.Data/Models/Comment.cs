@@ -1,4 +1,4 @@
-﻿using static MyPregnancyTracker.Data.Constants.ValidationConstants;
+﻿using static MyPregnancyTracker.Data.Constants.ValidationConstants.Comment;
 using System.ComponentModel.DataAnnotations;
 
 namespace MyPregnancyTracker.Data.Models
