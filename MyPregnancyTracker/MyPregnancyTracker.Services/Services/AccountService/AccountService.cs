@@ -32,7 +32,18 @@ namespace MyPregnancyTracker.Services.Services.AccountService
                 _usersRepository = usersRepository;
                 _mapper = mapper;   
         }
-        public async Task<LoginResponseDto> SignInUser(LoginDto loginDto)
+
+        public async Task<IdentityResult> SignUpUserAsync(RegisterDto registerDto)
+        {
+            var user = _mapper.Map<ApplicationUser>(registerDto);
+
+            await _userManager.AddToRoleAsync(user, "user");
+            var result = await _userManager.CreateAsync(user, registerDto.Password);
+
+            return result;
+        }
+
+        public async Task<LoginResponseDto> SignInUserAsync(LoginDto loginDto)
         {
            var user = await _userManager.FindByEmailAsync(loginDto.Email);
 
@@ -84,6 +95,13 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             var mappedUser = _mapper.Map<LoginResponseDto>(user);
 
             return mappedUser;
+        }
+
+        public async Task<ApplicationUser> GetUserByEmailAsync(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+
+            return user;
         }
 
         private string GenerateAccessToken(IEnumerable<Claim> claims)
