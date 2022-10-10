@@ -2,6 +2,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using MyPregnancyTracker.Data;
 using static MyPregnancyTracker.Web.Constants.Constants.Validation;
+using static MyPregnancyTracker.Web.Constants.Constants.Swagger;
 using MyPregnancyTracker.Data.Models;
 using MyPregnancyTracker.Data.Repositories;
 using Microsoft.OpenApi.Models;
@@ -10,6 +11,8 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using MyPregnancyTracker.Services;
+using MyPregnancyTracker.Services.EmailSender;
+using IEmailSender = MyPregnancyTracker.Services.EmailSender.IEmailSender;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -54,7 +57,8 @@ builder.Services
         ValidateIssuerSigningKey = true,
         IssuerSigningKey = new SymmetricSecurityKey(jwtKey),
         ValidateIssuer = false,
-        ValidateAudience = false
+        ValidateAudience = false,
+        ValidateLifetime = true
     };
 });
 
@@ -65,6 +69,7 @@ builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddServiceLayer();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
+builder.Services.AddTransient<IEmailSender>(options => new SendGridEmailSender(builder.Configuration["SendGridApiKey"]));
 
 builder.Services.AddSwaggerGen(opt =>
 {
@@ -106,7 +111,11 @@ if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();
     app.UseSwagger();
-    app.UseSwaggerUI();
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint(SWAGGER_ENDPOINT, SWAGGER_VERSION);
+        options.RoutePrefix = String.Empty;
+    });
 }
 else
 {

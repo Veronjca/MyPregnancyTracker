@@ -1,14 +1,30 @@
-﻿using MyPregnancyTracker.Services.Models;
+﻿using Microsoft.AspNetCore.Identity;
+using MyPregnancyTracker.Data.Models;
+using MyPregnancyTracker.Services.Models;
 
 namespace MyPregnancyTracker.Services.Services.AccountService
 {
     public interface IAccountService
     {
         /// <summary>
-        /// Authenticates the user. Sign in user with password and email.
+        /// Authenticates the user, as asynchronous operation. Sign in user with password and email.
         /// </summary>
         /// <param name="loginDto">Model containing the user email and password.</param>
         /// <returns>Model containing user's Id, UserName, Email, AccessToken and RefreshToken.</returns>
-        Task<LoginResponseDto> SignInUser(LoginDto loginDto);
+        Task<LoginResponseDto> SignInUserAsync(LoginDto loginDto);
+
+        /// <summary>
+        /// Register the user into the system, as asynchronous operation. Register requires FirstName, LastName, UserName, Email, Password, ConfirmPassword and FirstDayOfLastMenstruation.
+        /// </summary>
+        /// <param name="registerDto">Model containing the above user info.</param>
+        /// <returns>If the user is registered successfully.</returns>
+        Task<IdentityResult> SignUpUserAsync(RegisterDto registerDto);
+
+        /// <summary>
+        /// Get user by email, as asynchronous operation.
+        /// </summary>
+        /// <param name="email">User's email.</param>
+        /// <returns>The specified user.</returns>
+        Task<ApplicationUser> GetUserByEmailAsync(string email); 
     }
 }

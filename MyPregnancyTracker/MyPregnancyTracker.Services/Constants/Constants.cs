@@ -14,6 +14,10 @@
             public const string EMAIL_NOT_CONFIRMED = "Email not confirmed!";
 
             public const string INCORRECT_PASSWORD = "Invalid credentials!";
+
+            public const string PASSWORDS_DONT_MATCH = "Passwords don't match!";
+
+            public const string MISSING_SUBJECT_AND_MESSAGE = "Subject and message should be provided.";
         }
     }
 }

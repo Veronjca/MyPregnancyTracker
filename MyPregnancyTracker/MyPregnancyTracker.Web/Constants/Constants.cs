@@ -12,11 +12,22 @@
             public const string ACCOUNTS_ROUTE = "api/accounts";
 
             public const string LOGIN_ROUTE = "login";
+
+            public const string REGISTER_ROUTE = "register";
         }
 
         public static class Error
         {
-            public static string INVALID_LOGIN = "Invalid credentials!";
+            public const string INVALID_LOGIN = "Invalid credentials!";
+
+            public const string INVALID_REGISTER = "Invalid credentials!";
+        }
+
+        public static class Swagger
+        {
+            public const string SWAGGER_ENDPOINT = "/swagger/v1/swagger.json";
+
+            public const string SWAGGER_VERSION = "v1";
         }
     }
 }

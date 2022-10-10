@@ -9,6 +9,7 @@ namespace MyPregnancyTracker.Services.Profiles
         public ApplicationUserProfile()
         {
             CreateMap<ApplicationUser, LoginResponseDto>();
+            CreateMap<RegisterDto, ApplicationUser>();
         }
     }
 }
