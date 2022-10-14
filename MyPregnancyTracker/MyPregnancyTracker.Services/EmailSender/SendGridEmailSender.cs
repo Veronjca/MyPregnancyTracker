@@ -1,6 +1,6 @@
 ﻿using SendGrid.Helpers.Mail;
 using SendGrid;
-using static MyPregnancyTracker.Services.Constants.Constants.Erorr;
+using static MyPregnancyTracker.Services.Constants.Constants.Error;
 
 namespace MyPregnancyTracker.Services.EmailSender
 {

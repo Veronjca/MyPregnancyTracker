@@ -10,7 +10,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
-using static MyPregnancyTracker.Services.Constants.Constants.Erorr;
+using static MyPregnancyTracker.Services.Constants.Constants.Error;
 
 namespace MyPregnancyTracker.Services.Services.AccountService
 {
@@ -113,6 +113,21 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             return token;
         }
 
+        public async Task<IdentityResult> ConfirmEmailAsync(string emailToken, string userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId);
+            
+            if(user == null)
+            {
+                throw new NullReferenceException(USER_NOT_FOUND);
+            }
+
+            var isEmailConfirmed = await _userManager.ConfirmEmailAsync(user, emailToken);
+
+            return isEmailConfirmed;
+        }
+
+
         private string GenerateAccessToken(IEnumerable<Claim> claims)
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSecretKey"]));
@@ -139,6 +154,6 @@ namespace MyPregnancyTracker.Services.Services.AccountService
                 rng.GetBytes(randomNumber);
                 return Convert.ToBase64String(randomNumber);
             }
-        }      
+        }
     }
 }

@@ -29,10 +29,18 @@ namespace MyPregnancyTracker.Services.Services.AccountService
         Task<ApplicationUser> GetUserByEmailAsync(string email);
 
         /// <summary>
-        /// Generates user confirmation email token.
+        /// Generates user confirmation email token, as asynchronous operation.
         /// </summary>
         /// <param name="user">The user itself.</param>
         /// <returns>The generated token to use for email confirmation.</returns>
         Task<string> GenerateEmailConfirmationTokenAsync(ApplicationUser user);
+
+        /// <summary>
+        /// Confirm the user email, as asynchronous operation.
+        /// </summary>
+        /// <param name="emailToken">The token to use for confirmation.</param>
+        /// <param name="userId">The user id.</param>
+        /// <returns>If the email confirmation is successful.</returns>
+        Task<IdentityResult> ConfirmEmailAsync(string emailToken, string userId);
     }
 }
