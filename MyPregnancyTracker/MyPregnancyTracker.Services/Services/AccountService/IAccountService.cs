@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using MyPregnancyTracker.Data.Models;
+using MyPregnancyTracker.Services.EmailSender;
 using MyPregnancyTracker.Services.Models;
 
 namespace MyPregnancyTracker.Services.Services.AccountService
@@ -25,6 +26,13 @@ namespace MyPregnancyTracker.Services.Services.AccountService
         /// </summary>
         /// <param name="email">User's email.</param>
         /// <returns>The specified user.</returns>
-        Task<ApplicationUser> GetUserByEmailAsync(string email); 
+        Task<ApplicationUser> GetUserByEmailAsync(string email);
+
+        /// <summary>
+        /// Generates user confirmation email token.
+        /// </summary>
+        /// <param name="user">The user itself.</param>
+        /// <returns>The generated token to use for email confirmation.</returns>
+        Task<string> GenerateEmailConfirmationTokenAsync(ApplicationUser user);
     }
 }
