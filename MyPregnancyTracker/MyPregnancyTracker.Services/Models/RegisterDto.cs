@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using static MyPregnancyTracker.Services.Constants.Constants.Validation;
-using static MyPregnancyTracker.Services.Constants.Constants.Erorr;
+using static MyPregnancyTracker.Services.Constants.Constants.Error;
 
 namespace MyPregnancyTracker.Services.Models
 {

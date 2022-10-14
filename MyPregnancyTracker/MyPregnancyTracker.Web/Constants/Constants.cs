@@ -14,6 +14,8 @@
             public const string LOGIN_ROUTE = "login";
 
             public const string REGISTER_ROUTE = "register";
+
+            public const string CONFIRM_EMAIL_ROUTE = "confirm-email";
         }
 
         public static class Error

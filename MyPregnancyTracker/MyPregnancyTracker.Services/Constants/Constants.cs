@@ -7,7 +7,7 @@
             public const string PASSWORD_VALIDATION_PATTERN = @"^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$";
         }
 
-        public static class Erorr
+        public static class Error
         {
             public const string USER_NOT_FOUND = "User not found!";
 
