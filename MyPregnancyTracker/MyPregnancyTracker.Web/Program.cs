@@ -13,6 +13,7 @@ using Microsoft.IdentityModel.Tokens;
 using MyPregnancyTracker.Services;
 using MyPregnancyTracker.Services.EmailSender;
 using IEmailSender = MyPregnancyTracker.Services.EmailSender.IEmailSender;
+using MyPregnancyTracker.Services.Config;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -63,6 +64,10 @@ builder.Services
 });
 
 builder.Services.AddAuthorization();
+
+var ngAppSettings = builder.Configuration.GetSection("MyPregnancyTrackerApplicationSettings");
+builder.Services.Configure<MyPregnancyTrackerApplicationSettings>(ngAppSettings);
+
 builder.Services.AddDataProtection();
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

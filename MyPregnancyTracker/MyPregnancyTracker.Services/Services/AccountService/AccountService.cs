@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MyPregnancyTracker.Data.Models;
@@ -36,9 +37,9 @@ namespace MyPregnancyTracker.Services.Services.AccountService
         public async Task<IdentityResult> SignUpUserAsync(RegisterDto registerDto)
         {
             var user = _mapper.Map<ApplicationUser>(registerDto);
-
-            await _userManager.AddToRoleAsync(user, "user");
+          
             var result = await _userManager.CreateAsync(user, registerDto.Password);
+            //await _userManager.AddToRoleAsync(user, "user");
 
             return result;
         }
@@ -93,6 +94,7 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             await _usersRepository.SaveChangesAsync();
 
             var mappedUser = _mapper.Map<LoginResponseDto>(user);
+            mappedUser.Id = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(mappedUser.Id));
 
             return mappedUser;
         }
@@ -102,6 +104,13 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             var user = await _userManager.FindByEmailAsync(email);
 
             return user;
+        }
+
+        public Task<string> GenerateEmailConfirmationTokenAsync(ApplicationUser user)
+        {
+            var token = _userManager.GenerateEmailConfirmationTokenAsync(user);
+
+            return token;
         }
 
         private string GenerateAccessToken(IEnumerable<Claim> claims)
@@ -130,6 +139,6 @@ namespace MyPregnancyTracker.Services.Services.AccountService
                 rng.GetBytes(randomNumber);
                 return Convert.ToBase64String(randomNumber);
             }
-        }
+        }      
     }
 }

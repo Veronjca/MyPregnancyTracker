@@ -4,7 +4,7 @@
     {
         public static class Validation
         {
-            public const string PASSWORD_VALIDATION_PATTERN = @"^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\\d]){1,})(?=(.*[\\W]){1,})(?!.*\\s).{8,}$";
+            public const string PASSWORD_VALIDATION_PATTERN = @"^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$";
         }
 
         public static class Erorr
@@ -18,6 +18,20 @@
             public const string PASSWORDS_DONT_MATCH = "Passwords don't match!";
 
             public const string MISSING_SUBJECT_AND_MESSAGE = "Subject and message should be provided.";
+        }
+
+        public static class Common
+        {
+            public const string CONFIRMATION_EMAIL_HTML_TEMPLATE_FILE_NAME = "EmailConfirmationTemplate.html";
+        }
+
+        public static class Email
+        {
+            public const string FROM = "mypregnancytrackerapp@gmail.com";
+
+            public const string FROM_NAME = "My Pregnancy Tracker";
+
+            public const string SUBJECT = "Verify your email";
         }
     }
 }

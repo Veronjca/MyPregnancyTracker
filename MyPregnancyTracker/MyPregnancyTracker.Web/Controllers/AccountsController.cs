@@ -1,9 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using MyPregnancyTracker.Services.Models;
 using static MyPregnancyTracker.Web.Constants.Constants.Route;
-using static MyPregnancyTracker.Web.Constants.Constants.Error;
 using MyPregnancyTracker.Services.Services.AccountService;
+using MyPregnancyTracker.Services.Services.EmailService;
 
 namespace MyPregnancyTracker.Web.Controllers
 {
@@ -16,22 +15,22 @@ namespace MyPregnancyTracker.Web.Controllers
         //ConfrimEmail
         //ResendConfirmationEmail
         //ResetPassword
+        //Logout
 
         private readonly IAccountService _accountService;
-        public AccountsController(IAccountService accountService)
+        private readonly IEmailService _emailService;
+        public AccountsController(
+            IAccountService accountService,
+            IEmailService emailService)
         {
             _accountService = accountService;
+            _emailService = emailService;   
         }
 
         [HttpPost]
         [Route(LOGIN_ROUTE)]
         public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(INVALID_LOGIN);
-            }
-
             var result = new LoginResponseDto();
 
             try
@@ -57,11 +56,6 @@ namespace MyPregnancyTracker.Web.Controllers
         [Route(REGISTER_ROUTE)]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(INVALID_REGISTER);
-            }
-
             var result = await _accountService.SignUpUserAsync(registerDto);
 
             if (!result.Succeeded)
@@ -70,6 +64,9 @@ namespace MyPregnancyTracker.Web.Controllers
             }
 
             var user = await _accountService.GetUserByEmailAsync(registerDto.Email);
+            var token = await _accountService.GenerateEmailConfirmationTokenAsync(user);
+
+            await _emailService.SendConfirmationEmailAsync(user, token);
 
             return StatusCode(201);
         }

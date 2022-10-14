@@ -28,6 +28,6 @@ namespace MyPregnancyTracker.Services.Models
         public string ConfirmPassword { get; set; }
 
         [Required]
-        public string FirstDayOfLastMenstruation { get; set; }
+        public DateTime FirstDayOfLastMenstruation { get; set; }
     }
 }
