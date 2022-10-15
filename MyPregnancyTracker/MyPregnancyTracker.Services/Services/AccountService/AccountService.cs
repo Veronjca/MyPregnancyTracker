@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using MyPregnancyTracker.Data.Models;
 using MyPregnancyTracker.Data.Repositories;
 using MyPregnancyTracker.Services.Models;
+using SendGrid.Helpers.Errors.Model;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
@@ -50,21 +51,21 @@ namespace MyPregnancyTracker.Services.Services.AccountService
 
             if(user == null)
             {
-                throw new NullReferenceException(USER_NOT_FOUND);
+                throw new BadRequestException(USER_NOT_FOUND);
             }
 
             bool isEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
 
             if (!isEmailConfirmed)
             {
-                throw new InvalidOperationException(EMAIL_NOT_CONFIRMED);
+                throw new UnauthorizedAccessException(EMAIL_NOT_CONFIRMED);
             }
 
             bool isPasswordCorrect = await _userManager.CheckPasswordAsync(user, loginDto.Password);
 
             if (!isPasswordCorrect)
             {
-                throw new MemberAccessException(INCORRECT_PASSWORD);
+                throw new UnauthorizedAccessException(INCORRECT_PASSWORD);
             }
 
             var userRoles = await _userManager.GetRolesAsync(user);

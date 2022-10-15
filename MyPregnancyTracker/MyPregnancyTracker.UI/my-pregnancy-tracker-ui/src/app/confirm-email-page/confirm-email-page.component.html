@@ -1,1 +1,11 @@
-<div><p>Thank you for confirming your email!</p></div>
+<div class="wrapper">
+  <div class="heading">
+    <p>{{ confirmEmailConstants.THANK_YOU }}</p>
+    <p>{{ confirmEmailConstants.CONFIRM_EMAIL_SUCCEEDED }}</p>
+  </div>
+  <div class="button-wrapper">
+    <button mat-raised-button routerLink="/login" color="primary">
+      {{ confirmEmailConstants.LOGIN }}
+    </button>
+  </div>
+</div>

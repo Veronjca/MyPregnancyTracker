@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfirmEmailRequest } from '../models/confirm-email.model';
-import * as routs from '../shared/routes.constants';
+import * as routes from '../shared/routes.constants';
+import { RegisterRequest } from '../models/register-request.model';
+import { LoginRequest } from '../models/login-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +14,14 @@ export class AccountsService {
   constructor(private httpClient: HttpClient) { }
 
   confirmEmail(model: ConfirmEmailRequest): Observable<any>{
-    return this.httpClient.post<any>(routs.CONFIRM_EMAIL_ENDPOINT, model);
+    return this.httpClient.post<any>(routes.CONFIRM_EMAIL_ENDPOINT, model);
+  }
+
+  registerUser(model: RegisterRequest): Observable<any>{
+    return this.httpClient.post<any>(routes.REGISTER_ENDPOINT, model);
+  }
+
+  loginUser(model: LoginRequest): Observable<any>{
+    return this.httpClient.post<any>(routes.LOGIN_ENDPOINT, model);
   }
 }
