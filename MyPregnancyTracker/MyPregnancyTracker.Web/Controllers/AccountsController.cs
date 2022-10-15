@@ -6,6 +6,8 @@ using MyPregnancyTracker.Services.Services.EmailService;
 using System.Text;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.AspNetCore.Identity;
+using SendGrid.Helpers.Errors.Model;
+using System.Security.Claims;
 
 namespace MyPregnancyTracker.Web.Controllers
 {
@@ -27,12 +29,12 @@ namespace MyPregnancyTracker.Web.Controllers
             IEmailService emailService)
         {
             _accountService = accountService;
-            _emailService = emailService;   
+            _emailService = emailService;
         }
 
         [HttpPost]
         [Route(LOGIN_ROUTE)]
-        public async Task<IActionResult> Login([FromBody] LoginDto loginDto)
+        public async Task<IActionResult> LoginAsync([FromBody] LoginDto loginDto)
         {
             var result = new LoginResponseDto();
 
@@ -40,16 +42,14 @@ namespace MyPregnancyTracker.Web.Controllers
             {
                 result = await _accountService.SignInUserAsync(loginDto);
             }
-            catch (NullReferenceException ex)
+            catch (BadRequestException ex)
             {
                 return NotFound(ex.Message);
             }
-            catch(Exception ex)
+            catch (UnauthorizedAccessException ex)
             {
-                if(ex is InvalidOperationException || ex is MemberAccessException)
-                {
-                    return Unauthorized(ex.Message);
-                }
+                return Unauthorized(ex.Message);
+
             }
 
             return Ok(result);
@@ -57,7 +57,7 @@ namespace MyPregnancyTracker.Web.Controllers
 
         [HttpPost]
         [Route(REGISTER_ROUTE)]
-        public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
+        public async Task<IActionResult> RegisterAsync([FromBody] RegisterDto registerDto)
         {
             var result = await _accountService.SignUpUserAsync(registerDto);
 
@@ -70,31 +70,37 @@ namespace MyPregnancyTracker.Web.Controllers
             var token = await _accountService.GenerateEmailConfirmationTokenAsync(user);
 
             await _emailService.SendConfirmationEmailAsync(user, token);
+            var encodedEmail = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(user.Email));
 
-            return StatusCode(201);
+            var response = new RegisterResponseDto
+            {
+                EncodedEmail = encodedEmail
+            };
+
+            return StatusCode(201, response);
         }
 
         [HttpPost]
         [Route(CONFIRM_EMAIL_ROUTE)]
         public async Task<IActionResult> ConfirmEmailAsync([FromBody] ConfirmEmailDto confirmEmailDto)
         {
-            var userId = WebEncoders.Base64UrlDecode(confirmEmailDto.UserId).ToString();
-            var emailToken = WebEncoders.Base64UrlDecode(confirmEmailDto.EmailToken).ToString();
+            var userId = Encoding.Default.GetString(WebEncoders.Base64UrlDecode(confirmEmailDto.UserId));
+            var emailToken = Encoding.Default.GetString(WebEncoders.Base64UrlDecode(confirmEmailDto.EmailToken));
 
             var isEmailConfirmed = new IdentityResult();
 
             try
             {
-               isEmailConfirmed = await _accountService.ConfirmEmailAsync(emailToken, userId);
+                isEmailConfirmed = await _accountService.ConfirmEmailAsync(emailToken, userId);
             }
-            catch (NullReferenceException ex)
+            catch (NullReferenceException)
             {
 
                 return NotFound();
             }
-         
 
-            if(!isEmailConfirmed.Succeeded)
+
+            if (!isEmailConfirmed.Succeeded)
             {
                 return BadRequest(isEmailConfirmed.Errors);
             }

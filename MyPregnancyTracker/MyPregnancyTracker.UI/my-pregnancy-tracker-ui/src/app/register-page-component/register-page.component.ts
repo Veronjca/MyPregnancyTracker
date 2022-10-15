@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { __values } from 'tslib';
+import { RegisterRequest } from '../models/register-request.model';
+import { AccountsService } from '../services/accounts.service';
 import * as registerPageConstants from '../shared/register-page.constants';
 
 @Component({
@@ -33,7 +37,13 @@ export class RegisterPageComponent implements OnInit {
       firstDayOfLastMenstruation: new FormControl("", Validators.required),
       acceptTACCheckbox: new FormControl(false, Validators.requiredTrue)
   }, {validators:  this.passwordMatchValidator});
-  constructor() { }
+
+  formRequest!: RegisterRequest;
+
+  constructor(
+    private accountsService: AccountsService,
+    private router: Router) 
+    { }
 
   get password() { return this.registerForm.get('password'); }
   get confirmPassword() { return this.registerForm.get('confirmPassword'); }
@@ -42,7 +52,19 @@ export class RegisterPageComponent implements OnInit {
   }
 
   register(): void{
-console.log(this.registerForm);
+    this.formRequest = {
+      firstName: this.registerForm.value.firstName!,
+      lastName: this.registerForm.value.lastName!,
+      userName: this.registerForm.value.userName!,
+      email: this.registerForm.value.email!,
+      password: this.registerForm.value.password!,
+      confirmPassword: this.registerForm.value.confirmPassword!,
+      firstDayOfLastMenstruation: this.registerForm.value.firstDayOfLastMenstruation!
+    }
+     
+    this.accountsService.registerUser(this.formRequest).subscribe(response => {
+      this.router.navigate(['/post-register'], {queryParams: {email: response.encodedEmail}});
+    });
   }
 
   onPasswordInput(){

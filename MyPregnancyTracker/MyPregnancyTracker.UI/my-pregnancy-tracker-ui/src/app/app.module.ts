@@ -16,6 +16,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { ConfirmEmailPageComponent } from './confirm-email-page/confirm-email-page.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PostRegisterPageComponent } from './post-register-page/post-register-page.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { HttpClientModule } from '@angular/common/http';
     HomePageComponent,
     LoginPageComponent,
     RegisterPageComponent,
-    ConfirmEmailPageComponent
+    ConfirmEmailPageComponent,
+    PostRegisterPageComponent
   ],
   imports: [
     BrowserModule,

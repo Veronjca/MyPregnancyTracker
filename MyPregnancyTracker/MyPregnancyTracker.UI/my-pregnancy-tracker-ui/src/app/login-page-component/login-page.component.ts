@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { LoginRequest } from '../models/login-request.model';
+import { AccountsService } from '../services/accounts.service';
 import * as loginPageConstants from '../shared/login-page.constants';
 
 @Component({
@@ -19,12 +21,19 @@ export class LoginPageComponent implements OnInit {
     ])
   });
 
-  constructor() { }
+  loginRequest!: LoginRequest;
+
+  constructor(private accountsService: AccountsService) { }
 
   ngOnInit(): void {
   }
 
   login(): void{
-    
+    this.loginRequest = {
+      email: this.loginForm.value.email!,
+      password: this.loginForm.value.password!
+    }
+
+    this.accountsService.loginUser(this.loginRequest).subscribe();
   }
 }
