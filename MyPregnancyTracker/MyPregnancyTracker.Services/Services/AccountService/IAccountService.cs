@@ -41,5 +41,19 @@ namespace MyPregnancyTracker.Services.Services.AccountService
         /// <param name="userId">The user id.</param>
         /// <returns>If the email confirmation is successful.</returns>
         Task<IdentityResult> ConfirmEmailAsync(string emailToken, string userId);
+
+        /// <summary>
+        /// Change user's password, as asynchronous operation.
+        /// </summary>
+        /// <param name="resetPasswordDto">The model that holds user's email, old password and new password.</param>
+        /// <returns>If the reset is successful.</returns>
+        Task<IdentityResult> ResetPasswordAsync(ResetPasswordDto resetPasswordDto);
+
+        /// <summary>
+        /// Refesh the user's access token, as asynchronous operation.
+        /// </summary>
+        /// <param name="refreshAccessTokenDto">The model that holds user's email and refresh token.</param>
+        /// <returns>The model that holds the newly generated access and refresh token.</returns>
+        Task<RefreshAccessTokenResponseDto> RefreshAccessTokenAsync(RefreshAccessTokenDto refreshAccessTokenDto);
     }
 }

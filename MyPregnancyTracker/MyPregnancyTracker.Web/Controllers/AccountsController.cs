@@ -15,11 +15,7 @@ namespace MyPregnancyTracker.Web.Controllers
     [ApiController]
     public class AccountsController : Controller
     {
-        //Register
         //RefreshAccessToken
-        //ConfrimEmail
-        //ResendConfirmationEmail
-        //ResetPassword
         //Logout
 
         private readonly IAccountService _accountService;
@@ -120,6 +116,36 @@ namespace MyPregnancyTracker.Web.Controllers
             await _emailService.SendConfirmationEmailAsync(user, token);
 
             return Ok();
+        }
+
+        [HttpPost]
+        [Route(RESET_PASSWORD_ROUTE)]
+        public async Task<IActionResult> ResetPasswordAsync([FromBody] ResetPasswordDto resetPasswordDto)
+        {
+            var result = await _accountService.ResetPasswordAsync(resetPasswordDto);
+
+            if (!result.Succeeded)
+            {               
+                return BadRequest(result.Errors);
+            }
+
+            return Ok();
+        }
+
+        public async Task<IActionResult> RefreshAccessTokenAsync([FromBody] RefreshAccessTokenDto refreshAccessTokenDto)
+        {
+            var response = new RefreshAccessTokenResponseDto();
+
+            try
+            {
+                response = await _accountService.RefreshAccessTokenAsync(refreshAccessTokenDto);
+            }
+            catch (UnauthorizedAccessException ex)
+            {
+                return Unauthorized(ex.Message);
+            }
+
+            return Ok(response);
         }
     }
 }
