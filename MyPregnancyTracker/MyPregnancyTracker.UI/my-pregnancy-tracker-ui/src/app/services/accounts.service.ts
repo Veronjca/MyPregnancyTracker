@@ -5,6 +5,7 @@ import { ConfirmEmailRequest } from '../models/confirm-email.model';
 import * as routes from '../shared/routes.constants';
 import { RegisterRequest } from '../models/register-request.model';
 import { LoginRequest } from '../models/login-request.model';
+import { ResendConfirmationEmailRequest } from '../models/resend-confirmation-email.model';
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,9 @@ export class AccountsService {
 
   loginUser(model: LoginRequest): Observable<any>{
     return this.httpClient.post<any>(routes.LOGIN_ENDPOINT, model);
+  }
+
+  resendConfirmationEmail(model: ResendConfirmationEmailRequest): Observable<any>{
+    return this.httpClient.post<any>(routes.RESEND_CONFIRMATION_EMAIL_ENDPOINT, model);
   }
 }

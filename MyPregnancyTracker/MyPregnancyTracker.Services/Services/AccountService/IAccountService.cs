@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using MyPregnancyTracker.Data.Models;
-using MyPregnancyTracker.Services.EmailSender;
 using MyPregnancyTracker.Services.Models;
 
 namespace MyPregnancyTracker.Services.Services.AccountService

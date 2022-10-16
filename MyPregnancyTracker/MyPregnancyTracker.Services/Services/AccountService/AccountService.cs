@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using MyPregnancyTracker.Data.Models;
 using MyPregnancyTracker.Data.Repositories;
 using MyPregnancyTracker.Services.Models;
+using MyPregnancyTracker.Services.Services.EmailService;
 using SendGrid.Helpers.Errors.Model;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -21,18 +22,21 @@ namespace MyPregnancyTracker.Services.Services.AccountService
         private readonly IConfiguration _configuration;
         private readonly IRepository<ApplicationUser> _usersRepository;
         private readonly IMapper _mapper;
+        private readonly IEmailService _emailService;
              
 
         public AccountService(
             UserManager<ApplicationUser> userManager, 
             IConfiguration configuration,
             IRepository<ApplicationUser> usersRepository,
-            IMapper mapper)
+            IMapper mapper,
+            IEmailService emailService)
         {
                 _userManager = userManager;
                 _configuration = configuration;
                 _usersRepository = usersRepository;
                 _mapper = mapper;   
+                _emailService = emailService;   
         }
 
         public async Task<IdentityResult> SignUpUserAsync(RegisterDto registerDto)

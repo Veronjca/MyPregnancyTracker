@@ -5,7 +5,11 @@
     <p>{{ postRegisterPageConstants.NAVIGATE_TO_RESEND_EMAIL_BUTTON }}</p>
   </div>
   <div class="button-wrapper">
-    <button mat-raised-button routerLink="/login" color="primary">
+    <button
+      mat-raised-button
+      (click)="resendConfirmationEmail()"
+      color="primary"
+    >
       {{ postRegisterPageConstants.RESEND_EMAIL_CONFIRMATION_BUTTON }}
     </button>
   </div>
