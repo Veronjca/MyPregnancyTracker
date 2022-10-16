@@ -21,22 +21,18 @@ namespace MyPregnancyTracker.Services.Services.AccountService
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
         private readonly IRepository<ApplicationUser> _usersRepository;
-        private readonly IMapper _mapper;
-        private readonly IEmailService _emailService;
-             
+        private readonly IMapper _mapper;             
 
         public AccountService(
             UserManager<ApplicationUser> userManager, 
             IConfiguration configuration,
             IRepository<ApplicationUser> usersRepository,
-            IMapper mapper,
-            IEmailService emailService)
+            IMapper mapper)
         {
                 _userManager = userManager;
                 _configuration = configuration;
                 _usersRepository = usersRepository;
-                _mapper = mapper;   
-                _emailService = emailService;   
+                _mapper = mapper;    
         }
 
         public async Task<IdentityResult> SignUpUserAsync(RegisterDto registerDto)
@@ -104,6 +100,35 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             return mappedUser;
         }
 
+        public async Task<RefreshAccessTokenResponseDto> RefreshAccessTokenAsync(RefreshAccessTokenDto refreshAccessTokenDto)
+        {
+            var user = await GetUserByEmailAsync(refreshAccessTokenDto.UserEmail);
+
+            if(user.RefreshTokenExpirationDate > DateTime.UtcNow)
+            {
+                throw new UnauthorizedAccessException(SESSION_EXPIRED);
+            }
+
+            var claims = await _userManager.GetClaimsAsync(user);
+
+            var accessToken = GenerateAccessToken(claims);
+            var refreshToken = GenerateRefreshToken();
+
+            user.AccessToken = accessToken;
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpirationDate = DateTime.UtcNow.AddMinutes(90);
+
+            _usersRepository.Update(user);
+            await _usersRepository.SaveChangesAsync();
+
+            var response = new RefreshAccessTokenResponseDto
+            {
+                RefreshToken = refreshToken,
+                AccessToken = accessToken
+            };
+
+            return response;
+        }
         public async Task<ApplicationUser> GetUserByEmailAsync(string email)
         {
             var user = await _userManager.FindByEmailAsync(email);
@@ -132,6 +157,13 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             return isEmailConfirmed;
         }
 
+        public async Task<IdentityResult> ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
+        {
+            var user = await GetUserByEmailAsync(resetPasswordDto.Email);
+            var result = await _userManager.ChangePasswordAsync(user, resetPasswordDto.OldPassword, resetPasswordDto.NewPassword);
+
+            return result;
+        }
 
         private string GenerateAccessToken(IEnumerable<Claim> claims)
         {
@@ -151,6 +183,7 @@ namespace MyPregnancyTracker.Services.Services.AccountService
 
             return tokenString;
         }
+
         private string GenerateRefreshToken()
         {
             var randomNumber = new byte[32];

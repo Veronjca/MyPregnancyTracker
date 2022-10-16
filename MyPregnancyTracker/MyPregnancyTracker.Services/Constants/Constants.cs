@@ -18,6 +18,8 @@
             public const string PASSWORDS_DONT_MATCH = "Passwords don't match!";
 
             public const string MISSING_SUBJECT_AND_MESSAGE = "Subject and message should be provided.";
+
+            public const string SESSION_EXPIRED = "Session expired!";
         }
 
         public static class Common
