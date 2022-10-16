@@ -20,6 +20,8 @@
             public const string RESEND_CONFIRMATION_EMAIL_ROUTE = "resend-confirmation-email";
 
             public const string RESET_PASSWORD_ROUTE = "reset-password";
+
+            public const string REFRESH_ACCESS_TOKEN_ROUTE = "refresh-access-token";
         }
 
         public static class Error

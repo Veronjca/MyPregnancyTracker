@@ -132,6 +132,8 @@ namespace MyPregnancyTracker.Web.Controllers
             return Ok();
         }
 
+        [HttpPost]
+        [Route(REFRESH_ACCESS_TOKEN_ROUTE)]
         public async Task<IActionResult> RefreshAccessTokenAsync([FromBody] RefreshAccessTokenDto refreshAccessTokenDto)
         {
             var response = new RefreshAccessTokenResponseDto();
