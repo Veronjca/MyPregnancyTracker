@@ -107,5 +107,19 @@ namespace MyPregnancyTracker.Web.Controllers
 
             return Ok();
         }
+
+        [HttpPost]
+        [Route(RESEND_CONFIRMATION_EMAIL_ROUTE)]
+        public async Task<IActionResult> ResendConfirmationEmailAsync([FromBody] ResendConfirmationEmailDto resendConfirmationEmailDto)
+        {
+            var email = Encoding.Default.GetString(WebEncoders.Base64UrlDecode(resendConfirmationEmailDto.Email));
+
+            var user = await _accountService.GetUserByEmailAsync(email);
+            var token = await _accountService.GenerateEmailConfirmationTokenAsync(user);
+
+            await _emailService.SendConfirmationEmailAsync(user, token);
+
+            return Ok();
+        }
     }
 }

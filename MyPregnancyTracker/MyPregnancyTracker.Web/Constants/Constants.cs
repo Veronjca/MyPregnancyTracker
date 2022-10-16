@@ -16,6 +16,8 @@
             public const string REGISTER_ROUTE = "register";
 
             public const string CONFIRM_EMAIL_ROUTE = "confirm-email";
+
+            public const string RESEND_CONFIRMATION_EMAIL_ROUTE = "resend-confirmation-email";
         }
 
         public static class Error

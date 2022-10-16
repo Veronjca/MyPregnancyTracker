@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { ConfirmEmailRequest } from '../models/confirm-email.model';
 import { AccountsService } from '../services/accounts.service';
 import * as confirmEmailConstans from '../shared/confirm-email.constants';
@@ -17,7 +17,6 @@ export class ConfirmEmailPageComponent implements OnInit {
     constructor(
       private route: ActivatedRoute,
       private accountsService: AccountsService,
-      private router: Router
     ) { 
     this.route.queryParams.subscribe(params => {
       this.emailToken = params['emailToken'];
@@ -31,8 +30,7 @@ export class ConfirmEmailPageComponent implements OnInit {
       userId: this.userId
     };
 
-    this.accountsService.confirmEmail(requestModel)
-        .subscribe(response => this.router.navigate(['/login']));
+    this.accountsService.confirmEmail(requestModel).subscribe();
   }
 
 }
