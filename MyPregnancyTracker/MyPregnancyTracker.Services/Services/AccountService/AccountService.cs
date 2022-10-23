@@ -102,13 +102,15 @@ namespace MyPregnancyTracker.Services.Services.AccountService
 
         public async Task<RefreshAccessTokenResponseDto> RefreshAccessTokenAsync(RefreshAccessTokenDto refreshAccessTokenDto)
         {
-            var user = await GetUserByEmailAsync(refreshAccessTokenDto.UserEmail);
+            var userId = Encoding.Default.GetString(WebEncoders.Base64UrlDecode(refreshAccessTokenDto.UserId));
+            var user = await _userManager.FindByIdAsync(userId);
 
-            if(user.RefreshTokenExpirationDate > DateTime.UtcNow)
+            if(user.RefreshTokenExpirationDate < DateTime.UtcNow)
             {
                 throw new UnauthorizedAccessException(SESSION_EXPIRED);
             }
 
+            //TODO: Test if claims exists when access token is expired.
             var claims = await _userManager.GetClaimsAsync(user);
 
             var accessToken = GenerateAccessToken(claims);

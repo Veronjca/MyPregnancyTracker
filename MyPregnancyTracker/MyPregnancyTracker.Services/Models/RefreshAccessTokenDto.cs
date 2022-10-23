@@ -1,8 +1,13 @@
-﻿namespace MyPregnancyTracker.Services.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MyPregnancyTracker.Services.Models
 {
     public class RefreshAccessTokenDto
     {
-        public string UserEmail { get; set; }
+        [Required]
+        public string UserId { get; set; }
+
+        [Required]
         public string RefreshToken { get; set; }
     }
 }
