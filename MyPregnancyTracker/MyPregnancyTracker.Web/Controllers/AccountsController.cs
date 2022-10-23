@@ -5,18 +5,15 @@ using MyPregnancyTracker.Services.Services.AccountService;
 using MyPregnancyTracker.Services.Services.EmailService;
 using System.Text;
 using Microsoft.AspNetCore.WebUtilities;
-using Microsoft.AspNetCore.Identity;
 using SendGrid.Helpers.Errors.Model;
-using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MyPregnancyTracker.Web.Controllers
 {
     [Route(ACCOUNTS_ROUTE)]
-    [ApiController]
-    public class AccountsController : Controller
+    public class AccountsController : BaseController
     {
-        //RefreshAccessToken
-        //Logout
+        //ForgotPassword
 
         private readonly IAccountService _accountService;
         private readonly IEmailService _emailService;
@@ -30,13 +27,14 @@ namespace MyPregnancyTracker.Web.Controllers
 
         [HttpPost]
         [Route(LOGIN_ROUTE)]
+        [AllowAnonymous]
         public async Task<IActionResult> LoginAsync([FromBody] LoginDto loginDto)
         {
-            var result = new LoginResponseDto();
-
             try
             {
-                result = await _accountService.SignInUserAsync(loginDto);
+               var result = await _accountService.SignInUserAsync(loginDto);
+
+                return Ok(result);
             }
             catch (BadRequestException ex)
             {
@@ -45,14 +43,12 @@ namespace MyPregnancyTracker.Web.Controllers
             catch (UnauthorizedAccessException ex)
             {
                 return Unauthorized(ex.Message);
-
-            }
-
-            return Ok(result);
+            }          
         }
 
         [HttpPost]
         [Route(REGISTER_ROUTE)]
+        [AllowAnonymous]
         public async Task<IActionResult> RegisterAsync([FromBody] RegisterDto registerDto)
         {
             var result = await _accountService.SignUpUserAsync(registerDto);
@@ -78,34 +74,33 @@ namespace MyPregnancyTracker.Web.Controllers
 
         [HttpPost]
         [Route(CONFIRM_EMAIL_ROUTE)]
+        [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmailAsync([FromBody] ConfirmEmailDto confirmEmailDto)
         {
             var userId = Encoding.Default.GetString(WebEncoders.Base64UrlDecode(confirmEmailDto.UserId));
             var emailToken = Encoding.Default.GetString(WebEncoders.Base64UrlDecode(confirmEmailDto.EmailToken));
 
-            var isEmailConfirmed = new IdentityResult();
-
             try
             {
-                isEmailConfirmed = await _accountService.ConfirmEmailAsync(emailToken, userId);
+               var isEmailConfirmed = await _accountService.ConfirmEmailAsync(emailToken, userId);
+
+                if (!isEmailConfirmed.Succeeded)
+                {
+                    return BadRequest(isEmailConfirmed.Errors);
+                }
+
+                return Ok();
             }
             catch (NullReferenceException)
             {
 
                 return NotFound();
-            }
-
-
-            if (!isEmailConfirmed.Succeeded)
-            {
-                return BadRequest(isEmailConfirmed.Errors);
-            }
-
-            return Ok();
+            }   
         }
 
         [HttpPost]
         [Route(RESEND_CONFIRMATION_EMAIL_ROUTE)]
+        [AllowAnonymous]
         public async Task<IActionResult> ResendConfirmationEmailAsync([FromBody] ResendConfirmationEmailDto resendConfirmationEmailDto)
         {
             var email = Encoding.Default.GetString(WebEncoders.Base64UrlDecode(resendConfirmationEmailDto.Email));
@@ -120,6 +115,7 @@ namespace MyPregnancyTracker.Web.Controllers
 
         [HttpPost]
         [Route(RESET_PASSWORD_ROUTE)]
+        [AllowAnonymous]
         public async Task<IActionResult> ResetPasswordAsync([FromBody] ResetPasswordDto resetPasswordDto)
         {
             var result = await _accountService.ResetPasswordAsync(resetPasswordDto);
@@ -134,20 +130,19 @@ namespace MyPregnancyTracker.Web.Controllers
 
         [HttpPost]
         [Route(REFRESH_ACCESS_TOKEN_ROUTE)]
+        [AllowAnonymous]
         public async Task<IActionResult> RefreshAccessTokenAsync([FromBody] RefreshAccessTokenDto refreshAccessTokenDto)
         {
-            var response = new RefreshAccessTokenResponseDto();
-
             try
             {
-                response = await _accountService.RefreshAccessTokenAsync(refreshAccessTokenDto);
+                var response = await _accountService.RefreshAccessTokenAsync(refreshAccessTokenDto);
+
+                return Ok(response);
             }
             catch (UnauthorizedAccessException ex)
             {
                 return Unauthorized(ex.Message);
-            }
-
-            return Ok(response);
+            }          
         }
     }
 }
