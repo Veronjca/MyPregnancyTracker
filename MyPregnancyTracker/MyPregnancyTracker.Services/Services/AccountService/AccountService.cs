@@ -172,7 +172,7 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             return result;
         }
 
-        public async Task SendResetPasswordEmailWhenAsync(ResetPasswordEmailDto resetPasswordEmailDto)
+        public async Task SendResetPasswordEmailAsync(ResetPasswordEmailDto resetPasswordEmailDto)
         {
             var user = await GetUserByEmailAsync(resetPasswordEmailDto.Email);
 

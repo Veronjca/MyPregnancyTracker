@@ -33,7 +33,7 @@ namespace MyPregnancyTracker.Services.Services.EmailService
         {
             string encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
             string encodedEmail = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(user.Email.ToString()));
-            string htmlContent = GenerateHTMLContent(RESET_PASSWORD_EMAIL_HTML_TEMPLATE_FILE_NAME, encodedToken, encodedEmail, _ngAppSettings.ChangePasswordWhenForgottenPageUrl, new string[] { "passwordToken", "email" });
+            string htmlContent = GenerateHTMLContent(RESET_PASSWORD_EMAIL_HTML_TEMPLATE_FILE_NAME, encodedToken, encodedEmail, _ngAppSettings.ResetPasswordPageUrl, new string[] { "passwordToken", "email" });
 
             await this._emailSender.SendEmailAsync(FROM, FROM_NAME, user.Email, RESET_PASSWORD_SUBJECT, htmlContent);
         }
