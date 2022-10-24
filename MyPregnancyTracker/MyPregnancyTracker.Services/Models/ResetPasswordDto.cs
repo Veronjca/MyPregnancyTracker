@@ -6,12 +6,7 @@ namespace MyPregnancyTracker.Services.Models
     public class ResetPasswordDto
     {
         [Required]
-        [EmailAddress]
-        public string Email { get; set; }
-
-        [Required]
-        [RegularExpression(PASSWORD_VALIDATION_PATTERN)]
-        public string OldPassword { get; set; }
+        public string EncodedEmail { get; set; }
 
         [Required]
         [RegularExpression(PASSWORD_VALIDATION_PATTERN)]
@@ -20,5 +15,8 @@ namespace MyPregnancyTracker.Services.Models
         [Required]
         [Compare(nameof(NewPassword))]
         public string ConfirmNewPassword { get; set; }
+
+        [Required]
+        public string EncodedToken { get; set; }
     }
 }

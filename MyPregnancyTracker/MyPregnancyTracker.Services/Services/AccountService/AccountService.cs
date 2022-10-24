@@ -18,27 +18,30 @@ namespace MyPregnancyTracker.Services.Services.AccountService
 {
     public class AccountService : IAccountService
     {
+        private readonly IEmailService _emailService;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
         private readonly IRepository<ApplicationUser> _usersRepository;
-        private readonly IMapper _mapper;             
+        private readonly IMapper _mapper;
 
         public AccountService(
-            UserManager<ApplicationUser> userManager, 
+            UserManager<ApplicationUser> userManager,
             IConfiguration configuration,
             IRepository<ApplicationUser> usersRepository,
-            IMapper mapper)
+            IMapper mapper,
+            IEmailService emailService)
         {
-                _userManager = userManager;
-                _configuration = configuration;
-                _usersRepository = usersRepository;
-                _mapper = mapper;    
+            _userManager = userManager;
+            _configuration = configuration;
+            _usersRepository = usersRepository;
+            _mapper = mapper;
+            _emailService = emailService; 
         }
 
         public async Task<IdentityResult> SignUpUserAsync(RegisterDto registerDto)
         {
             var user = _mapper.Map<ApplicationUser>(registerDto);
-          
+
             var result = await _userManager.CreateAsync(user, registerDto.Password);
             //await _userManager.AddToRoleAsync(user, "user");
 
@@ -47,9 +50,9 @@ namespace MyPregnancyTracker.Services.Services.AccountService
 
         public async Task<LoginResponseDto> SignInUserAsync(LoginDto loginDto)
         {
-           var user = await _userManager.FindByEmailAsync(loginDto.Email);
+            var user = await _userManager.FindByEmailAsync(loginDto.Email);
 
-            if(user == null)
+            if (user == null)
             {
                 throw new BadRequestException(USER_NOT_FOUND);
             }
@@ -69,14 +72,14 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             }
 
             var userRoles = await _userManager.GetRolesAsync(user);
-          
+
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName),
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim("FDoLM", user.FirstDayOfLastMenstruation.ToString()),
                 new Claim("DueDate", user.DueDate.ToString()),
-                new Claim("GW", user.GestationalWeek.ToString())                
+                new Claim("GW", user.GestationalWeek.ToString())
             };
 
             foreach (var role in userRoles)
@@ -105,7 +108,7 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             var userId = Encoding.Default.GetString(WebEncoders.Base64UrlDecode(refreshAccessTokenDto.UserId));
             var user = await _userManager.FindByIdAsync(userId);
 
-            if(user.RefreshTokenExpirationDate < DateTime.UtcNow)
+            if (user.RefreshTokenExpirationDate < DateTime.UtcNow)
             {
                 throw new UnauthorizedAccessException(SESSION_EXPIRED);
             }
@@ -148,8 +151,8 @@ namespace MyPregnancyTracker.Services.Services.AccountService
         public async Task<IdentityResult> ConfirmEmailAsync(string emailToken, string userId)
         {
             var user = await _userManager.FindByIdAsync(userId);
-            
-            if(user == null)
+
+            if (user == null)
             {
                 throw new NullReferenceException(USER_NOT_FOUND);
             }
@@ -161,21 +164,37 @@ namespace MyPregnancyTracker.Services.Services.AccountService
 
         public async Task<IdentityResult> ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
         {
-            var user = await GetUserByEmailAsync(resetPasswordDto.Email);
-            var result = await _userManager.ChangePasswordAsync(user, resetPasswordDto.OldPassword, resetPasswordDto.NewPassword);
+            var email = Encoding.Default.GetString(WebEncoders.Base64UrlDecode(resetPasswordDto.EncodedEmail));
+            var token = Encoding.Default.GetString(WebEncoders.Base64UrlDecode(resetPasswordDto.EncodedToken));
+            var user = await GetUserByEmailAsync(email);
+            var result = await _userManager.ResetPasswordAsync(user, token, resetPasswordDto.NewPassword);
 
             return result;
+        }
+
+        public async Task SendResetPasswordEmailWhenAsync(ResetPasswordEmailDto resetPasswordEmailDto)
+        {
+            var user = await GetUserByEmailAsync(resetPasswordEmailDto.Email);
+
+            if (user == null)
+            {
+                throw new BadRequestException(INVALID_REQUEST);
+            }
+
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            await _emailService.SendResetPasswordEmailAsync(user, token);
         }
 
         private string GenerateAccessToken(IEnumerable<Claim> claims)
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSecretKey"]));
             var signinCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
-            var tokenOptions = new SecurityTokenDescriptor {
+            var tokenOptions = new SecurityTokenDescriptor
+            {
                 Subject = new ClaimsIdentity(claims),
                 Expires = DateTime.UtcNow.AddMinutes(60),
                 SigningCredentials = signinCredentials,
-                IssuedAt = DateTime.UtcNow,               
+                IssuedAt = DateTime.UtcNow,
             };
 
             var handler = new JwtSecurityTokenHandler();
@@ -195,5 +214,6 @@ namespace MyPregnancyTracker.Services.Services.AccountService
                 return Convert.ToBase64String(randomNumber);
             }
         }
+
     }
 }

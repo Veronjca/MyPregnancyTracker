@@ -20,11 +20,15 @@
             public const string MISSING_SUBJECT_AND_MESSAGE = "Subject and message should be provided.";
 
             public const string SESSION_EXPIRED = "Session expired!";
+
+            public const string INVALID_REQUEST = "Invalid request!";
         }
 
         public static class Common
         {
             public const string CONFIRMATION_EMAIL_HTML_TEMPLATE_FILE_NAME = "EmailConfirmationTemplate.html";
+
+            public const string RESET_PASSWORD_EMAIL_HTML_TEMPLATE_FILE_NAME = "ResetPasswordTemplate.html";
         }
 
         public static class Email
@@ -33,7 +37,9 @@
 
             public const string FROM_NAME = "My Pregnancy Tracker";
 
-            public const string SUBJECT = "Verify your email";
+            public const string EMAIL_CONFIRMATION_SUBJECT = "Verify your email";
+
+            public const string RESET_PASSWORD_SUBJECT = "Change your password";
         }
     }
 }

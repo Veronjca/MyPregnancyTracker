@@ -22,6 +22,8 @@
             public const string RESET_PASSWORD_ROUTE = "reset-password";
 
             public const string REFRESH_ACCESS_TOKEN_ROUTE = "refresh-access-token";
+
+            public const string SEND_RESET_PASSWORD_EMAIL_ROUTE = "send-reset-password-email";
         }
 
         public static class Error
