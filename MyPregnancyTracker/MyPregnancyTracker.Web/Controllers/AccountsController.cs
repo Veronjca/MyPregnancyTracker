@@ -7,6 +7,7 @@ using System.Text;
 using Microsoft.AspNetCore.WebUtilities;
 using SendGrid.Helpers.Errors.Model;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace MyPregnancyTracker.Web.Controllers
 {
@@ -143,6 +144,22 @@ namespace MyPregnancyTracker.Web.Controllers
             {
                 return Unauthorized(ex.Message);
             }          
+        }
+
+        [HttpPost]
+        [Route(SEND_RESET_PASSWORD_EMAIL_ROUTE)]
+        [AllowAnonymous]
+        public async Task<IActionResult> SendResetPasswordEmailWhenAsync([FromBody] ResetPasswordEmailDto resetPasswordEmailDto)
+        {
+            try
+            {
+                await _accountService.SendResetPasswordEmailWhenAsync(resetPasswordEmailDto);
+                return Ok();
+            }
+            catch (BadRequestException)
+            {
+                return BadRequest();
+            }
         }
     }
 }

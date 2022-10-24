@@ -55,5 +55,11 @@ namespace MyPregnancyTracker.Services.Services.AccountService
         /// <param name="refreshAccessTokenDto">The model that holds user's email and refresh token.</param>
         /// <returns>The model that holds the newly generated access and refresh token.</returns>
         Task<RefreshAccessTokenResponseDto> RefreshAccessTokenAsync(RefreshAccessTokenDto refreshAccessTokenDto);
+
+        /// <summary>
+        /// Sending reset password email to the user, as asynchronous operation.
+        /// </summary>
+        /// <param name="resetPasswordEmailDto">The model that holds user's email.</param>
+        Task SendResetPasswordEmailWhenAsync(ResetPasswordEmailDto resetPasswordEmailDto);
     }
 }
