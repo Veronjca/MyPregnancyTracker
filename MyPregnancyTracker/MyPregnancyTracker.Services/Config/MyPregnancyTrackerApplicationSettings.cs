@@ -5,6 +5,6 @@
         public string BaseUrl { get; set; }
 
         public string ConfirmEmailPageUrl { get; set; }
-        public string ChangePasswordWhenForgottenPageUrl { get; set; }
+        public string ResetPasswordPageUrl { get; set; }
     }
 }

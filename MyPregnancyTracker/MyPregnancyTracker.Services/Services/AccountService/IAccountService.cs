@@ -60,6 +60,6 @@ namespace MyPregnancyTracker.Services.Services.AccountService
         /// Sending reset password email to the user, as asynchronous operation.
         /// </summary>
         /// <param name="resetPasswordEmailDto">The model that holds user's email.</param>
-        Task SendResetPasswordEmailWhenAsync(ResetPasswordEmailDto resetPasswordEmailDto);
+        Task SendResetPasswordEmailAsync(ResetPasswordEmailDto resetPasswordEmailDto);
     }
 }

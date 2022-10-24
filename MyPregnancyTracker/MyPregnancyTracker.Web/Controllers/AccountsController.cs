@@ -153,7 +153,7 @@ namespace MyPregnancyTracker.Web.Controllers
         {
             try
             {
-                await _accountService.SendResetPasswordEmailWhenAsync(resetPasswordEmailDto);
+                await _accountService.SendResetPasswordEmailAsync(resetPasswordEmailDto);
                 return Ok();
             }
             catch (BadRequestException)
