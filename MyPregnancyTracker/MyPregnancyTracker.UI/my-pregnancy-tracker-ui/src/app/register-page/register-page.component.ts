@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { __values } from 'tslib';
 import { RegisterRequest } from '../models/register-request.model';
 import { AccountsService } from '../services/accounts.service';
-import * as registerPageConstants from '../shared/register-page.constants';
+import * as registerPageConstants from '../shared/constants/register-page.constants';
 
 @Component({
   selector: 'app-register-page',

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import * as postResetPasswordPageConstants from '../shared/post-reset-password.constants';
+import * as postResetPasswordPageConstants from '../shared/constants/post-reset-password.constants';
 
 @Component({
   selector: 'app-post-reset-password-page',

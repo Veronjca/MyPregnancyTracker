@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute} from '@angular/router';
 import { ConfirmEmailRequest } from '../models/confirm-email.model';
 import { AccountsService } from '../services/accounts.service';
-import * as confirmEmailConstans from '../shared/confirm-email.constants';
+import * as confirmEmailConstans from '../shared/constants/confirm-email.constants';
 
 @Component({
   selector: 'app-confirm-email-page',

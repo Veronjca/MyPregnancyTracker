@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SendResetPasswordEmailRequest } from '../models/send-reset-password-email.model';
 import { AccountsService } from '../services/accounts.service';
-import * as forgottenPasswordConstants from '../shared/forgotten-password.constants';
+import * as forgottenPasswordConstants from '../shared/constants/forgotten-password.constants';
 
 @Component({
   selector: 'app-forgotten-password',

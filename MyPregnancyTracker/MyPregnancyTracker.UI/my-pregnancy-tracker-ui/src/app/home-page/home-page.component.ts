@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import * as homePageConstants from '../../shared/home-page.constants';
+import * as homePageConstants from '../shared/constants/home-page.constants';
 
 @Component({
   selector: 'app-home-page',

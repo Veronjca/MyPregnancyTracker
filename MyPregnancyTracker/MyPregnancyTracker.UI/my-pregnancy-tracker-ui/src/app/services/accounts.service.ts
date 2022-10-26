@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfirmEmailRequest } from '../models/confirm-email.model';
-import * as routes from '../shared/routes.constants';
+import * as routes from '../shared/constants/routes.constants';
 import { RegisterRequest } from '../models/register-request.model';
 import { LoginRequest } from '../models/login-request.model';
 import { ResendConfirmationEmailRequest } from '../models/resend-confirmation-email.model';

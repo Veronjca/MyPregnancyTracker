@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ResendConfirmationEmailRequest } from '../models/resend-confirmation-email.model';
 import { AccountsService } from '../services/accounts.service';
-import * as postRegisterPageConstants from '../shared/post-register-page.constants';
+import * as postRegisterPageConstants from '../shared/constants/post-register-page.constants';
 
 @Component({
   selector: 'app-post-register-page',

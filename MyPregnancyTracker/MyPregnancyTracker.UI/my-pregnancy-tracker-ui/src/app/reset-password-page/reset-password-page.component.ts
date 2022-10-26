@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn,
 import { ActivatedRoute } from '@angular/router';
 import { ResetPasswordRequest } from '../models/reset-password-request.model';
 import { AccountsService } from '../services/accounts.service';
-import * as resetPasswordConstants from '../shared/reset-password.constants';
+import * as resetPasswordConstants from '../shared/constants/reset-password.constants';
 
 @Component({
   selector: 'app-reset-password-page',

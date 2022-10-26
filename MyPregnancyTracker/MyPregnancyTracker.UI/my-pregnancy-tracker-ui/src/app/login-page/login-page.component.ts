@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginRequest } from '../models/login-request.model';
 import { AccountsService } from '../services/accounts.service';
-import * as loginPageConstants from '../shared/login-page.constants';
+import * as loginPageConstants from '../shared/constants/login-page.constants';
 
 @Component({
   selector: 'app-login-page-component',
