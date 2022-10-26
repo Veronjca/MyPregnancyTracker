@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { ResetPasswordReques } from '../models/reset-password-request.model';
+import { ResetPasswordRequest } from '../models/reset-password-request.model';
 import { AccountsService } from '../services/accounts.service';
 import * as resetPasswordConstants from '../shared/reset-password.constants';
 
@@ -33,7 +33,7 @@ export class ResetPasswordPageComponent implements OnInit {
 
   get confirmNewPassword() { return this.resetPasswordForm.get('confirmNewPassword'); }
 
-  resetPasswordRequest!: ResetPasswordReques;
+  resetPasswordRequest!: ResetPasswordRequest;
   constructor(
     private accountSerivce: AccountsService,
     private route: ActivatedRoute

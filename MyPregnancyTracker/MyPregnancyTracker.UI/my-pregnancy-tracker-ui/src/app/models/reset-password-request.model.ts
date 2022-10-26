@@ -1,4 +1,4 @@
-export interface ResetPasswordReques{
+export interface ResetPasswordRequest{
     encodedEmail: string,
     encodedToken: string,
     newPassword: string,
