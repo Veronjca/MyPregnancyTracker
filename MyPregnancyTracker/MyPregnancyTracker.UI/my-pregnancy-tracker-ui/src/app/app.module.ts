@@ -17,6 +17,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { ConfirmEmailPageComponent } from './confirm-email-page/confirm-email-page.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PostRegisterPageComponent } from './post-register-page/post-register-page.component';
+import { ForgottenPasswordComponent } from './forgotten-password/forgotten-password.component';
+import { ResetPasswordPageComponent } from './reset-password-page/reset-password-page.component';
+import { PostResetPasswordPageComponent } from './post-reset-password-page/post-reset-password-page.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { PostRegisterPageComponent } from './post-register-page/post-register-pa
     LoginPageComponent,
     RegisterPageComponent,
     ConfirmEmailPageComponent,
-    PostRegisterPageComponent
+    PostRegisterPageComponent,
+    ForgottenPasswordComponent,
+    ResetPasswordPageComponent,
+    PostResetPasswordPageComponent
   ],
   imports: [
     BrowserModule,
