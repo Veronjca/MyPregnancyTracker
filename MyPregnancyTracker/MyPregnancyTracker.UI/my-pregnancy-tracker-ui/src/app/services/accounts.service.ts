@@ -6,6 +6,8 @@ import * as routes from '../shared/routes.constants';
 import { RegisterRequest } from '../models/register-request.model';
 import { LoginRequest } from '../models/login-request.model';
 import { ResendConfirmationEmailRequest } from '../models/resend-confirmation-email.model';
+import { SendResetPasswordEmailRequest } from '../models/send-reset-password-email.model';
+import { ResetPasswordReques } from '../models/reset-password-request.model';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +30,13 @@ export class AccountsService {
 
   resendConfirmationEmail(model: ResendConfirmationEmailRequest): Observable<any>{
     return this.httpClient.post<any>(routes.RESEND_CONFIRMATION_EMAIL_ENDPOINT, model);
+  }
+
+  sendResetPasswordEmail(model: SendResetPasswordEmailRequest): Observable<any>{
+    return this.httpClient.post<any>(routes.SEND_RESET_PASSWORD_EMAIL_ENDPOINT, model);
+  }
+
+  resetPassword(model: ResetPasswordReques): Observable<any>{
+    return this.httpClient.post<any>(routes.RESET_PASSWORD_ENDPOINT, model);
   }
 }
