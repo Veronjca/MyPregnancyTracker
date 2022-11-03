@@ -4,7 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import {MatButtonModule} from '@angular/material/button';
@@ -13,6 +13,10 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatListModule} from '@angular/material/list';
 
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -22,6 +26,9 @@ import { PostRegisterPageComponent } from './post-register-page/post-register-pa
 import { ForgottenPasswordComponent } from './forgotten-password-page/forgotten-password.component';
 import { ResetPasswordPageComponent } from './reset-password-page/reset-password-page.component';
 import { PostResetPasswordPageComponent } from './post-reset-password-page/post-reset-password-page.component';
+import { UserPageComponent } from './user-page/user-page.component';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { SidenavComponent } from './sidenav/sidenav.component';
 
 
 @NgModule({
@@ -34,7 +41,9 @@ import { PostResetPasswordPageComponent } from './post-reset-password-page/post-
     PostRegisterPageComponent,
     ForgottenPasswordComponent,
     ResetPasswordPageComponent,
-    PostResetPasswordPageComponent
+    PostResetPasswordPageComponent,
+    UserPageComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
@@ -47,9 +56,19 @@ import { PostResetPasswordPageComponent } from './post-reset-password-page/post-
     MatDatepickerModule,
     MatNativeDateModule,
     MatCheckboxModule,
-    HttpClientModule
+    HttpClientModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatListModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginRequest } from '../models/login-request.model';
 import { AccountsService } from '../services/accounts.service';
 import * as loginPageConstants from '../shared/constants/login-page.constants';
@@ -23,7 +24,8 @@ export class LoginPageComponent implements OnInit {
 
   loginRequest!: LoginRequest;
 
-  constructor(private accountsService: AccountsService) { }
+  constructor(private accountsService: AccountsService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -34,6 +36,13 @@ export class LoginPageComponent implements OnInit {
       password: this.loginForm.value.password!
     }
 
-    this.accountsService.loginUser(this.loginRequest).subscribe();
+    this.accountsService.loginUser(this.loginRequest).subscribe(response => {
+      localStorage.setItem("userName", response.userName)
+      localStorage.setItem("email", response.email)
+      localStorage.setItem("accessToken", response.accessToken)
+      localStorage.setItem("refreshToken", response.refreshToken)
+
+      this.router.navigate(['/user', response.id])
+    });
   }
 }
