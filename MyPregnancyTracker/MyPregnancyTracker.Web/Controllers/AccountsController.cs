@@ -149,7 +149,7 @@ namespace MyPregnancyTracker.Web.Controllers
         [HttpPost]
         [Route(SEND_RESET_PASSWORD_EMAIL_ROUTE)]
         [AllowAnonymous]
-        public async Task<IActionResult> SendResetPasswordEmailWhenAsync([FromBody] ResetPasswordEmailDto resetPasswordEmailDto)
+        public async Task<IActionResult> SendResetPasswordEmailAsync([FromBody] ResetPasswordEmailDto resetPasswordEmailDto)
         {
             try
             {

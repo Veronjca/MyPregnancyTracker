@@ -24,13 +24,6 @@
             public const string INVALID_REQUEST = "Invalid request!";
         }
 
-        public static class Common
-        {
-            public const string CONFIRMATION_EMAIL_HTML_TEMPLATE_FILE_NAME = "EmailConfirmationTemplate.html";
-
-            public const string RESET_PASSWORD_EMAIL_HTML_TEMPLATE_FILE_NAME = "ResetPasswordTemplate.html";
-        }
-
         public static class Email
         {
             public const string FROM = "mypregnancytrackerapp@gmail.com";

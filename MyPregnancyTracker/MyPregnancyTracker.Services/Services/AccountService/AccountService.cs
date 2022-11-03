@@ -77,9 +77,6 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             {
                 new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim("FDoLM", user.FirstDayOfLastMenstruation.ToString()),
-                new Claim("DueDate", user.DueDate.ToString()),
-                new Claim("GW", user.GestationalWeek.ToString())
             };
 
             foreach (var role in userRoles)

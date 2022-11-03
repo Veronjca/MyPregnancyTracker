@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.WebUtilities;
+﻿using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Options;
 using MyPregnancyTracker.Data.Models;
 using MyPregnancyTracker.Services.Config;
 using MyPregnancyTracker.Services.EmailSender;
 using System.Reflection;
 using System.Text;
-using static MyPregnancyTracker.Services.Constants.Constants.Common;
 using static MyPregnancyTracker.Services.Constants.Constants.Email;
 
 namespace MyPregnancyTracker.Services.Services.EmailService
@@ -25,7 +25,7 @@ namespace MyPregnancyTracker.Services.Services.EmailService
         {
             string encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
             string encodedUserId = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(user.Id.ToString()));
-            string htmlContent = GenerateHTMLContent(CONFIRMATION_EMAIL_HTML_TEMPLATE_FILE_NAME, encodedToken, encodedUserId, _ngAppSettings.ConfirmEmailPageUrl, new string[] {"emailToken", "userId"});
+            string htmlContent = GenerateHTMLContent(encodedToken, _ngAppSettings.ConfirmEmailTemplatePath, encodedUserId, _ngAppSettings.ConfirmEmailPageUrl, new string[] {"emailToken", "userId"});
 
             await this._emailSender.SendEmailAsync(FROM, FROM_NAME, user.Email, EMAIL_CONFIRMATION_SUBJECT, htmlContent);
         }
@@ -33,14 +33,14 @@ namespace MyPregnancyTracker.Services.Services.EmailService
         {
             string encodedToken = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(token));
             string encodedEmail = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(user.Email.ToString()));
-            string htmlContent = GenerateHTMLContent(RESET_PASSWORD_EMAIL_HTML_TEMPLATE_FILE_NAME, encodedToken, encodedEmail, _ngAppSettings.ResetPasswordPageUrl, new string[] { "passwordToken", "email" });
+            string htmlContent = GenerateHTMLContent(encodedToken, _ngAppSettings.ResetPasswordEmailTemplatePath, encodedEmail, _ngAppSettings.ResetPasswordPageUrl, new string[] { "passwordToken", "email" });
 
             await this._emailSender.SendEmailAsync(FROM, FROM_NAME, user.Email, RESET_PASSWORD_SUBJECT, htmlContent);
         }
 
-        private string GenerateHTMLContent(string fileName, string token, string userInfo, string pageUrl, params string [] queryParamsNames)
+        private string GenerateHTMLContent(string token, string templatePath, string userInfo, string pageUrl, params string [] queryParamsNames)
         {
-            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + $"/EmailSender/Templates/{fileName}";
+            string path = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + templatePath;
             string htmlContentAsString = File.ReadAllText(path);
 
             string uri = $"{_ngAppSettings.BaseUrl}/{pageUrl}?{queryParamsNames[0]}={token}&{queryParamsNames[1]}={userInfo}"; 
