@@ -6,8 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent implements OnInit {
+  isOpenOrClosed: boolean = false;
 
-  showFiller: boolean = false;
   constructor() { }
 
   ngOnInit(): void {

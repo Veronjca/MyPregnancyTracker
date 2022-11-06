@@ -1,15 +1,14 @@
 <div class="user-toolbar-container">
   <mat-toolbar color="primary">
-    <button
-      mat-icon-button
-      class="menu-button"
-      (click)="toggleSidenav = !toggleSidenav"
-    >
-      <mat-icon>menu</mat-icon>
-    </button>
+    <span class="user-name-container">
+      {{ userName + userPageConstants.GREETING }}
+    </span>
+
     <div class="space"></div>
 
-    <span class="user-name-container">{{ userName }}</span>
+    <button mat-icon-button class="forum-button">
+      <mat-icon>home</mat-icon>
+    </button>
 
     <div class="space"></div>
 
@@ -22,4 +21,4 @@
     </button>
   </mat-toolbar>
 </div>
-<app-sidenav *ngIf="toggleSidenav"></app-sidenav>
+<app-sidenav></app-sidenav>

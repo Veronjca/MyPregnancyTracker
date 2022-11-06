@@ -1,5 +1,32 @@
-.sidenav-container {
-    width: 20%;
-    height: 50%;
-    border: 1px solid rgba(0, 0, 0, 0.5);
-  }
+.container {
+  width: 500px;
+  height: 300px;
+  top: 25%;
+  bottom: 25%;
+  background: white;
+}
+
+.sidenav-content {
+  display: flex;
+  height: 100%;
+  left: 25%;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.sidenav {
+  padding: 20px;
+  width: fit-content;
+  overflow: hidden;
+  border: 2px solid #F48FB1;
+  border-radius: 25px;
+}
+
+button{
+  border: 0;
+}
+
+
+
+
+
