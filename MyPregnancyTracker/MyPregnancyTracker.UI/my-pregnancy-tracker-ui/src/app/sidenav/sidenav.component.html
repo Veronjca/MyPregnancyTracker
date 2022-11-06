@@ -1,4 +1,21 @@
-<mat-sidenav-container>
-  <mat-sidenav mode="over">Start</mat-sidenav>
-  <mat-sidenav-content>Main</mat-sidenav-content>
-</mat-sidenav-container>
+<mat-drawer-container class="container" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side">
+    <button mat-stroked-button>
+      Профил
+      <mat-icon color="primary">account_circle</mat-icon>
+    </button>
+  </mat-drawer>
+
+  <div class="sidenav-content">
+    <button
+      type="button"
+      mat-icon-button
+      color="primary"
+      (click)="isOpenOrClosed = !isOpenOrClosed"
+      (click)="drawer.toggle()"
+    >
+      <mat-icon *ngIf="isOpenOrClosed">chevron_left</mat-icon>
+      <mat-icon *ngIf="isOpenOrClosed === false">chevron_right</mat-icon>
+    </button>
+  </div>
+</mat-drawer-container>
