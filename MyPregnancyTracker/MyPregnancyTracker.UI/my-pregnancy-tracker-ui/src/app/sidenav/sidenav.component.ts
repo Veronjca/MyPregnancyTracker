@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as sidenavConstants from '../shared/constants/sidenav.constants';
 
 @Component({
   selector: 'app-sidenav',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidenav.component.scss']
 })
 export class SidenavComponent implements OnInit {
-  isOpenOrClosed: boolean = false;
+  sidenavConstants = sidenavConstants;
 
   constructor() { }
 

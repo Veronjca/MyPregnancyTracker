@@ -1,3 +1,4 @@
+<div class="background"></div>
 <div class="user-toolbar-container">
   <mat-toolbar color="primary">
     <span class="user-name-container">
@@ -6,19 +7,36 @@
 
     <div class="space"></div>
 
-    <button mat-icon-button class="forum-button">
+    <button
+      mat-icon-button
+      matTooltip="начало"
+      matTooltipClass="tooltip-background"
+      routerLink="/user/{{ userId }}"
+    >
       <mat-icon>home</mat-icon>
     </button>
 
     <div class="space"></div>
 
-    <button mat-icon-button class="forum-button">
+    <button
+      mat-icon-button
+      matTooltip="форум"
+      matTooltipClass="tooltip-background"
+    >
       <mat-icon>forum</mat-icon>
     </button>
 
-    <button mat-icon-button class="logout-button-container" (click)="logout()">
+    <button
+      mat-icon-button
+      matTooltip="излизане"
+      matTooltipClass="tooltip-background"
+      class="logout-button"
+      (click)="logout()"
+    >
       <mat-icon>logout</mat-icon>
     </button>
   </mat-toolbar>
 </div>
 <app-sidenav></app-sidenav>
+<app-gestational-week-card></app-gestational-week-card>
+<footer></footer>

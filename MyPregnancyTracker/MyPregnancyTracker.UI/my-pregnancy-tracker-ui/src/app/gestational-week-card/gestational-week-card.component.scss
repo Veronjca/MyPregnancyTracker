@@ -1,0 +1,15 @@
+.card {
+    width: 400px;
+    border: 2px solid #F48FB1;
+    border-radius: 25px;
+  }
+
+  .card-container{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;   
+  }
+  
+  

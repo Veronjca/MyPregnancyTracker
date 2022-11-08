@@ -9,14 +9,15 @@ import * as userPageConstants from '../shared/constants/user-page.constants';
   styleUrls: ['./user-page.component.scss']
 })
 export class UserPageComponent implements OnInit {
-  userName: string = localStorage.getItem('userName')!;
+  userName: string = sessionStorage.getItem('userName')!;
+  userId: string = '';
   userPageConstants = userPageConstants;
-  toggleSidenav: boolean = false;
 
   constructor(private accountService: AccountsService,
     private router: Router) { }
 
   ngOnInit(): void {
+    this.userId = this.router.url.replace('/user/', '');
   }
 
   logout(): void{

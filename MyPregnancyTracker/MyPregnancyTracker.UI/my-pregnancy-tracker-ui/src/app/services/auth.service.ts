@@ -15,15 +15,15 @@ export class AuthService {
     private router: Router) { }
 
   public getAccessToken(): string {
-    return localStorage.getItem('accessToken')!;
+    return sessionStorage.getItem('accessToken')!;
   }
 
   public getRefreshToken(): string{
-    return localStorage.getItem("refreshToken")!;
+    return sessionStorage.getItem("refreshToken")!;
   }
 
   public getUserId(): string{
-    return this.router.url.replace('/user/', '');
+    return sessionStorage.getItem('userId')!;
   }
 
   public refreshAccessToken(model: RefreshAccessTokenRequest): Observable<RefreshAccessTokenResponse>{
@@ -31,7 +31,7 @@ export class AuthService {
   }
 
   public isLoggedIn(): boolean{
-    if(localStorage.getItem("email")){
+    if(sessionStorage.getItem("email")){
         return true;
     };  
     

@@ -43,6 +43,6 @@ export class AccountsService {
   }
 
   logout(): void{
-    localStorage.clear();
+    sessionStorage.clear();
   }
 }
