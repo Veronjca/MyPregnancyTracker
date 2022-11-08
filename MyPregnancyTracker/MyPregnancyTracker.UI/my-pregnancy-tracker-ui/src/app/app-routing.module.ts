@@ -9,18 +9,19 @@ import { PostRegisterPageComponent } from './post-register-page/post-register-pa
 import { PostResetPasswordPageComponent } from './post-reset-password-page/post-reset-password-page.component';
 import { RegisterPageComponent } from './register-page/register-page.component';
 import { ResetPasswordPageComponent } from './reset-password-page/reset-password-page.component';
-import { AuthGuardService } from './services/auth-guard.service';
+import { AuthGuard} from './guards/auth.guard';
+import { IsSignedInGuard } from './guards/is-signed-in.guard';
 
 const routes: Routes = [
-  {path:"", component: HomePageComponent},
-  {path:"login", component: LoginPageComponent},
-  {path:"register", component: RegisterPageComponent},
-  {path:"confirm-email", component: ConfirmEmailPageComponent},
-  {path:"post-register", component: PostRegisterPageComponent},
-  {path:"forgotten-password", component: ForgottenPasswordComponent},
-  {path: "reset-password", component: ResetPasswordPageComponent},
-  {path: "post-reset-password", component: PostResetPasswordPageComponent},
-  {path: "user/:id", component: UserPageComponent, canActivate: [AuthGuardService]}
+  {path:"", component: HomePageComponent, canActivate: [IsSignedInGuard]},
+  {path:"login", component: LoginPageComponent, canActivate: [IsSignedInGuard]},
+  {path:"register", component: RegisterPageComponent, canActivate: [IsSignedInGuard]},
+  {path:"confirm-email", component: ConfirmEmailPageComponent, canActivate: [IsSignedInGuard]},
+  {path:"post-register", component: PostRegisterPageComponent, canActivate: [IsSignedInGuard]},
+  {path:"forgotten-password", component: ForgottenPasswordComponent, canActivate: [IsSignedInGuard]},
+  {path: "reset-password", component: ResetPasswordPageComponent, canActivate: [IsSignedInGuard]},
+  {path: "post-reset-password", component: PostResetPasswordPageComponent, canActivate: [IsSignedInGuard]},
+  {path: "user/:id", component: UserPageComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

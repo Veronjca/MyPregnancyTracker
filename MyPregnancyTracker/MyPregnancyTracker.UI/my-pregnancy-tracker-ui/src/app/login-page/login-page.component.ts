@@ -37,10 +37,11 @@ export class LoginPageComponent implements OnInit {
     }
 
     this.accountsService.loginUser(this.loginRequest).subscribe(response => {
-      localStorage.setItem("userName", response.userName)
-      localStorage.setItem("email", response.email)
-      localStorage.setItem("accessToken", response.accessToken)
-      localStorage.setItem("refreshToken", response.refreshToken)
+      sessionStorage.setItem("userId", response.id);
+      sessionStorage.setItem("userName", response.userName)
+      sessionStorage.setItem("email", response.email)
+      sessionStorage.setItem("accessToken", response.accessToken)
+      sessionStorage.setItem("refreshToken", response.refreshToken)
 
       this.router.navigate(['/user', response.id])
     });

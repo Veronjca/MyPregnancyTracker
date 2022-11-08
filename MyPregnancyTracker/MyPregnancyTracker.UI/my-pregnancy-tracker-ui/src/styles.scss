@@ -15,10 +15,18 @@ $my-theme: mat.define-light-theme((
    warn: $my-warn,
  )
 ));     
-
 @include mat.core-theme($my-theme);
 @include mat.button-theme($my-theme);
 @include mat.all-component-themes($my-theme);
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-drawer-inner-container::-webkit-scrollbar {
+  display: none;
+}
+
+.tooltip-background{
+  background-color: pink;
+  color: black !important ;
+}
