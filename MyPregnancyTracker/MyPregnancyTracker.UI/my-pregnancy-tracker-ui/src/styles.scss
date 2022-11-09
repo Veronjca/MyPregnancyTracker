@@ -30,3 +30,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-color: pink;
   color: black !important ;
 }
+
+.mat-paginator-page-size{
+  display: none !important;
+}
+
+main{
+  overflow-y: auto;
+}

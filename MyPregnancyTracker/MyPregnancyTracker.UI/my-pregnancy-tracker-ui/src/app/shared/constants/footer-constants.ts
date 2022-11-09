@@ -1,0 +1,1 @@
+export const FOOTER_CONTENT = 'My Pregnancy Tracker';
