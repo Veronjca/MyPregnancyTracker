@@ -19,6 +19,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -32,6 +33,8 @@ import { UserPageComponent } from './user-page/user-page.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { GestationalWeekCardComponent } from './gestational-week-card/gestational-week-card.component';
+import { PaginatorComponent } from './paginator/paginator.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -47,7 +50,9 @@ import { GestationalWeekCardComponent } from './gestational-week-card/gestationa
     PostResetPasswordPageComponent,
     UserPageComponent,
     SidenavComponent,
-    GestationalWeekCardComponent
+    GestationalWeekCardComponent,
+    PaginatorComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +71,8 @@ import { GestationalWeekCardComponent } from './gestational-week-card/gestationa
     MatSidenavModule,
     MatListModule,
     MatCardModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatPaginatorModule
   ],
   providers: [
     {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as gestationalWeekConstants from '../shared/constants/gestational-week.constants';
 
 @Component({
   selector: 'app-gestational-week-card',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./gestational-week-card.component.scss']
 })
 export class GestationalWeekCardComponent implements OnInit {
-
+  gestationalWeekConstants = gestationalWeekConstants;
   constructor() { }
 
   ngOnInit(): void {
