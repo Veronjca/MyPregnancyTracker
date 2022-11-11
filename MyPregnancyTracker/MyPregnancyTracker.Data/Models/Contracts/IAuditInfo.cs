@@ -1,4 +1,4 @@
-﻿namespace MyPregnancyTracker.Data.Models
+﻿namespace MyPregnancyTracker.Data.Models.Contracts
 {
     internal interface IAuditInfo
     {

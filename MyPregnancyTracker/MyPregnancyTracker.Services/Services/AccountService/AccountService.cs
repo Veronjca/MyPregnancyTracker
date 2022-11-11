@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Server.IIS.Core;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
@@ -19,6 +21,7 @@ namespace MyPregnancyTracker.Services.Services.AccountService
     public class AccountService : IAccountService
     {
         private readonly IEmailService _emailService;
+        private readonly IDataProtector _dataProtector;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
         private readonly IRepository<ApplicationUser> _usersRepository;
@@ -29,14 +32,15 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             IConfiguration configuration,
             IRepository<ApplicationUser> usersRepository,
             IMapper mapper,
-            IEmailService emailService)
+            IEmailService emailService,
+            IDataProtectionProvider dataProtectionProvider)
         {
             _userManager = userManager;
             _configuration = configuration;
             _usersRepository = usersRepository;
             _mapper = mapper;
-            _emailService = emailService; 
-        }
+            _emailService = emailService;
+            _dataProtector = dataProtectionProvider.CreateProtector(this._configuration["DataProtectorKey"]);        }
 
         public async Task<IdentityResult> SignUpUserAsync(RegisterDto registerDto)
         {
@@ -95,14 +99,14 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             await _usersRepository.SaveChangesAsync();
 
             var mappedUser = _mapper.Map<LoginResponseDto>(user);
-            mappedUser.Id = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(mappedUser.Id));
+            mappedUser.Id = this._dataProtector.Protect(mappedUser.Id);
 
             return mappedUser;
         }
 
         public async Task<RefreshAccessTokenResponseDto> RefreshAccessTokenAsync(RefreshAccessTokenDto refreshAccessTokenDto)
         {
-            var userId = Encoding.Default.GetString(WebEncoders.Base64UrlDecode(refreshAccessTokenDto.UserId));
+            var userId = this._dataProtector.Unprotect(refreshAccessTokenDto.UserId);
             var user = await _userManager.FindByIdAsync(userId);
 
             if (user.RefreshTokenExpirationDate < DateTime.UtcNow)
@@ -147,6 +151,9 @@ namespace MyPregnancyTracker.Services.Services.AccountService
 
         public async Task<IdentityResult> ConfirmEmailAsync(string emailToken, string userId)
         {
+            userId = this._dataProtector.Unprotect(userId);
+            emailToken = this._dataProtector.Unprotect(emailToken);
+
             var user = await _userManager.FindByIdAsync(userId);
 
             if (user == null)
@@ -161,8 +168,8 @@ namespace MyPregnancyTracker.Services.Services.AccountService
 
         public async Task<IdentityResult> ResetPasswordAsync(ResetPasswordDto resetPasswordDto)
         {
-            var email = Encoding.Default.GetString(WebEncoders.Base64UrlDecode(resetPasswordDto.EncodedEmail));
-            var token = Encoding.Default.GetString(WebEncoders.Base64UrlDecode(resetPasswordDto.EncodedToken));
+            var email = this._dataProtector.Unprotect(resetPasswordDto.ProtectedEmail);
+            var token = this._dataProtector.Unprotect(resetPasswordDto.ProtectedToken);
             var user = await GetUserByEmailAsync(email);
             var result = await _userManager.ResetPasswordAsync(user, token, resetPasswordDto.NewPassword);
 

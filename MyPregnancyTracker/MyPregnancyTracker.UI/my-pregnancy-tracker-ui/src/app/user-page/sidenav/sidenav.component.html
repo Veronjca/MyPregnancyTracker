@@ -1,7 +1,7 @@
 <mat-drawer-container class="container">
   <mat-drawer #drawer class="drawer" mode="side">
     <div class="button-wrapper">
-      <button mat-stroked-button>
+      <button mat-stroked-button (click)="navigateToProfilePage()">
         {{ sidenavConstants.PROFILE }}
         <mat-icon color="primary">account_circle</mat-icon>
       </button>

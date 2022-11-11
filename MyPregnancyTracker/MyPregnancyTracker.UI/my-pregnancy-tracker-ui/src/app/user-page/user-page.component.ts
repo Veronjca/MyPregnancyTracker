@@ -9,9 +9,9 @@ import * as userPageConstants from '../shared/constants/user-page.constants';
   styleUrls: ['./user-page.component.scss']
 })
 export class UserPageComponent implements OnInit {
+  userPageConstants = userPageConstants;
   userName: string = sessionStorage.getItem('userName')!;
   userId: string = '';
-  userPageConstants = userPageConstants;
 
   constructor(private accountService: AccountsService,
     private router: Router) { }

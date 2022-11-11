@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.WebUtilities;
 using SendGrid.Helpers.Errors.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace MyPregnancyTracker.Web.Controllers
 {
@@ -18,12 +19,18 @@ namespace MyPregnancyTracker.Web.Controllers
 
         private readonly IAccountService _accountService;
         private readonly IEmailService _emailService;
+        private readonly IDataProtector _dataProtector;
+        private readonly IConfiguration _configuration;
         public AccountsController(
             IAccountService accountService,
-            IEmailService emailService)
+            IEmailService emailService,
+            IDataProtectionProvider dataProtectionProvider,
+            IConfiguration configuration)
         {
-            _accountService = accountService;
-            _emailService = emailService;
+            this._accountService = accountService;
+            this._emailService = emailService;
+            this._configuration = configuration;
+            this._dataProtector = dataProtectionProvider.CreateProtector(this._configuration["DataProtectorKey"]);
         }
 
         [HttpPost]
@@ -63,11 +70,11 @@ namespace MyPregnancyTracker.Web.Controllers
             var token = await _accountService.GenerateEmailConfirmationTokenAsync(user);
 
             await _emailService.SendConfirmationEmailAsync(user, token);
-            var encodedEmail = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(user.Email));
+            var protectedEmail = this._dataProtector.Protect(user.Email);
 
             var response = new RegisterResponseDto
             {
-                EncodedEmail = encodedEmail
+                ProtectedEmail = protectedEmail
             };
 
             return StatusCode(201, response);
@@ -78,12 +85,10 @@ namespace MyPregnancyTracker.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ConfirmEmailAsync([FromBody] ConfirmEmailDto confirmEmailDto)
         {
-            var userId = Encoding.Default.GetString(WebEncoders.Base64UrlDecode(confirmEmailDto.UserId));
-            var emailToken = Encoding.Default.GetString(WebEncoders.Base64UrlDecode(confirmEmailDto.EmailToken));
 
             try
             {
-               var isEmailConfirmed = await _accountService.ConfirmEmailAsync(emailToken, userId);
+               var isEmailConfirmed = await _accountService.ConfirmEmailAsync(confirmEmailDto.EmailToken, confirmEmailDto.UserId);
 
                 if (!isEmailConfirmed.Succeeded)
                 {
@@ -104,7 +109,7 @@ namespace MyPregnancyTracker.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ResendConfirmationEmailAsync([FromBody] ResendConfirmationEmailDto resendConfirmationEmailDto)
         {
-            var email = Encoding.Default.GetString(WebEncoders.Base64UrlDecode(resendConfirmationEmailDto.Email));
+            var email = this._dataProtector.Unprotect(resendConfirmationEmailDto.Email);
 
             var user = await _accountService.GetUserByEmailAsync(email);
             var token = await _accountService.GenerateEmailConfirmationTokenAsync(user);

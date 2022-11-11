@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyPregnancyTracker.Data.Models;
+using MyPregnancyTracker.Data.Models.Contracts;
 
 namespace MyPregnancyTracker.Data
 {

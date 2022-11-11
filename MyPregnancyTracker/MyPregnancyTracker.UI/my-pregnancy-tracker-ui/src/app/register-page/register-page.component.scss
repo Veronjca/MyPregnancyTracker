@@ -6,13 +6,9 @@
       height: auto;
       position: absolute;
       padding-bottom: 10px;
+      overflow: auto;
       
       border: 8px inset #F48FB1;
-    }
-    
-    mat-form-field{
-      display: block;
-      width: 50%;
     }
   
     .mat-form-fields-wrapper{
@@ -48,4 +44,25 @@
   
   button{
     margin-top: 1%;
+  }
+
+  .nav-container{
+    justify-content: space-around;
+    display: flex;
+    margin-top: 2%;
+  }
+
+  .terms-of-agreement-container{
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+
+  }
+
+  mat-form-field{
+    display: block;
+    width: 50%;
   }

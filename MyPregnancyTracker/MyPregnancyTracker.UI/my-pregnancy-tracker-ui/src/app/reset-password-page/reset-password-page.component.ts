@@ -13,8 +13,8 @@ import * as resetPasswordConstants from '../shared/constants/reset-password.cons
 export class ResetPasswordPageComponent implements OnInit {
   resetPasswordConstants = resetPasswordConstants;
 
-  encodedEmail: string = '';
-  encodedToken: string = '';
+  protectedEmail: string = '';
+  protectedToken: string = '';
 
   private passwordMatchValidator: ValidatorFn = (formGroup: AbstractControl): ValidationErrors | null => {
     if (formGroup.get('newPassword')?.value === formGroup.get('confirmNewPassword')?.value)
@@ -39,8 +39,8 @@ export class ResetPasswordPageComponent implements OnInit {
     private route: ActivatedRoute
     ) { 
       this.route.queryParams.subscribe(params => {
-        this.encodedEmail = params['email'];
-        this.encodedToken = params['passwordToken']
+        this.protectedEmail = params['email'];
+        this.protectedToken = params['passwordToken']
       })
     }
 
@@ -49,8 +49,8 @@ export class ResetPasswordPageComponent implements OnInit {
 
   resetPassword(){
     this.resetPasswordRequest = {
-      encodedEmail: this.encodedEmail,
-      encodedToken: this.encodedToken,
+      protectedEmail: this.protectedEmail,
+      protectedToken: this.protectedToken,
       newPassword: this.resetPasswordForm.value.newPassword!,
       confirmNewPassword: this.resetPasswordForm.value.confirmNewPassword!
     }

@@ -1,3 +1,8 @@
+.main-container{
+    overflow: hidden;
+}
+
+
 .button-wrapper{
     display: flex;
     justify-content: space-around;
@@ -26,7 +31,8 @@ button{
 }
 
 p{
-    text-align: center;  
+    text-align: center; 
+    position: sticky; 
 }
 
 .background{

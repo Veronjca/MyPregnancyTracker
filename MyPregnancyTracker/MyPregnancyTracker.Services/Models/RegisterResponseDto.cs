@@ -2,6 +2,6 @@
 {
     public class RegisterResponseDto
     {
-        public string EncodedEmail { get; set; }
+        public string ProtectedEmail { get; set; }
     }
 }

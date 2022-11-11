@@ -1,6 +1,7 @@
 ﻿using static MyPregnancyTracker.Data.Constants.ValidationConstants.Topic;
 using MyPregnancyTracker.Data.Enums;
 using System.ComponentModel.DataAnnotations;
+using MyPregnancyTracker.Data.Models.Contracts;
 
 namespace MyPregnancyTracker.Data.Models
 {

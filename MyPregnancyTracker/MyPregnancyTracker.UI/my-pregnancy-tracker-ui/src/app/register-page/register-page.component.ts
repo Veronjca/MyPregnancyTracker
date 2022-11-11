@@ -63,7 +63,7 @@ export class RegisterPageComponent implements OnInit {
     }
      
     this.accountsService.registerUser(this.formRequest).subscribe(response => {
-      this.router.navigate(['/post-register'], {queryParams: {email: response.encodedEmail}});
+      this.router.navigate(['/post-register'], {queryParams: {email: response.protectedEmail}});
     });
   }
 

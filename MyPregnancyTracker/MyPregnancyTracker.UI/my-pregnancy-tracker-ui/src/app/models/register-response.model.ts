@@ -1,3 +1,3 @@
 export interface RegisterResponse{
-    encodedEmail: string
+    protectedEmail: string
 }
