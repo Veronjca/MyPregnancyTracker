@@ -121,18 +121,19 @@
           "
         ></mat-error>
       </mat-form-field>
-      <div>
-        <mat-checkbox color="primary" formControlName="acceptTACCheckbox"
-          >{{ registerPageConstants.TERMS_OF_AGREEMENT_TEXT1 }}
+      <div class="terms-of-agreement-container">
+        <mat-checkbox color="primary" formControlName="acceptTACCheckbox">
           <a routerLink="">{{
             registerPageConstants.TERMS_OF_AGREEMENT_HYPERLINK
           }}</a>
-          {{ registerPageConstants.TERMS_OF_AGREEMENT_TEXT2 }}</mat-checkbox
-        >
+        </mat-checkbox>
       </div>
       <button mat-raised-button (click)="register()" color="primary">
         {{ registerPageConstants.SEND }}
       </button>
     </div>
   </form>
+  <div class="nav-container">
+    <a routerLink="/login">{{ registerPageConstants.HAVE_AN_ACCOUNT }}</a>
+  </div>
 </div>

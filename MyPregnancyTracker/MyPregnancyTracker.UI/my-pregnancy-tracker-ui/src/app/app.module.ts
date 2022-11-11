@@ -17,9 +17,7 @@ import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
-import {MatCardModule} from '@angular/material/card';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {MatPaginatorModule} from '@angular/material/paginator';
 
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -29,11 +27,7 @@ import { PostRegisterPageComponent } from './post-register-page/post-register-pa
 import { ForgottenPasswordComponent } from './forgotten-password-page/forgotten-password.component';
 import { ResetPasswordPageComponent } from './reset-password-page/reset-password-page.component';
 import { PostResetPasswordPageComponent } from './post-reset-password-page/post-reset-password-page.component';
-import { UserPageComponent } from './user-page/user-page.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { SidenavComponent } from './sidenav/sidenav.component';
-import { GestationalWeekCardComponent } from './gestational-week-card/gestational-week-card.component';
-import { PaginatorComponent } from './paginator/paginator.component';
 import { FooterComponent } from './footer/footer.component';
 
 
@@ -48,10 +42,6 @@ import { FooterComponent } from './footer/footer.component';
     ForgottenPasswordComponent,
     ResetPasswordPageComponent,
     PostResetPasswordPageComponent,
-    UserPageComponent,
-    SidenavComponent,
-    GestationalWeekCardComponent,
-    PaginatorComponent,
     FooterComponent
   ],
   imports: [
@@ -70,9 +60,7 @@ import { FooterComponent } from './footer/footer.component';
     MatIconModule,
     MatSidenavModule,
     MatListModule,
-    MatCardModule,
     MatTooltipModule,
-    MatPaginatorModule
   ],
   providers: [
     {

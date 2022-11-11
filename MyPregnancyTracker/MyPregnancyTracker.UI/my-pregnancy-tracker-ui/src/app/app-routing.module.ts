@@ -21,7 +21,12 @@ const routes: Routes = [
   {path:"forgotten-password", component: ForgottenPasswordComponent, canActivate: [IsSignedInGuard]},
   {path: "reset-password", component: ResetPasswordPageComponent, canActivate: [IsSignedInGuard]},
   {path: "post-reset-password", component: PostResetPasswordPageComponent, canActivate: [IsSignedInGuard]},
-  {path: "user/:id", component: UserPageComponent, canActivate: [AuthGuard]}
+  {
+    path: "user/:id", 
+    component: UserPageComponent,
+     loadChildren: () => import("../app/user-page/user.module").then(module => module.UserModule), 
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

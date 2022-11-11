@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using static MyPregnancyTracker.Data.Constants.ValidationConstants.ApplicationUser;
 using System.ComponentModel.DataAnnotations;
+using MyPregnancyTracker.Data.Models.Contracts;
 
 namespace MyPregnancyTracker.Data.Models
 {

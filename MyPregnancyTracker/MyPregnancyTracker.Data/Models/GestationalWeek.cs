@@ -13,9 +13,6 @@ namespace MyPregnancyTracker.Data.Models
         public int GestationalAge { get; set; }
 
         [Required]
-        public string PictureUrl { get; set; }
-
-        [Required]
         public string MotherPictureUrl { get; set; }
 
         [Required]
@@ -39,10 +36,5 @@ namespace MyPregnancyTracker.Data.Models
         [Required]
         public string AdvicesContent { get; set; }
 
-        [Required]
-        public string TasksPictureUrl { get; set; }
-
-        [Required]
-        public string TasksContent { get; set; }
     }
 }
