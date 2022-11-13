@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MyPregnancyTracker.Services.Models
+namespace MyPregnancyTracker.Services.Models.AccountsModels
 {
     public class ResendConfirmationEmailDto
     {
         [Required]
-        public string Email { get; set; }  
+        public string Email { get; set; }
     }
 }

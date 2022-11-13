@@ -36,8 +36,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   display: none !important;
 }
 
+.mat-expansion-indicator::after{
+  color: #ff4081;
+}
+
 main{
   overflow-y: auto;
+}
+
+.mat-checkbox-background, .mat-checkbox-frame {
+  border-radius: 70% !important;
 }
 
 html, body { height: 100%; }

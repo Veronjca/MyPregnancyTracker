@@ -1,13 +1,11 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Server.IIS.Core;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MyPregnancyTracker.Data.Models;
 using MyPregnancyTracker.Data.Repositories;
-using MyPregnancyTracker.Services.Models;
+using MyPregnancyTracker.Services.Models.AccountsModels;
 using MyPregnancyTracker.Services.Services.EmailService;
 using SendGrid.Helpers.Errors.Model;
 using System.IdentityModel.Tokens.Jwt;
@@ -79,7 +77,8 @@ namespace MyPregnancyTracker.Services.Services.AccountService
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, user.FirstName + " " + user.LastName),
+                new Claim("FirstName", user.FirstName),
+                new Claim("LastName", user.LastName),
                 new Claim(ClaimTypes.Email, user.Email),
             };
 
@@ -189,6 +188,53 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             await _emailService.SendResetPasswordEmailAsync(user, token);
         }
 
+        public async Task UpdateUserProfileData(UpdateUserProfileRequest updateUserProfileRequest)
+        {
+            var userId = this._dataProtector.Unprotect(updateUserProfileRequest.UserId);
+            var user = await this._userManager.FindByIdAsync(userId);
+
+            if(user == null)
+            {
+                throw new BadRequestException();
+            }
+
+            user.FirstName = updateUserProfileRequest.FirstName;
+            user.LastName = updateUserProfileRequest.LastName;
+            user.BirthDate = updateUserProfileRequest.BirthDate;
+            user.Weight = updateUserProfileRequest.Weight;
+            user.Height = updateUserProfileRequest.Height;
+
+            if (updateUserProfileRequest.DueDate.HasValue)
+            {
+                user.DueDate = updateUserProfileRequest.DueDate.Value;
+            }
+
+            this._usersRepository.Update(user);
+            await this._usersRepository.SaveChangesAsync();           
+        }
+
+        public async Task<GetUserProfileDataResponse> GetUserProfileData(string userId)
+        {
+            var user = await this._userManager.FindByIdAsync(userId);
+
+            if(user == null)
+            {
+                throw new BadRequestException();
+            }
+
+            var response = new GetUserProfileDataResponse
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                BirthDate = user.BirthDate,
+                Height = user.Height,
+                Weight = user.Weight,
+                DueDate = user.DueDate,
+            };
+
+            return response;
+        }
+
         private string GenerateAccessToken(IEnumerable<Claim> claims)
         {
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JwtSecretKey"]));
@@ -219,5 +265,6 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             }
         }
 
+       
     }
 }

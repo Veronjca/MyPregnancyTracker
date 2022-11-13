@@ -17,7 +17,7 @@ export class UserPageComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
-    this.userId = this.router.url.replace('/user/', '');
+    this.userId = sessionStorage.getItem('userId')!;
   }
 
   logout(): void{

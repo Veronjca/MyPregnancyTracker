@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using static MyPregnancyTracker.Services.Constants.Constants.Validation;
 
-namespace MyPregnancyTracker.Services.Models
+namespace MyPregnancyTracker.Services.Models.AccountsModels
 {
     public class ResetPasswordDto
     {

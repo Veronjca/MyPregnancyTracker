@@ -3,4 +3,4 @@ export interface ResetPasswordRequest{
     protectedToken: string,
     newPassword: string,
     confirmNewPassword: string
-}
+};

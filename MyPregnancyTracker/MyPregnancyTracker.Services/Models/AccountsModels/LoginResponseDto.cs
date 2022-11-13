@@ -1,4 +1,4 @@
-﻿namespace MyPregnancyTracker.Services.Models
+﻿namespace MyPregnancyTracker.Services.Models.AccountsModels
 {
     public class LoginResponseDto
     {

@@ -2,7 +2,7 @@
 using static MyPregnancyTracker.Services.Constants.Constants.Validation;
 using static MyPregnancyTracker.Services.Constants.Constants.Error;
 
-namespace MyPregnancyTracker.Services.Models
+namespace MyPregnancyTracker.Services.Models.AccountsModels
 {
     public class RegisterDto
     {

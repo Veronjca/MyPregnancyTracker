@@ -1,13 +1,10 @@
 ﻿using Microsoft.AspNetCore.DataProtection;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using MyPregnancyTracker.Data.Models;
 using MyPregnancyTracker.Services.Config;
 using MyPregnancyTracker.Services.EmailSender;
 using System.Reflection;
-using System.Text;
 using static MyPregnancyTracker.Services.Constants.Constants.Email;
 
 namespace MyPregnancyTracker.Services.Services.EmailService

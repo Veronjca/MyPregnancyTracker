@@ -1,0 +1,36 @@
+.profile-card-container{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    padding: 10px;   
+  }
+
+.card {
+    width: fit-content;
+    border: 2px solid #F48FB1;
+    border-radius: 25px;
+}
+
+mat-card-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
+mat-card-actions{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.accordion{
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.accordion .mat-form-field {
+    margin-left: 8px;
+}

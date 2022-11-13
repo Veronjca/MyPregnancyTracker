@@ -5,11 +5,11 @@
         {{ sidenavConstants.PROFILE }}
         <mat-icon color="primary">account_circle</mat-icon>
       </button>
-      <button mat-stroked-button>
+      <button mat-stroked-button (click)="navigateToContactUsPage()">
         {{ sidenavConstants.CONTACT_US }}
         <mat-icon color="primary">mail</mat-icon>
       </button>
-      <button mat-stroked-button>
+      <button mat-stroked-button (click)="navigateToMyTasksPage()">
         {{ sidenavConstants.MY_TASKS }}
         <mat-icon color="primary">receipt_long</mat-icon>
       </button>
