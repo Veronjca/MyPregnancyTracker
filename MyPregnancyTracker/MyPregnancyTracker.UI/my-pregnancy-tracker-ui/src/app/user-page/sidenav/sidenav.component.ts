@@ -20,4 +20,11 @@ export class SidenavComponent implements OnInit {
     this.router.navigate(['/user', this.userId, 'profile']);
   }
 
+  navigateToContactUsPage(){
+    this.router.navigate(['/user', this.userId, 'contact-us']);
+  }
+
+  navigateToMyTasksPage(){
+    this.router.navigate(['/user', this.userId, 'my-tasks']);
+  }
 }

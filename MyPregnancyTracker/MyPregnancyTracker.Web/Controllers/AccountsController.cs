@@ -1,22 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyPregnancyTracker.Services.Models;
-using static MyPregnancyTracker.Web.Constants.Constants.Route;
+using static MyPregnancyTracker.Web.Constants.Constants.AccountsControllerRoutes;
 using MyPregnancyTracker.Services.Services.AccountService;
 using MyPregnancyTracker.Services.Services.EmailService;
-using System.Text;
-using Microsoft.AspNetCore.WebUtilities;
 using SendGrid.Helpers.Errors.Model;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.DataProtection;
+using MyPregnancyTracker.Services.Models.AccountsModels;
 
 namespace MyPregnancyTracker.Web.Controllers
 {
     [Route(ACCOUNTS_ROUTE)]
     public class AccountsController : BaseController
     {
-        //ForgotPassword
-
         private readonly IAccountService _accountService;
         private readonly IEmailService _emailService;
         private readonly IDataProtector _dataProtector;
@@ -160,6 +155,39 @@ namespace MyPregnancyTracker.Web.Controllers
             {
                 await _accountService.SendResetPasswordEmailAsync(resetPasswordEmailDto);
                 return Ok();
+            }
+            catch (BadRequestException)
+            {
+                return BadRequest();
+            }
+        }
+
+        [HttpPost]
+        [Route(UPDATE_USER_PROFILE_ROUTE)]
+        public async Task<IActionResult> UpdateUserProfileData([FromBody] UpdateUserProfileRequest updateUserProfileRequest)
+        {
+            try
+            {
+                await this._accountService.UpdateUserProfileData(updateUserProfileRequest);
+            }
+            catch (BadRequestException)
+            {
+                return BadRequest();
+            }
+
+            return Ok();
+        }
+
+        [HttpGet]
+        [Route(GET_USER_PROFILE_DATA_ROUTE)]
+        public async Task<IActionResult> GetUserProfileData([FromQuery] string userId)
+        {
+            userId = this._dataProtector.Unprotect(userId);
+
+            try
+            {
+                var response = await this._accountService.GetUserProfileData(userId);               
+                return StatusCode(200, response);
             }
             catch (BadRequestException)
             {

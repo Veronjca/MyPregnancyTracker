@@ -74,6 +74,11 @@ namespace MyPregnancyTracker.Data
             builder.Entity<GestationalWeek>()
                 .HasKey(gw => gw.Id);
 
+            builder.Entity<GestationalWeek>()
+                .HasMany(gw => gw.MyPregnancyTrackerTasks)
+                .WithOne(t => t.GestationalWeek)
+                .OnDelete(DeleteBehavior.Restrict);
+
             builder.Entity<ApplicationUser>()
                 .HasMany(e => e.Claims)
                 .WithOne()
@@ -94,6 +99,9 @@ namespace MyPregnancyTracker.Data
                 .HasForeignKey(e => e.UserId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<ApplicationUserMyPregnancyTrackerTask>()
+                .HasKey(x => new { x.MyPregnancyTrackerTaskId, x.ApplicationUserId });
         }
         private void ApplyAuditInfoRules()
         {

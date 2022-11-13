@@ -5,6 +5,11 @@ namespace MyPregnancyTracker.Data.Models
 {
     public class GestationalWeek
     {
+        public GestationalWeek()
+        {
+            this.MyPregnancyTrackerTasks = new HashSet<MyPregnancyTrackerTask>();
+        }
+
         [Key]
         public int Id { get; set; }
 
@@ -35,6 +40,8 @@ namespace MyPregnancyTracker.Data.Models
 
         [Required]
         public string AdvicesContent { get; set; }
+
+        public ICollection<MyPregnancyTrackerTask> MyPregnancyTrackerTasks { get; set; }
 
     }
 }

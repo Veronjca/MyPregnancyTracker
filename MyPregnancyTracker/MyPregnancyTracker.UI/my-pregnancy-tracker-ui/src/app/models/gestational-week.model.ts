@@ -8,4 +8,4 @@ export interface GestationalWeek{
     nutritionContent: string,
     advicesPictureUrl: string,
     advicesContent: string
-}
+};

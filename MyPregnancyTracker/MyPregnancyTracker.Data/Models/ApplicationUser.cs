@@ -15,6 +15,7 @@ namespace MyPregnancyTracker.Data.Models
             this.Roles = new HashSet<IdentityUserRole<int>>();
             this.Claims = new HashSet<IdentityUserClaim<int>>();
             this.Logins = new HashSet<IdentityUserLogin<int>>();
+            this.ApplicationUsersMyPregnancyTrackerTasks = new HashSet<ApplicationUserMyPregnancyTrackerTask>();
         }
 
         [Required]
@@ -28,6 +29,12 @@ namespace MyPregnancyTracker.Data.Models
 
         [Required]
         public DateTime DueDate { get; set; }
+
+        public DateTime? BirthDate { get; set; }
+
+        public int? Height { get; set; }
+
+        public int? Weight { get; set; }
 
         [Required]
         [Range(GESTATIONAL_WEEK_MIN_VALUE, GESTATIONAL_WEEK_MAX_VALUE)]
@@ -46,6 +53,8 @@ namespace MyPregnancyTracker.Data.Models
         public virtual ICollection<IdentityUserClaim<int>> Claims { get; set; }
 
         public virtual ICollection<IdentityUserLogin<int>> Logins { get; set; }
+
+        public virtual ICollection<ApplicationUserMyPregnancyTrackerTask> ApplicationUsersMyPregnancyTrackerTasks { get; set; }
 
         public int CommentId { get; set; }
 

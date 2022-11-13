@@ -169,6 +169,9 @@ namespace MyPregnancyTracker.Data.Migrations
                     b.Property<string>("AccessToken")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTime?>("BirthDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("CommentId")
                         .HasColumnType("int");
 
@@ -200,6 +203,9 @@ namespace MyPregnancyTracker.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("GestationalWeek")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("Height")
                         .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
@@ -257,6 +263,9 @@ namespace MyPregnancyTracker.Data.Migrations
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
+                    b.Property<int?>("Weight")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
@@ -268,6 +277,21 @@ namespace MyPregnancyTracker.Data.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("MyPregnancyTracker.Data.Models.ApplicationUserMyPregnancyTrackerTask", b =>
+                {
+                    b.Property<int>("MyPregnancyTrackerTaskId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ApplicationUserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("MyPregnancyTrackerTaskId", "ApplicationUserId");
+
+                    b.HasIndex("ApplicationUserId");
+
+                    b.ToTable("ApplicationUserMyPregnancyTrackerTask");
                 });
 
             modelBuilder.Entity("MyPregnancyTracker.Data.Models.Article", b =>
@@ -396,6 +420,40 @@ namespace MyPregnancyTracker.Data.Migrations
                     b.ToTable("GestationalWeek");
                 });
 
+            modelBuilder.Entity("MyPregnancyTracker.Data.Models.MyPregnancyTrackerTask", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("Content")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("GestationalWeekId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GestationalWeekId");
+
+                    b.ToTable("MyPregnancyTrackerTask");
+                });
+
             modelBuilder.Entity("MyPregnancyTracker.Data.Models.Reaction", b =>
                 {
                     b.Property<int>("Id")
@@ -521,6 +579,25 @@ namespace MyPregnancyTracker.Data.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("MyPregnancyTracker.Data.Models.ApplicationUserMyPregnancyTrackerTask", b =>
+                {
+                    b.HasOne("MyPregnancyTracker.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithMany("ApplicationUsersMyPregnancyTrackerTasks")
+                        .HasForeignKey("ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MyPregnancyTracker.Data.Models.MyPregnancyTrackerTask", "MyPregnancyTrackerTask")
+                        .WithMany("ApplicationUsersMyPregnancyTrackerTasks")
+                        .HasForeignKey("MyPregnancyTrackerTaskId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("ApplicationUser");
+
+                    b.Navigation("MyPregnancyTrackerTask");
+                });
+
             modelBuilder.Entity("MyPregnancyTracker.Data.Models.Comment", b =>
                 {
                     b.HasOne("MyPregnancyTracker.Data.Models.Topic", "Topic")
@@ -538,6 +615,17 @@ namespace MyPregnancyTracker.Data.Migrations
                     b.Navigation("Topic");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("MyPregnancyTracker.Data.Models.MyPregnancyTrackerTask", b =>
+                {
+                    b.HasOne("MyPregnancyTracker.Data.Models.GestationalWeek", "GestationalWeek")
+                        .WithMany("MyPregnancyTrackerTasks")
+                        .HasForeignKey("GestationalWeekId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("GestationalWeek");
                 });
 
             modelBuilder.Entity("MyPregnancyTracker.Data.Models.Reaction", b =>
@@ -572,6 +660,8 @@ namespace MyPregnancyTracker.Data.Migrations
 
             modelBuilder.Entity("MyPregnancyTracker.Data.Models.ApplicationUser", b =>
                 {
+                    b.Navigation("ApplicationUsersMyPregnancyTrackerTasks");
+
                     b.Navigation("Claims");
 
                     b.Navigation("Comments");
@@ -588,6 +678,16 @@ namespace MyPregnancyTracker.Data.Migrations
             modelBuilder.Entity("MyPregnancyTracker.Data.Models.Comment", b =>
                 {
                     b.Navigation("Reactions");
+                });
+
+            modelBuilder.Entity("MyPregnancyTracker.Data.Models.GestationalWeek", b =>
+                {
+                    b.Navigation("MyPregnancyTrackerTasks");
+                });
+
+            modelBuilder.Entity("MyPregnancyTracker.Data.Models.MyPregnancyTrackerTask", b =>
+                {
+                    b.Navigation("ApplicationUsersMyPregnancyTrackerTasks");
                 });
 
             modelBuilder.Entity("MyPregnancyTracker.Data.Models.Topic", b =>
