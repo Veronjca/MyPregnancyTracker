@@ -18,8 +18,8 @@ export class ProfilePageComponent implements OnInit {
   step = 0;
 
   profileForm = new FormGroup({
-    firstName: new FormControl('', Validators.required),
-    lastName: new FormControl('', Validators.required),
+    firstName: new FormControl('',),
+    lastName: new FormControl('',),
     height: new FormControl('', Validators.pattern("^[0-9]*$")),
     weight: new FormControl('', Validators.pattern("^[0-9]*$")),
     birthDate: new FormControl(''),

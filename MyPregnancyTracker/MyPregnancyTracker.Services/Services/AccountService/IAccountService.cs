@@ -66,12 +66,12 @@ namespace MyPregnancyTracker.Services.Services.AccountService
         /// Update user's profile information, as asynchronous operation.
         /// </summary>
         /// <param name="updateUserProfileRequest">The model that holds user's id, first name, last name, birthdate, weight, height and due date.</param>
-        Task UpdateUserProfileData(UpdateUserProfileRequest updateUserProfileRequest);
+        Task UpdateUserProfileDataAsync(UpdateUserProfileRequest updateUserProfileRequest);
 
         /// <summary>
         /// Getting user's profile information, as asynchronous operation.
         /// </summary>
         /// <param name="userId">The user's id used to get the user from database.</param>
-        Task<GetUserProfileDataResponse> GetUserProfileData(string userId);
+        Task<GetUserProfileDataResponse> GetUserProfileDataAsync(string userId);
     }
 }

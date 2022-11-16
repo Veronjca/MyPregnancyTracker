@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using static MyPregnancyTracker.Data.Constants.ValidationConstants.ApplicationUser;
 using System.ComponentModel.DataAnnotations;
 using MyPregnancyTracker.Data.Models.Contracts;
 
@@ -18,11 +17,9 @@ namespace MyPregnancyTracker.Data.Models
             this.ApplicationUsersMyPregnancyTrackerTasks = new HashSet<ApplicationUserMyPregnancyTrackerTask>();
         }
 
-        [Required]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
 
-        [Required]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
         [Required]
         public DateTime FirstDayOfLastMenstruation { get; set; }
@@ -37,7 +34,6 @@ namespace MyPregnancyTracker.Data.Models
         public int? Weight { get; set; }
 
         [Required]
-        [Range(GESTATIONAL_WEEK_MIN_VALUE, GESTATIONAL_WEEK_MAX_VALUE)]
         public int GestationalWeek { get; set; }
 
         public bool IsDeleted { get; set; }
