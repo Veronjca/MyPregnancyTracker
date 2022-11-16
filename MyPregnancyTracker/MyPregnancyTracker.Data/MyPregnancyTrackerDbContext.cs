@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MyPregnancyTracker.Data.Configuration;
 using MyPregnancyTracker.Data.Models;
 using MyPregnancyTracker.Data.Models.Contracts;
 
@@ -36,7 +37,7 @@ namespace MyPregnancyTracker.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            base.OnModelCreating(builder);
+            base.OnModelCreating(builder);            
 
             builder.Entity<Comment>()
                  .HasOne(c => c.User)
@@ -102,6 +103,9 @@ namespace MyPregnancyTracker.Data
 
             builder.Entity<ApplicationUserMyPregnancyTrackerTask>()
                 .HasKey(x => new { x.MyPregnancyTrackerTaskId, x.ApplicationUserId });
+
+            builder.ApplyConfiguration(new GestationalWeekConfiguration());
+            builder.ApplyConfiguration(new MyPregnancyTrackerTaskConfiguration());
         }
         private void ApplyAuditInfoRules()
         {

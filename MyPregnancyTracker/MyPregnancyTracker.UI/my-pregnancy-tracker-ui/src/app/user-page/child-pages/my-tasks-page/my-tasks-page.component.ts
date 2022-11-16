@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { filter, first } from 'rxjs';
 import { TaskModel } from 'src/app/models/task.model';
-import { TaskService } from 'src/app/services/task.service';
+import { TaskService } from 'src/app/services/tasks.service';
 import * as myTasksPageConstants from '../../../shared/constants/my-tasks-page.constants';
 
 @Component({

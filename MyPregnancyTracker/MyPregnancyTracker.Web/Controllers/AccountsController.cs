@@ -168,7 +168,7 @@ namespace MyPregnancyTracker.Web.Controllers
         {
             try
             {
-                await this._accountService.UpdateUserProfileData(updateUserProfileRequest);
+                await this._accountService.UpdateUserProfileDataAsync(updateUserProfileRequest);
             }
             catch (BadRequestException)
             {
@@ -186,7 +186,7 @@ namespace MyPregnancyTracker.Web.Controllers
 
             try
             {
-                var response = await this._accountService.GetUserProfileData(userId);               
+                var response = await this._accountService.GetUserProfileDataAsync(userId);               
                 return StatusCode(200, response);
             }
             catch (BadRequestException)

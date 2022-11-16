@@ -5,28 +5,6 @@
   </p>
   <form [formGroup]="registerForm">
     <div class="mat-form-fields-wrapper">
-      <!-- Input field for First Name -->
-      <mat-form-field appearance="outline">
-        <mat-label>{{ registerPageConstants.FIRST_NAME }}</mat-label>
-        <input matInput formControlName="firstName" />
-        <mat-error
-          *ngIf="registerForm.controls['firstName'].hasError('required')"
-        >
-          {{ registerPageConstants.REQUIRED_FIELD }}
-        </mat-error>
-      </mat-form-field>
-
-      <!-- Input field for Last Name -->
-      <mat-form-field appearance="outline">
-        <mat-label>{{ registerPageConstants.LAST_NAME }}</mat-label>
-        <input matInput formControlName="lastName" />
-        <mat-error
-          *ngIf="registerForm.controls['lastName'].hasError('required')"
-        >
-          {{ registerPageConstants.REQUIRED_FIELD }}
-        </mat-error>
-      </mat-form-field>
-
       <!-- Input field for User Name -->
       <mat-form-field appearance="outline">
         <mat-label>{{ registerPageConstants.USER_NAME }}</mat-label>
@@ -106,6 +84,7 @@
           matInput
           [matDatepicker]="datepicker"
           formControlName="firstDayOfLastMenstruation"
+          [max]="maxDate"
         />
         <mat-hint>{{ registerPageConstants.DATE_FORMAT }}</mat-hint>
         <mat-datepicker-toggle
@@ -128,7 +107,12 @@
           }}</a>
         </mat-checkbox>
       </div>
-      <button mat-raised-button (click)="register()" color="primary">
+      <button
+        mat-raised-button
+        (click)="register()"
+        color="primary"
+        [disabled]="!registerForm.valid"
+      >
         {{ registerPageConstants.SEND }}
       </button>
     </div>

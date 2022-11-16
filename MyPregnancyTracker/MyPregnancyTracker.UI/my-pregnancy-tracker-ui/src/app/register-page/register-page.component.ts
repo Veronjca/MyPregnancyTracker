@@ -12,6 +12,7 @@ import * as registerPageConstants from '../shared/constants/register-page.consta
   styleUrls: ['./register-page.component.scss']
 })
 export class RegisterPageComponent implements OnInit {
+  maxDate: Date = new Date();
 
   registerPageConstants = registerPageConstants;
 
@@ -23,8 +24,6 @@ export class RegisterPageComponent implements OnInit {
   };
   
   registerForm = new FormGroup({
-      firstName: new FormControl("", Validators.required),
-      lastName: new FormControl("", Validators.required),
       userName: new FormControl("", Validators.required),
       email: new FormControl("", [Validators.required, Validators.email]),
       password: new FormControl("", 
@@ -53,8 +52,6 @@ export class RegisterPageComponent implements OnInit {
 
   register(): void{
     this.formRequest = {
-      firstName: this.registerForm.value.firstName!,
-      lastName: this.registerForm.value.lastName!,
       userName: this.registerForm.value.userName!,
       email: this.registerForm.value.email!,
       password: this.registerForm.value.password!,

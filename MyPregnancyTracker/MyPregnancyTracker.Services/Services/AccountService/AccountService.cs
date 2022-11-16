@@ -188,7 +188,7 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             await _emailService.SendResetPasswordEmailAsync(user, token);
         }
 
-        public async Task UpdateUserProfileData(UpdateUserProfileRequest updateUserProfileRequest)
+        public async Task UpdateUserProfileDataAsync(UpdateUserProfileRequest updateUserProfileRequest)
         {
             var userId = this._dataProtector.Unprotect(updateUserProfileRequest.UserId);
             var user = await this._userManager.FindByIdAsync(userId);
@@ -213,7 +213,7 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             await this._usersRepository.SaveChangesAsync();           
         }
 
-        public async Task<GetUserProfileDataResponse> GetUserProfileData(string userId)
+        public async Task<GetUserProfileDataResponse> GetUserProfileDataAsync(string userId)
         {
             var user = await this._userManager.FindByIdAsync(userId);
 
