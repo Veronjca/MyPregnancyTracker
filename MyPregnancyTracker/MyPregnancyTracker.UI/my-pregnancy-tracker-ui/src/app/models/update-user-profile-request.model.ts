@@ -4,6 +4,5 @@ export interface UpdateUserProfileRequest{
     lastName: string,
     birthDate: string,
     height: number,
-    weight: number,
-    dueDate: string
+    weight: number
 };

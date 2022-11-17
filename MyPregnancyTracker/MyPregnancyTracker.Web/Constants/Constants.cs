@@ -24,10 +24,6 @@
             public const string REFRESH_ACCESS_TOKEN_ROUTE = "refresh-access-token";
 
             public const string SEND_RESET_PASSWORD_EMAIL_ROUTE = "send-reset-password-email";
-
-            public const string UPDATE_USER_PROFILE_ROUTE = "update-user-profile";
-
-            public const string GET_USER_PROFILE_DATA_ROUTE = "get-user-profile-data";
         }
 
         public static class TasksControllerRoutes
@@ -35,6 +31,15 @@
             public const string TASKS_ROUTE = "api/tasks";
 
             public const string GET_USER_TASKS_ROUTE = "get-user-tasks";
+        }
+
+        public static class UserControllerRoutes
+        {
+            public const string USER_ROUTE = "api/user";
+
+            public const string UPDATE_USER_PROFILE_ROUTE = "update-user-profile";
+
+            public const string GET_USER_PROFILE_DATA_ROUTE = "get-user-profile-data";
         }
         public static class Error
         {
