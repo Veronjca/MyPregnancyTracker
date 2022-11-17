@@ -6,6 +6,7 @@ using SendGrid.Helpers.Errors.Model;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.DataProtection;
 using MyPregnancyTracker.Services.Models.AccountsModels;
+using MyPregnancyTracker.Services.Services.UserService;
 
 namespace MyPregnancyTracker.Web.Controllers
 {
@@ -16,15 +17,19 @@ namespace MyPregnancyTracker.Web.Controllers
         private readonly IEmailService _emailService;
         private readonly IDataProtector _dataProtector;
         private readonly IConfiguration _configuration;
+        private readonly IUserService _userService;
+
         public AccountsController(
             IAccountService accountService,
             IEmailService emailService,
             IDataProtectionProvider dataProtectionProvider,
-            IConfiguration configuration)
+            IConfiguration configuration,
+            IUserService userService)
         {
             this._accountService = accountService;
             this._emailService = emailService;
             this._configuration = configuration;
+            this._userService = userService;
             this._dataProtector = dataProtectionProvider.CreateProtector(this._configuration["DataProtectorKey"]);
         }
 
@@ -35,7 +40,7 @@ namespace MyPregnancyTracker.Web.Controllers
         {
             try
             {
-               var result = await _accountService.SignInUserAsync(loginDto);
+                var result = await _accountService.SignInUserAsync(loginDto);
 
                 return Ok(result);
             }
@@ -46,7 +51,7 @@ namespace MyPregnancyTracker.Web.Controllers
             catch (UnauthorizedAccessException ex)
             {
                 return Unauthorized(ex.Message);
-            }          
+            }
         }
 
         [HttpPost]
@@ -67,6 +72,15 @@ namespace MyPregnancyTracker.Web.Controllers
             await _emailService.SendConfirmationEmailAsync(user, token);
             var protectedEmail = this._dataProtector.Protect(user.Email);
 
+            try
+            {
+                await this._userService.SetDueDateAsync(user, registerDto.FirstDayOfLastMenstruation);
+            }
+            catch (BadRequestException)
+            {
+                return BadRequest();
+            }
+
             var response = new RegisterResponseDto
             {
                 ProtectedEmail = protectedEmail
@@ -83,7 +97,7 @@ namespace MyPregnancyTracker.Web.Controllers
 
             try
             {
-               var isEmailConfirmed = await _accountService.ConfirmEmailAsync(confirmEmailDto.EmailToken, confirmEmailDto.UserId);
+                var isEmailConfirmed = await _accountService.ConfirmEmailAsync(confirmEmailDto.EmailToken, confirmEmailDto.UserId);
 
                 if (!isEmailConfirmed.Succeeded)
                 {
@@ -96,7 +110,7 @@ namespace MyPregnancyTracker.Web.Controllers
             {
 
                 return NotFound();
-            }   
+            }
         }
 
         [HttpPost]
@@ -122,7 +136,7 @@ namespace MyPregnancyTracker.Web.Controllers
             var result = await _accountService.ResetPasswordAsync(resetPasswordDto);
 
             if (!result.Succeeded)
-            {               
+            {
                 return BadRequest(result.Errors);
             }
 
@@ -143,7 +157,7 @@ namespace MyPregnancyTracker.Web.Controllers
             catch (UnauthorizedAccessException ex)
             {
                 return Unauthorized(ex.Message);
-            }          
+            }
         }
 
         [HttpPost]
@@ -155,39 +169,6 @@ namespace MyPregnancyTracker.Web.Controllers
             {
                 await _accountService.SendResetPasswordEmailAsync(resetPasswordEmailDto);
                 return Ok();
-            }
-            catch (BadRequestException)
-            {
-                return BadRequest();
-            }
-        }
-
-        [HttpPost]
-        [Route(UPDATE_USER_PROFILE_ROUTE)]
-        public async Task<IActionResult> UpdateUserProfileData([FromBody] UpdateUserProfileRequest updateUserProfileRequest)
-        {
-            try
-            {
-                await this._accountService.UpdateUserProfileDataAsync(updateUserProfileRequest);
-            }
-            catch (BadRequestException)
-            {
-                return BadRequest();
-            }
-
-            return Ok();
-        }
-
-        [HttpGet]
-        [Route(GET_USER_PROFILE_DATA_ROUTE)]
-        public async Task<IActionResult> GetUserProfileData([FromQuery] string userId)
-        {
-            userId = this._dataProtector.Unprotect(userId);
-
-            try
-            {
-                var response = await this._accountService.GetUserProfileDataAsync(userId);               
-                return StatusCode(200, response);
             }
             catch (BadRequestException)
             {

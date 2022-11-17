@@ -61,17 +61,5 @@ namespace MyPregnancyTracker.Services.Services.AccountService
         /// </summary>
         /// <param name="resetPasswordEmailDto">The model that holds user's email.</param>
         Task SendResetPasswordEmailAsync(ResetPasswordEmailDto resetPasswordEmailDto);
-
-        /// <summary>
-        /// Update user's profile information, as asynchronous operation.
-        /// </summary>
-        /// <param name="updateUserProfileRequest">The model that holds user's id, first name, last name, birthdate, weight, height and due date.</param>
-        Task UpdateUserProfileDataAsync(UpdateUserProfileRequest updateUserProfileRequest);
-
-        /// <summary>
-        /// Getting user's profile information, as asynchronous operation.
-        /// </summary>
-        /// <param name="userId">The user's id used to get the user from database.</param>
-        Task<GetUserProfileDataResponse> GetUserProfileDataAsync(string userId);
     }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpParamsOptions} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfirmEmailRequest } from '../models/confirm-email.model';
 import * as routes from '../shared/constants/routes.constants';
@@ -10,8 +10,6 @@ import { SendResetPasswordEmailRequest } from '../models/send-reset-password-ema
 import { ResetPasswordRequest } from '../models/reset-password-request.model';
 import { LoginResponse } from '../models/login-response.model';
 import { RegisterResponse } from '../models/register-response.model';
-import { UpdateUserProfileRequest } from '../models/update-user-profile-request.model';
-import { GetUserProfileDataResponse } from '../models/get-user-profile-data-response.model';
 
 @Injectable({
   providedIn: 'root'
@@ -42,18 +40,6 @@ export class AccountsService {
 
   resetPassword(model: ResetPasswordRequest): Observable<any>{
     return this.httpClient.post<any>(routes.RESET_PASSWORD_ENDPOINT, model);
-  }
-
-  updateUserProfile(model: UpdateUserProfileRequest): Observable<any>{
-    return this.httpClient.post<any>(routes.UPDATE_USER_PROFILE_ENDPOINT, model);
-  }
-
-  getUserProfileData(): Observable<GetUserProfileDataResponse>{
-    const userId = sessionStorage.getItem('userId')
-    let queryParams = new HttpParams();
-    queryParams = queryParams.append("userId", userId!);
-
-    return this.httpClient.get<GetUserProfileDataResponse>(routes.GET_USER_PROFILE_DATA_ENDPOINT, {params: queryParams});
   }
 
   logout(): void{

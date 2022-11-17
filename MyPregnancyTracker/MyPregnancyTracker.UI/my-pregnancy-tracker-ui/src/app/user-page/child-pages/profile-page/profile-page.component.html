@@ -159,23 +159,14 @@
                 {{ profilePageConstants.DUE_DATE_TITLE }}</mat-panel-title
               >
               <mat-panel-description>
-                {{ profileForm.controls.dueDate.value | date }}
+                {{ dueDate | date }}
               </mat-panel-description>
             </mat-expansion-panel-header>
 
-            <mat-form-field appearance="outline">
-              <mat-label>{{ profilePageConstants.DUE_DATE }}</mat-label>
-              <input
-                matInput
-                [matDatepicker]="datepickerDueDate"
-                formControlName="dueDate"
-              />
-              <mat-datepicker-toggle
-                matSuffix
-                [for]="datepickerDueDate"
-              ></mat-datepicker-toggle>
-              <mat-datepicker #datepickerDueDate> </mat-datepicker>
-            </mat-form-field>
+            <p>
+              <strong>{{ profilePageConstants.DUE_DATE }}</strong
+              >: {{ dueDate | date }}
+            </p>
 
             <mat-action-row>
               <button mat-button color="primary" (click)="prevStep()">

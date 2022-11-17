@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { filter, first } from 'rxjs';
 import { UpdateUserProfileRequest } from 'src/app/models/update-user-profile-request.model';
-import { AccountsService } from 'src/app/services/accounts.service';
+import { UserService } from 'src/app/services/user.service';
 import * as profilePageConstants from '../../../shared/constants/profile-page.constants';
 
 @Component({
@@ -14,6 +14,7 @@ export class ProfilePageComponent implements OnInit {
   userEmail = sessionStorage.getItem("email"); 
   profilePageConstants = profilePageConstants;
   updateUserProfileRequest!: UpdateUserProfileRequest;
+  dueDate!: string;
   userId = '';
   step = 0;
 
@@ -22,23 +23,23 @@ export class ProfilePageComponent implements OnInit {
     lastName: new FormControl('',),
     height: new FormControl('', Validators.pattern("^[0-9]*$")),
     weight: new FormControl('', Validators.pattern("^[0-9]*$")),
-    birthDate: new FormControl(''),
-    dueDate: new FormControl('')
+    birthDate: new FormControl('')
   })
-  constructor(private accountService: AccountsService) { 
+  constructor(private userService: UserService) { 
     this.userId = sessionStorage.getItem('userId')!;
   }
 
   ngOnInit(): void {
-    this.accountService.getUserProfileData().pipe(filter(x => !!x), first()).subscribe(response => {
+    this.userService.getUserProfileData().pipe(filter(x => !!x), first()).subscribe(response => {
       this.profileForm.setValue({
         firstName: response.firstName,
         lastName: response.lastName,
-        height: response.height.toString(),
-        weight: response.weight.toString(),
-        birthDate: response.birthDate,
-        dueDate: response.dueDate
+        height: response.height ? response.height.toString() : '',
+        weight: response.weight ? response.weight.toString() : '',
+        birthDate: response.birthDate
       });
+
+      this.dueDate = response.dueDate;
     })
   }
 
@@ -62,9 +63,8 @@ export class ProfilePageComponent implements OnInit {
       birthDate: this.profileForm.value.birthDate!,
       height: Number(this.profileForm.value.height!),
       weight: Number(this.profileForm.value.weight!),
-      dueDate: this.profileForm.value.dueDate!
     }
 
-    this.accountService.updateUserProfile(this.updateUserProfileRequest).subscribe();
+    this.userService.updateUserProfile(this.updateUserProfileRequest).subscribe();
   }
 }

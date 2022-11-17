@@ -1,4 +1,5 @@
-﻿namespace MyPregnancyTracker.Services.Models.TasksModels
+﻿
+namespace MyPregnancyTracker.Services.Models.TasksModels
 {
     public class GetUserTasksResponseDto
     {

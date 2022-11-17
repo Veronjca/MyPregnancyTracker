@@ -77,8 +77,6 @@ namespace MyPregnancyTracker.Services.Services.AccountService
 
             var claims = new List<Claim>
             {
-                new Claim("FirstName", user.FirstName),
-                new Claim("LastName", user.LastName),
                 new Claim(ClaimTypes.Email, user.Email),
             };
 
@@ -186,53 +184,6 @@ namespace MyPregnancyTracker.Services.Services.AccountService
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             await _emailService.SendResetPasswordEmailAsync(user, token);
-        }
-
-        public async Task UpdateUserProfileDataAsync(UpdateUserProfileRequest updateUserProfileRequest)
-        {
-            var userId = this._dataProtector.Unprotect(updateUserProfileRequest.UserId);
-            var user = await this._userManager.FindByIdAsync(userId);
-
-            if(user == null)
-            {
-                throw new BadRequestException();
-            }
-
-            user.FirstName = updateUserProfileRequest.FirstName;
-            user.LastName = updateUserProfileRequest.LastName;
-            user.BirthDate = updateUserProfileRequest.BirthDate;
-            user.Weight = updateUserProfileRequest.Weight;
-            user.Height = updateUserProfileRequest.Height;
-
-            if (updateUserProfileRequest.DueDate.HasValue)
-            {
-                user.DueDate = updateUserProfileRequest.DueDate.Value;
-            }
-
-            this._usersRepository.Update(user);
-            await this._usersRepository.SaveChangesAsync();           
-        }
-
-        public async Task<GetUserProfileDataResponse> GetUserProfileDataAsync(string userId)
-        {
-            var user = await this._userManager.FindByIdAsync(userId);
-
-            if(user == null)
-            {
-                throw new BadRequestException();
-            }
-
-            var response = new GetUserProfileDataResponse
-            {
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                BirthDate = user.BirthDate,
-                Height = user.Height,
-                Weight = user.Weight,
-                DueDate = user.DueDate,
-            };
-
-            return response;
         }
 
         private string GenerateAccessToken(IEnumerable<Claim> claims)
