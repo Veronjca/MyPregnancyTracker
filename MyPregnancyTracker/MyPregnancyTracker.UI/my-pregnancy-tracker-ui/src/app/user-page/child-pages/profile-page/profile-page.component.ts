@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatAccordion } from '@angular/material/expansion';
 import { filter, first } from 'rxjs';
 import { UpdateUserProfileRequest } from 'src/app/models/update-user-profile-request.model';
 import { UserService } from 'src/app/services/user.service';
@@ -11,6 +12,8 @@ import * as profilePageConstants from '../../../shared/constants/profile-page.co
   styleUrls: ['./profile-page.component.scss']
 })
 export class ProfilePageComponent implements OnInit {
+  @ViewChild('accordion') accordion!: MatAccordion;
+
   userEmail = sessionStorage.getItem("email"); 
   profilePageConstants = profilePageConstants;
   updateUserProfileRequest!: UpdateUserProfileRequest;
@@ -56,6 +59,8 @@ export class ProfilePageComponent implements OnInit {
   }
 
   updateUserProfile(){
+    this.accordion.closeAll();
+
     this.updateUserProfileRequest = {
       userId: this.userId,
       firstName: this.profileForm.value.firstName!,

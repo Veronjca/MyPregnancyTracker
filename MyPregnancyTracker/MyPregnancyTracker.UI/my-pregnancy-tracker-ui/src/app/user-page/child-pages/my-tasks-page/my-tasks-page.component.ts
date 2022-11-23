@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { filter, first } from 'rxjs';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatCheckbox } from '@angular/material/checkbox';
+import { filter, first, of } from 'rxjs';
 import { TaskModel } from 'src/app/models/task.model';
 import { TaskService } from 'src/app/services/tasks.service';
+import { UserService } from 'src/app/services/user.service';
 import * as myTasksPageConstants from '../../../shared/constants/my-tasks-page.constants';
 
 @Component({
@@ -12,13 +14,25 @@ import * as myTasksPageConstants from '../../../shared/constants/my-tasks-page.c
 export class MyTasksPageComponent implements OnInit {
   myTasksPageConstants = myTasksPageConstants;
   userId = sessionStorage.getItem('userId');
-  tasks!: TaskModel[];
+  gestationalWeekAge = Number(sessionStorage.getItem('gestationalWeekAge'));
+  allTasks!: TaskModel[];
 
-  constructor(private taskService: TaskService) { 
+  constructor(private taskService: TaskService,
+    private userService: UserService) { 
   }
 
   ngOnInit(): void {
-    this.taskService.getUserTasks(this.userId!).pipe(filter(x => !!x), first()).subscribe(response => this.tasks = response);
+    this.taskService.getAllTasks(this.gestationalWeekAge!, this.userId!)
+                    .pipe(filter(x => !!x), first())
+                    .subscribe(response => this.allTasks = response);
+  }
+
+  onChange(checkbox: MatCheckbox, taskId: string){
+    if(checkbox.checked){
+      this.userService.addTask(this.userId!, taskId).pipe(first()).subscribe();
+    }else{
+      this.userService.removeTask(this.userId!, taskId).pipe(first()).subscribe();
+    }   
   }
 
 }

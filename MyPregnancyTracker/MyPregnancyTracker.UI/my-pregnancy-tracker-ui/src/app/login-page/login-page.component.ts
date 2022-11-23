@@ -41,7 +41,8 @@ export class LoginPageComponent implements OnInit {
       sessionStorage.setItem("userName", response.userName)
       sessionStorage.setItem("email", response.email)
       sessionStorage.setItem("accessToken", response.accessToken)
-      sessionStorage.setItem("refreshToken", response.refreshToken)
+      sessionStorage.setItem("refreshToken", response.refreshToken),
+      sessionStorage.setItem("gestationalWeekAge", response.gestationalWeekAge.toString())
 
       this.router.navigate(['/user', response.id])
     });

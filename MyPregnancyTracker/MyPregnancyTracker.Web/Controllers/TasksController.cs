@@ -1,8 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyPregnancyTracker.Services.Models.TasksModels;
 using MyPregnancyTracker.Services.Services.TasksService;
-using MyPregnancyTracker.Services.Services.UserService;
-using SendGrid.Helpers.Errors.Model;
 using static MyPregnancyTracker.Web.Constants.Constants.TasksControllerRoutes;
 
 namespace MyPregnancyTracker.Web.Controllers
@@ -18,15 +15,15 @@ namespace MyPregnancyTracker.Web.Controllers
         }
 
         [HttpGet]
-        [Route(GET_USER_TASKS_ROUTE)]
-        public async Task<IActionResult> GetUserTasksAsync([FromQuery] string userId)
+        [Route(GET_ALL_TASKS_ROUTE)]
+        public async Task<IActionResult> GetAllTasksAsync([FromQuery] int gestationalAge, [FromQuery] string userId)
         {
             try
             {
-                var tasks = await this._taskService.GetUserTasksAsync(userId);
+                var tasks = await this._taskService.GetAllTasksAsync(gestationalAge, userId);
                 return StatusCode(200, tasks);
             }
-            catch (BadRequestException)
+            catch (Exception)
             {
                 return BadRequest();
             }

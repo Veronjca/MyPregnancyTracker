@@ -48,5 +48,14 @@ main{
   border-radius: 70% !important;
 }
 
+app-dashboard-page{
+  position: relative;
+  display: flex;
+  margin-top: -20%;
+}
+
+.mat-checkbox-layout{
+  white-space: normal !important;
+}
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

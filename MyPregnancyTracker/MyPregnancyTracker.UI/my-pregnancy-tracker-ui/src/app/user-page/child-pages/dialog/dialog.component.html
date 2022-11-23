@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>
+  <strong>{{ title }}</strong>
+</h2>
+<div class="img-container"><img src="{{ pictureUrl }}" /></div>
+
+<mat-dialog-content>
+  <mat-list>
+    <mat-list-item *ngFor="let item of content"
+      ><mat-icon color="primary">star</mat-icon>{{ item }}</mat-list-item
+    >
+  </mat-list>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onClose()">
+    {{ dialogConstants.CLOSE }}
+  </button>
+</mat-dialog-actions>

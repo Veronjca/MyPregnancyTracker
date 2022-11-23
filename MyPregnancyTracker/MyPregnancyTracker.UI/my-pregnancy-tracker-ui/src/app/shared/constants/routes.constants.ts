@@ -10,10 +10,16 @@ export const RESET_PASSWORD_ENDPOINT = `${environment.baseUrlApi}/api/accounts/r
 export const REFRESH_ACCESS_TOKEN_ENDPOINT = `${environment.baseUrlApi}/api/accounts/refresh-access-token`;
 
 //Tasks controller endpoints.
-export const GET_USER_TASKS_ENDPOINT = `${environment.baseUrlApi}/api/tasks/get-user-tasks`;
+export const GET_ALL_TASKS_ENDPOINT = `${environment.baseUrlApi}/api/tasks/get-all-tasks`;
 
 //User controller endpoints.
 export const SET_DUE_DATE_ENDPOINT = `${environment.baseUrlApi}/api/user/set-due-date`;
 export const RESET_DUE_DATE_ENDPOINT = `${environment.baseUrlApi}/api/user/reset-due-date`;
 export const UPDATE_USER_PROFILE_ENDPOINT = `${environment.baseUrlApi}/api/user/update-user-profile`;
 export const GET_USER_PROFILE_DATA_ENDPOINT = `${environment.baseUrlApi}/api/user/get-user-profile-data`;
+export const ADD_TASK_ENDPOINT = `${environment.baseUrlApi}/api/user/add-task`;
+export const REMOVE_TASK_ENDPOINT = `${environment.baseUrlApi}/api/user/remove-task`;
+export const SET_GESTATIONAL_WEEK_ENDPOINT = `${environment.baseUrlApi}/api/user/set-gestational-week`;
+
+//Gestational week controller endpoints.
+export const GET_ALL_ENDPOINT = `${environment.baseUrlApi}/api/gestational-week/get-all`;

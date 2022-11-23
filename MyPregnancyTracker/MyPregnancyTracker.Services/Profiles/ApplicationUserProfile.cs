@@ -11,7 +11,7 @@ namespace MyPregnancyTracker.Services.Profiles
         {
             CreateMap<ApplicationUser, LoginResponseDto>();
             CreateMap<RegisterDto, ApplicationUser>();
-            CreateMap<MyPregnancyTrackerTask, GetUserTasksResponseDto>()
+            CreateMap<MyPregnancyTrackerTask, TaskDto>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id.ToString()));
         }
     }

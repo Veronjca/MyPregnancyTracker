@@ -1,11 +1,8 @@
 export interface GestationalWeek{
+    id: string,
     gestationalAge: number,
-    motherPictureUrl: string,
     motherContent: string,
-    babyPictureUrl: string,
     babyContent: string,
-    nutritionPictureUrl: string,
     nutritionContent: string,
-    advicesPictureUrl: string,
     advicesContent: string
 };

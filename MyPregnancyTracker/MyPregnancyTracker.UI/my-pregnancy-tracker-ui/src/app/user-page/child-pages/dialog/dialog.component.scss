@@ -1,0 +1,22 @@
+mat-dialog-actions, h2, .img-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  img{
+    max-width: 300px;
+  }
+  mat-list-item{
+    height: fit-content !important;
+    margin: 10px;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+  }
+
+  mat-icon{
+    margin-right: 5px;
+  }
+
+  mat-dialog-content, h2{
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+  }
