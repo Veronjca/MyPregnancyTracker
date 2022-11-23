@@ -201,7 +201,7 @@ namespace MyPregnancyTracker.Data.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("GestationalWeek")
+                    b.Property<int>("GestationalWeekAge")
                         .HasColumnType("int");
 
                     b.Property<int?>("Height")

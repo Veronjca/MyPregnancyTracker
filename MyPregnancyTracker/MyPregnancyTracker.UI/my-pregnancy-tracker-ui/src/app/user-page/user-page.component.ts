@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { filter, first } from 'rxjs';
 import { AccountsService } from '../services/accounts.service';
+import { UserService } from '../services/user.service';
 import * as userPageConstants from '../shared/constants/user-page.constants';
 
 @Component({
@@ -11,13 +13,14 @@ import * as userPageConstants from '../shared/constants/user-page.constants';
 export class UserPageComponent implements OnInit {
   userPageConstants = userPageConstants;
   userName: string = sessionStorage.getItem('userName')!;
-  userId: string = '';
+  userId: string = sessionStorage.getItem('userId')!;
 
   constructor(private accountService: AccountsService,
-    private router: Router) { }
+    private router: Router,
+    private userService: UserService) { }
 
   ngOnInit(): void {
-    this.userId = sessionStorage.getItem('userId')!;
+    this.userService.setGestationalWeek(this.userId).pipe(first()).subscribe();
   }
 
   logout(): void{
@@ -25,3 +28,4 @@ export class UserPageComponent implements OnInit {
     this.router.navigate(['/']);
   }
 }
+

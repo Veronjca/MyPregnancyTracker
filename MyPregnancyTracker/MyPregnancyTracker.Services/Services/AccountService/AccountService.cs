@@ -106,7 +106,12 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             var userId = this._dataProtector.Unprotect(refreshAccessTokenDto.UserId);
             var user = await _userManager.FindByIdAsync(userId);
 
-            if (user.RefreshTokenExpirationDate < DateTime.UtcNow)
+            if(user == null)
+            {
+                throw new NotFoundException();
+            }
+
+            if (user.RefreshTokenExpirationDate < DateTime.UtcNow || user.RefreshToken != refreshAccessTokenDto.RefreshToken)
             {
                 throw new UnauthorizedAccessException(SESSION_EXPIRED);
             }

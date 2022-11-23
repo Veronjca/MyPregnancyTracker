@@ -1,6 +1,8 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import bg from '@angular/common/locales/bg';
+import { registerLocaleData } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -29,7 +31,9 @@ import { ResetPasswordPageComponent } from './reset-password-page/reset-password
 import { PostResetPasswordPageComponent } from './post-reset-password-page/post-reset-password-page.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { FooterComponent } from './footer/footer.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+registerLocaleData(bg);
 
 @NgModule({
   declarations: [
@@ -61,14 +65,17 @@ import { FooterComponent } from './footer/footer.component';
     MatSidenavModule,
     MatListModule,
     MatTooltipModule,
+    NgbModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
       multi: true
-    }
+    },
+    {provide: LOCALE_ID, useValue: 'bg'}
   ],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }

@@ -22,7 +22,14 @@
   mat-card-content{
     display: flex;
     justify-content: flex-start;
+    width: 100%;
   }
+
+  mat-checkbox{
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+  }
+
   .tasks-container{
     display: block;
+    width: inherit;
   }

@@ -75,6 +75,7 @@ namespace MyPregnancyTracker.Web.Controllers
             try
             {
                 await this._userService.SetDueDateAsync(user, registerDto.FirstDayOfLastMenstruation);
+                await this._userService.SetGestationalWeekAsync(user, registerDto.FirstDayOfLastMenstruation);
             }
             catch (BadRequestException)
             {
@@ -156,7 +157,11 @@ namespace MyPregnancyTracker.Web.Controllers
             }
             catch (UnauthorizedAccessException ex)
             {
-                return Unauthorized(ex.Message);
+                return Forbid(ex.Message);
+            }
+            catch(NotFoundException)
+            {
+                return NotFound();
             }
         }
 

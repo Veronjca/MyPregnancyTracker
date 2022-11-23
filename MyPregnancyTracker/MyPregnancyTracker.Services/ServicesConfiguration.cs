@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using MyPregnancyTracker.Services.Services.AccountService;
 using MyPregnancyTracker.Services.Services.EmailService;
+using MyPregnancyTracker.Services.Services.GestationalWeekService;
 using MyPregnancyTracker.Services.Services.TasksService;
 using MyPregnancyTracker.Services.Services.UserService;
 
@@ -17,6 +18,8 @@ namespace MyPregnancyTracker.Services
             services.AddScoped<ITasksService, TasksService>();
 
             services.AddScoped<IUserService, UserService>();
+
+            services.AddScoped<IGestationalWeekService, GestationalWeekService>();
         }
     }
 }

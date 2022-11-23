@@ -6,7 +6,11 @@
     <mat-card-content>
       <form [formGroup]="profileForm">
         <!-- Input field for first and last name -->
-        <mat-accordion class="accordion" multi>
+        <mat-accordion
+          #accordion="matAccordion"
+          class="accordion"
+          [multi]="true"
+        >
           <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
             <mat-expansion-panel-header>
               <mat-panel-title>
@@ -46,10 +50,8 @@
               </button>
             </mat-action-row>
           </mat-expansion-panel>
-        </mat-accordion>
 
-        <!-- Input field for height -->
-        <mat-accordion class="accordion" multi>
+          <!-- Input field for height -->
           <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
             <mat-expansion-panel-header>
               <mat-panel-title>
@@ -79,10 +81,8 @@
               </button>
             </mat-action-row>
           </mat-expansion-panel>
-        </mat-accordion>
 
-        <!-- Input field for weight-->
-        <mat-accordion class="accordion" multi>
+          <!-- Input field for weight-->
           <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)">
             <mat-expansion-panel-header>
               <mat-panel-title>
@@ -112,10 +112,8 @@
               </button>
             </mat-action-row>
           </mat-expansion-panel>
-        </mat-accordion>
 
-        <!-- Input field for birthdate -->
-        <mat-accordion class="accordion" multi>
+          <!-- Input field for birthdate -->
           <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)">
             <mat-expansion-panel-header>
               <mat-panel-title>
@@ -149,23 +147,21 @@
               </button>
             </mat-action-row>
           </mat-expansion-panel>
-        </mat-accordion>
 
-        <!-- Input field for due date-->
-        <mat-accordion class="accordion" multi>
+          <!-- Input field for due date-->
           <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)">
             <mat-expansion-panel-header>
               <mat-panel-title>
                 {{ profilePageConstants.DUE_DATE_TITLE }}</mat-panel-title
               >
               <mat-panel-description>
-                {{ dueDate | date }}
+                {{ dueDate | date: "longDate" }}
               </mat-panel-description>
             </mat-expansion-panel-header>
 
             <p>
               <strong>{{ profilePageConstants.DUE_DATE }}</strong
-              >: {{ dueDate | date }}
+              >: {{ dueDate | date: "longDate" }}
             </p>
 
             <mat-action-row>
@@ -181,7 +177,7 @@
     <mat-card-actions>
       <button
         [disabled]="!profileForm.valid"
-        mat-stroked-button
+        mat-raised-button
         color="primary"
         (click)="updateUserProfile()"
       >

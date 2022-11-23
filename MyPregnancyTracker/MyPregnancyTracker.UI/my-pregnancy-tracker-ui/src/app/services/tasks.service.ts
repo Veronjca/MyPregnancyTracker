@@ -11,10 +11,11 @@ export class TaskService {
   routes = routes;
   constructor(private httpClient: HttpClient) { }
 
-  getUserTasks(userId: string): Observable<TaskModel[]>{
+  getAllTasks(gestationalAge: number, userId: string): Observable<TaskModel[]>{
     let queryParams = new HttpParams();
-    queryParams = queryParams.append("userId", userId);
+    queryParams = queryParams.append("gestationalAge", gestationalAge);
+    queryParams = queryParams.append("userId", userId!);
 
-    return this.httpClient.get<TaskModel[]>(this.routes.GET_USER_TASKS_ENDPOINT, {params: queryParams});
+    return this.httpClient.get<TaskModel[]>(this.routes.GET_ALL_TASKS_ENDPOINT, {params: queryParams});
   }
 }

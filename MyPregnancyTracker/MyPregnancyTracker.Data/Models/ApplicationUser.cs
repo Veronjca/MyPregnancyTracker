@@ -34,7 +34,7 @@ namespace MyPregnancyTracker.Data.Models
         public int? Weight { get; set; }
 
         [Required]
-        public int GestationalWeek { get; set; }
+        public int GestationalWeekAge { get; set; }
 
         public bool IsDeleted { get; set; }
 
