@@ -44,7 +44,7 @@ namespace MyPregnancyTracker.Web.Controllers
 
                 return Ok(result);
             }
-            catch (BadRequestException ex)
+            catch (NotFoundException ex)
             {
                 return NotFound(ex.Message);
             }
@@ -107,7 +107,7 @@ namespace MyPregnancyTracker.Web.Controllers
 
                 return Ok();
             }
-            catch (NullReferenceException)
+            catch (NotFoundException)
             {
 
                 return NotFound();
@@ -134,12 +134,20 @@ namespace MyPregnancyTracker.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> ResetPasswordAsync([FromBody] ResetPasswordDto resetPasswordDto)
         {
-            var result = await _accountService.ResetPasswordAsync(resetPasswordDto);
-
-            if (!result.Succeeded)
+            try
             {
-                return BadRequest(result.Errors);
+                var result = await _accountService.ResetPasswordAsync(resetPasswordDto);
+
+                if (!result.Succeeded)
+                {
+                    return BadRequest(result.Errors);
+                }
             }
+            catch (NotFoundException)
+            {
+
+                return NotFound();
+            }               
 
             return Ok();
         }
@@ -175,9 +183,9 @@ namespace MyPregnancyTracker.Web.Controllers
                 await _accountService.SendResetPasswordEmailAsync(resetPasswordEmailDto);
                 return Ok();
             }
-            catch (BadRequestException)
+            catch (NotFoundException)
             {
-                return BadRequest();
+                return NotFound();
             }
         }
     }

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { filter, first } from 'rxjs';
 import { AccountsService } from '../services/accounts.service';
-import { UserService } from '../services/user.service';
 import * as userPageConstants from '../shared/constants/user-page.constants';
 
 @Component({
@@ -16,11 +14,9 @@ export class UserPageComponent implements OnInit {
   userId: string = sessionStorage.getItem('userId')!;
 
   constructor(private accountService: AccountsService,
-    private router: Router,
-    private userService: UserService) { }
+    private router: Router) { }
 
   ngOnInit(): void {
-    this.userService.setGestationalWeek(this.userId).pipe(first()).subscribe();
   }
 
   logout(): void{

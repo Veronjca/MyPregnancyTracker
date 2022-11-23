@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { filter, first } from 'rxjs';
 import { LoginRequest } from '../models/login-request.model';
 import { AccountsService } from '../services/accounts.service';
+import { UserService } from '../services/user.service';
 import * as loginPageConstants from '../shared/constants/login-page.constants';
 
 @Component({
@@ -25,7 +27,8 @@ export class LoginPageComponent implements OnInit {
   loginRequest!: LoginRequest;
 
   constructor(private accountsService: AccountsService,
-    private router: Router) { }
+    private router: Router,
+    private userService: UserService) { }
 
   ngOnInit(): void {
   }
@@ -36,7 +39,9 @@ export class LoginPageComponent implements OnInit {
       password: this.loginForm.value.password!
     }
 
-    this.accountsService.loginUser(this.loginRequest).subscribe(response => {
+    this.accountsService.loginUser(this.loginRequest)
+    .pipe(filter(x => !!x), first())
+    .subscribe(response => {
       sessionStorage.setItem("userId", response.id);
       sessionStorage.setItem("userName", response.userName)
       sessionStorage.setItem("email", response.email)
@@ -45,6 +50,9 @@ export class LoginPageComponent implements OnInit {
       sessionStorage.setItem("gestationalWeekAge", response.gestationalWeekAge.toString())
 
       this.router.navigate(['/user', response.id])
+
+      let userId = sessionStorage.getItem('userId');
+      this.userService.setGestationalWeek(userId!).pipe(first()).subscribe();
     });
   }
 }

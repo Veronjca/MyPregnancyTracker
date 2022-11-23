@@ -51,7 +51,7 @@ namespace MyPregnancyTracker.Services.Services.UserService
 
             if (user == null)
             {
-                throw new BadRequestException();
+                throw new NotFoundException();
             }
 
             user.FirstName = updateUserProfileRequest.FirstName;
@@ -71,11 +71,12 @@ namespace MyPregnancyTracker.Services.Services.UserService
 
         public async Task<GetUserProfileDataResponse> GetUserProfileDataAsync(string userId)
         {
+            userId = this._dataProtector.Unprotect(userId);
             var user = await this._userManager.FindByIdAsync(userId);
 
             if (user == null)
             {
-                throw new BadRequestException();
+                throw new NotFoundException();
             }
 
             var response = new GetUserProfileDataResponse
@@ -119,6 +120,11 @@ namespace MyPregnancyTracker.Services.Services.UserService
             var task = await this._tasksService.GetOneTaskAsync(taskId);
             userId = this._dataProtector.Unprotect(userId);
             var user = await this._userManager.FindByIdAsync(userId);
+
+            if(user == null)
+            {
+                throw new NotFoundException();
+            }
 
             var applicationUserMyPregnancyTrackerTask = new ApplicationUserMyPregnancyTrackerTask
             {

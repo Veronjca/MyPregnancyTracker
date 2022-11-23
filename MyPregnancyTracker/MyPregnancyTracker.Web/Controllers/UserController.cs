@@ -36,9 +36,9 @@ namespace MyPregnancyTracker.Web.Controllers
             {
                 await this._userService.UpdateUserProfileDataAsync(updateUserProfileRequest);
             }
-            catch (BadRequestException)
+            catch (NotFoundException)
             {
-                return BadRequest();
+                return NotFound();
             }
 
             return Ok();
@@ -48,16 +48,14 @@ namespace MyPregnancyTracker.Web.Controllers
         [Route(GET_USER_PROFILE_DATA_ROUTE)]
         public async Task<IActionResult> GetUserProfileDataAsync([FromQuery] string userId)
         {
-            userId = this._dataProtector.Unprotect(userId);
-
             try
             {
                 var response = await this._userService.GetUserProfileDataAsync(userId);
                 return StatusCode(200, response);
             }
-            catch (BadRequestException)
+            catch (NotFoundException)
             {
-                return BadRequest();
+                return NotFound();
             }
         }
 
@@ -65,9 +63,15 @@ namespace MyPregnancyTracker.Web.Controllers
         [Route(ADD_TASK_ROUTE)]
         public async Task<IActionResult> AddTaskAsync([FromQuery] string userId, [FromQuery] string taskId)
         {
-            await this._userService.AddTaskAsync(userId, taskId);
-
-            return Ok();
+            try
+            {
+                await this._userService.AddTaskAsync(userId, taskId);
+                return Ok();
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }         
         }
 
         [HttpPost]
