@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MyPregnancyTracker.Services.Services.TasksService;
+using SendGrid.Helpers.Errors.Model;
 using static MyPregnancyTracker.Web.Constants.Constants.TasksControllerRoutes;
 
 namespace MyPregnancyTracker.Web.Controllers
@@ -22,6 +23,10 @@ namespace MyPregnancyTracker.Web.Controllers
             {
                 var tasks = await this._taskService.GetAllTasksAsync(gestationalAge, userId);
                 return StatusCode(200, tasks);
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
             }
             catch (Exception)
             {

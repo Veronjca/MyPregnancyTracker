@@ -7,6 +7,7 @@ using MyPregnancyTracker.Data.Models;
 using MyPregnancyTracker.Data.Repositories;
 using MyPregnancyTracker.Services.Models.AccountsModels;
 using MyPregnancyTracker.Services.Services.EmailService;
+using MyPregnancyTracker.Services.Services.UserService;
 using SendGrid.Helpers.Errors.Model;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -19,6 +20,7 @@ namespace MyPregnancyTracker.Services.Services.AccountService
     public class AccountService : IAccountService
     {
         private readonly IEmailService _emailService;
+        private readonly IUserService _userService;
         private readonly IDataProtector _dataProtector;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IConfiguration _configuration;
@@ -31,14 +33,16 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             IRepository<ApplicationUser> usersRepository,
             IMapper mapper,
             IEmailService emailService,
+            IUserService userService,
             IDataProtectionProvider dataProtectionProvider)
         {
-            _userManager = userManager;
-            _configuration = configuration;
-            _usersRepository = usersRepository;
-            _mapper = mapper;
-            _emailService = emailService;
-            _dataProtector = dataProtectionProvider.CreateProtector(this._configuration["DataProtectorKey"]);        }
+            this._userManager = userManager;
+            this._configuration = configuration;
+            this._usersRepository = usersRepository;
+            this._mapper = mapper;
+            this._emailService = emailService;
+            this._userService = userService;
+            this._dataProtector = dataProtectionProvider.CreateProtector(this._configuration["DataProtectorKey"]);        }
 
         public async Task<IdentityResult> SignUpUserAsync(RegisterDto registerDto)
         {
@@ -56,7 +60,7 @@ namespace MyPregnancyTracker.Services.Services.AccountService
 
             if (user == null)
             {
-                throw new BadRequestException(USER_NOT_FOUND);
+                throw new NotFoundException(USER_NOT_FOUND);
             }
 
             bool isEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
@@ -98,6 +102,8 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             var mappedUser = _mapper.Map<LoginResponseDto>(user);
             mappedUser.Id = this._dataProtector.Protect(mappedUser.Id);
 
+            await this._userService.SetDueDateAsync(user, user.FirstDayOfLastMenstruation);
+            
             return mappedUser;
         }
 
@@ -160,7 +166,7 @@ namespace MyPregnancyTracker.Services.Services.AccountService
 
             if (user == null)
             {
-                throw new NullReferenceException(USER_NOT_FOUND);
+                throw new NotFoundException(USER_NOT_FOUND);
             }
 
             var isEmailConfirmed = await _userManager.ConfirmEmailAsync(user, emailToken);
@@ -172,7 +178,13 @@ namespace MyPregnancyTracker.Services.Services.AccountService
         {
             var email = this._dataProtector.Unprotect(resetPasswordDto.ProtectedEmail);
             var token = this._dataProtector.Unprotect(resetPasswordDto.ProtectedToken);
-            var user = await GetUserByEmailAsync(email);
+            var user = await this.GetUserByEmailAsync(email);
+
+            if(user == null)
+            {
+                throw new NotFoundException();
+            }
+
             var result = await _userManager.ResetPasswordAsync(user, token, resetPasswordDto.NewPassword);
 
             return result;
@@ -180,11 +192,11 @@ namespace MyPregnancyTracker.Services.Services.AccountService
 
         public async Task SendResetPasswordEmailAsync(ResetPasswordEmailDto resetPasswordEmailDto)
         {
-            var user = await GetUserByEmailAsync(resetPasswordEmailDto.Email);
+            var user = await this.GetUserByEmailAsync(resetPasswordEmailDto.Email);
 
             if (user == null)
             {
-                throw new BadRequestException(INVALID_REQUEST);
+                throw new NotFoundException(INVALID_REQUEST);
             }
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);

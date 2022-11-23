@@ -39,23 +39,29 @@ namespace MyPregnancyTracker.Services.Services.TasksService
 
         public async Task<List<TaskDto>> GetAllTasksAsync(int gestationalAge, string userId)
         {
-            var userTasksIds = await this.GetUserTasksIdsAsync(userId);
+            try
+            {
+                var userTasksIds = await this.GetUserTasksIdsAsync(userId);
 
-            var tasks = this._tasksRepository
-                .GetAll()
-                .Include(t => t.GestationalWeek)
-                .Where(t => t.GestationalWeek.GestationalAge == gestationalAge)
-                .ToList()
-                .Select(t => new TaskDto
-                {
-                    Id = this._dataProtector.Protect(t.Id.ToString()),
-                    Content = t.Content,
-                    Selected = userTasksIds.Contains(t.Id) ? true : false,
-                })
-                .ToList();
-                
+                var tasks = this._tasksRepository
+               .GetAll()
+               .Include(t => t.GestationalWeek)
+               .Where(t => t.GestationalWeek.GestationalAge == gestationalAge)
+               .ToList()
+               .Select(t => new TaskDto
+               {
+                   Id = this._dataProtector.Protect(t.Id.ToString()),
+                   Content = t.Content,
+                   Selected = userTasksIds.Contains(t.Id) ? true : false,
+               })
+               .ToList();
 
-            return tasks;
+                return tasks;
+            }
+            catch (NotFoundException ex)
+            {
+                throw ex;
+            }       
         }
 
         public async Task<MyPregnancyTrackerTask> GetOneTaskAsync(string taskId)
@@ -72,7 +78,7 @@ namespace MyPregnancyTracker.Services.Services.TasksService
 
             if (user == null)
             {
-                throw new BadRequestException();
+                throw new NotFoundException();
             }
 
             var tasksIds = await this._userTasks
@@ -80,14 +86,6 @@ namespace MyPregnancyTracker.Services.Services.TasksService
                 .Where(x => x.ApplicationUserId == user.Id)
                 .Select(x => x.MyPregnancyTrackerTaskId)
                 .ToListAsync();
-
-            //var tasks = await this._tasksRepository.GetAll().Where(x => tasksIds.Contains(x.Id)).ToListAsync();
-            //var mappedTasks = this._mapper.Map<List<TaskDto>>(tasks);
-
-            //foreach (var task in mappedTasks)
-            //{
-            //    task.Id = this._dataProtector.Protect(task.Id);
-            //};
 
             return tasksIds;
         }
