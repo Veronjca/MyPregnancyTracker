@@ -61,5 +61,11 @@ namespace MyPregnancyTracker.Services.Services.AccountService
         /// </summary>
         /// <param name="resetPasswordEmailDto">The model that holds user's email.</param>
         Task SendResetPasswordEmailAsync(ResetPasswordEmailDto resetPasswordEmailDto);
+
+        /// <summary>
+        /// Sets IsDeleted flag to true, as asynchronous operation.
+        /// </summary>
+        /// <param name="userId">The id of the user.</param>
+        Task DeleteAccountAsync(string userId);
     }
 }

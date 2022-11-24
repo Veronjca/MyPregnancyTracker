@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { ConfirmEmailRequest } from '../models/confirm-email.model';
 import * as routes from '../shared/constants/routes.constants';
@@ -40,6 +40,13 @@ export class AccountsService {
 
   resetPassword(model: ResetPasswordRequest): Observable<any>{
     return this.httpClient.post<any>(routes.RESET_PASSWORD_ENDPOINT, model);
+  }
+
+  deleteAccount(userId: string): Observable<any>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('userId', userId);
+
+    return this.httpClient.get<any>(routes.DELETE_ACCOUNT_ENDPOINT, {params: queryParams});
   }
 
   logout(): void{

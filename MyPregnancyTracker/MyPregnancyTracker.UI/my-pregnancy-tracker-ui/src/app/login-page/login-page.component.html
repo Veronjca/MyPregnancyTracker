@@ -1,4 +1,7 @@
 <div class="background"></div>
+<div *ngIf="spinnerFlag" class="spinner-container">
+  <mat-spinner></mat-spinner>
+</div>
 <div class="form-container">
   <p class="title">
     <strong>{{ loginPageConstants.FORM_TITLE }}</strong>

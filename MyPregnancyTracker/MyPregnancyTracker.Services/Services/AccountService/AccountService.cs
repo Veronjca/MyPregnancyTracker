@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.DataProtection;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Server.IIS.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using MyPregnancyTracker.Data.Models;
@@ -46,9 +47,9 @@ namespace MyPregnancyTracker.Services.Services.AccountService
 
         public async Task<IdentityResult> SignUpUserAsync(RegisterDto registerDto)
         {
-            var user = _mapper.Map<ApplicationUser>(registerDto);
+            var user = this._mapper.Map<ApplicationUser>(registerDto);
 
-            var result = await _userManager.CreateAsync(user, registerDto.Password);
+            var result = await this._userManager.CreateAsync(user, registerDto.Password);
             //await _userManager.AddToRoleAsync(user, "user");
 
             return result;
@@ -56,25 +57,35 @@ namespace MyPregnancyTracker.Services.Services.AccountService
 
         public async Task<LoginResponseDto> SignInUserAsync(LoginDto loginDto)
         {
-            var user = await _userManager.FindByEmailAsync(loginDto.Email);
+            var user = await this._userManager.FindByEmailAsync(loginDto.Email);
 
             if (user == null)
             {
                 throw new NotFoundException(USER_NOT_FOUND);
             }
 
-            bool isEmailConfirmed = await _userManager.IsEmailConfirmedAsync(user);
+            bool isEmailConfirmed = await this._userManager.IsEmailConfirmedAsync(user);
 
             if (!isEmailConfirmed)
             {
                 throw new UnauthorizedAccessException(EMAIL_NOT_CONFIRMED);
             }
 
-            bool isPasswordCorrect = await _userManager.CheckPasswordAsync(user, loginDto.Password);
+            bool isPasswordCorrect = await this._userManager.CheckPasswordAsync(user, loginDto.Password);
 
             if (!isPasswordCorrect)
             {
                 throw new UnauthorizedAccessException(INCORRECT_PASSWORD);
+            }
+            var days = (DateTime.UtcNow - user.ModifiedOn).Value.TotalDays;
+
+            if(user.IsDeleted && days <= 30)
+            {
+                user.IsDeleted = false;
+            }
+            else if (user.IsDeleted)
+            {
+                throw new BadRequestException();
             }
 
             var userRoles = await _userManager.GetRolesAsync(user);
@@ -201,6 +212,21 @@ namespace MyPregnancyTracker.Services.Services.AccountService
 
             var token = await _userManager.GeneratePasswordResetTokenAsync(user);
             await _emailService.SendResetPasswordEmailAsync(user, token);
+        }
+
+        public async Task DeleteAccountAsync(string userId)
+        {
+            userId = this._dataProtector.Unprotect(userId);
+            var user = await this._userManager.FindByIdAsync(userId);
+
+            if(user == null)
+            {
+                throw new NotFoundException();
+            }
+
+            user.IsDeleted = true;
+            this._usersRepository.Update(user);
+            await this._usersRepository.SaveChangesAsync();
         }
 
         private string GenerateAccessToken(IEnumerable<Claim> claims)

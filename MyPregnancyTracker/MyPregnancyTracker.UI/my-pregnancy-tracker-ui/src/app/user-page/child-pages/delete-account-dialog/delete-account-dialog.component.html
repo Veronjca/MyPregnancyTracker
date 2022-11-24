@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>
+  <strong>{{ dialogConstants.ARE_YOU_SURE_PART_1 }}</strong>
+</h1>
+
+<h2 mat-dialog-title>
+  {{ dialogConstants.ARE_YOU_SURE_PART_2 }}
+</h2>
+
+<p>
+  <strong>{{ dialogConstants.NOTE }}</strong
+  >{{ dialogConstants.RECOVER_ACCOUNT }}
+</p>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onSubmit()">
+    {{ dialogConstants.I_AM_SURE }}
+  </button>
+  <button mat-raised-button color="primary" (click)="onCancel()">
+    {{ dialogConstants.CANCEL }}
+  </button>
+</mat-dialog-actions>

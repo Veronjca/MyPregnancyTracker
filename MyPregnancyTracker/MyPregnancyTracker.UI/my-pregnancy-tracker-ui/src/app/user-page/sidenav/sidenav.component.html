@@ -13,6 +13,21 @@
         {{ sidenavConstants.MY_TASKS }}
         <mat-icon color="primary">receipt_long</mat-icon>
       </button>
+      <button
+        (click)="showDeleteAccountButton = !showDeleteAccountButton"
+        mat-stroked-button
+      >
+        {{ sidenavConstants.SETTINGS }}
+        <mat-icon color="primary">settings</mat-icon>
+      </button>
+      <button
+        class="delete-account-button"
+        *ngIf="showDeleteAccountButton"
+        mat-stroked-button
+        (click)="openDeleteAccountDialog()"
+      >
+        {{ sidenavConstants.DELETE_ACCOUNT }}
+      </button>
     </div>
   </mat-drawer>
 
@@ -23,18 +38,8 @@
       color="primary"
       (click)="drawer.toggle()"
     >
-      <mat-icon
-        *ngIf="drawer.opened"
-        matTooltip="затвори навигация"
-        matTooltipClass="tooltip-background"
-        >chevron_left</mat-icon
-      >
-      <mat-icon
-        *ngIf="drawer.opened === false"
-        matTooltip="отвори навигация"
-        matTooltipClass="tooltip-background"
-        >chevron_right</mat-icon
-      >
+      <mat-icon *ngIf="drawer.opened">chevron_left</mat-icon>
+      <mat-icon *ngIf="drawer.opened === false">chevron_right</mat-icon>
     </button>
   </div>
 </mat-drawer-container>
