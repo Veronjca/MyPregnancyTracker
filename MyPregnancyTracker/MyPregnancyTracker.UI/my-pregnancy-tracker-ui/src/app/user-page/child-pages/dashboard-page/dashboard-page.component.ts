@@ -4,7 +4,7 @@ import { GestationalWeek } from 'src/app/models/gestational-week.model';
 import { GestationalWeekService } from 'src/app/services/gestational-week.service';
 import {MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import * as dashboardConstants from '../../../shared/constants/dashboard.constants';
-import { DialogComponent } from '../dialog/dialog.component';
+import { AdditionalInfoDialogComponent } from '../additional-info-dialog/additional-info-dialog.component';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -60,6 +60,6 @@ export class DashboardPageComponent implements OnInit {
       content: title === 'СЪВЕТИ' ? advicesSplitted : [content]
     }
 
-    this.dialog.open(DialogComponent, config);
+    this.dialog.open(AdditionalInfoDialogComponent, config);
   }
 }

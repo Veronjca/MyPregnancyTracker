@@ -23,5 +23,13 @@ export class UserPageComponent implements OnInit {
     this.accountService.logout();
     this.router.navigate(['/']);
   }
+
+  navigateToUserPage(){
+    this.router.navigate(['/user', this.userId]);
+  }
+
+  navigateToForumPage(){
+    this.router.navigate(['/user', this.userId, 'forum']);
+  }
 }
 

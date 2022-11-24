@@ -11,7 +11,7 @@
       mat-icon-button
       matTooltip="начало"
       matTooltipClass="tooltip-background"
-      routerLink="/user/{{ userId }}"
+      (click)="navigateToUserPage()"
     >
       <mat-icon>home</mat-icon>
     </button>
@@ -22,6 +22,7 @@
       mat-icon-button
       matTooltip="форум"
       matTooltipClass="tooltip-background"
+      (click)="navigateToForumPage()"
     >
       <mat-icon>forum</mat-icon>
     </button>

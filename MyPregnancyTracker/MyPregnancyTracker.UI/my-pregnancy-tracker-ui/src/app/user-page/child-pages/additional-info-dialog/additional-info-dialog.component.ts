@@ -1,20 +1,20 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogConfig, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import * as dialogConstants from '../../../shared/constants/dialog.constants';
 
 @Component({
-  selector: 'app-dialog',
-  templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.scss']
+  selector: 'app-additional-info-dialog',
+  templateUrl: './additional-info-dialog.component.html',
+  styleUrls: ['./additional-info-dialog.component.scss']
 })
-export class DialogComponent implements OnInit {
+export class AdditionalInfoDialogComponent implements OnInit {
   dialogConstants = dialogConstants;
   title: string = '';
   content: string[] = [];
   pictureUrl: string = '';
 
   constructor(@Inject(MAT_DIALOG_DATA) config: any,
-   private dialogRef: MatDialogRef<DialogComponent>) { 
+   private dialogRef: MatDialogRef<AdditionalInfoDialogComponent>) { 
     this.content = config.content;
     this.title = config.title;
     this.pictureUrl = config.pictureUrl;

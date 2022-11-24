@@ -52,6 +52,10 @@ namespace MyPregnancyTracker.Web.Controllers
             {
                 return Unauthorized(ex.Message);
             }
+            catch(BadRequestException)
+            {
+                return BadRequest();
+            }
         }
 
         [HttpPost]
@@ -181,6 +185,22 @@ namespace MyPregnancyTracker.Web.Controllers
             try
             {
                 await _accountService.SendResetPasswordEmailAsync(resetPasswordEmailDto);
+                return Ok();
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
+            }
+        }
+
+        [HttpGet]
+        [Route(DELETE_ACCOUNT_ROUTE)]
+        public async Task<IActionResult> DeleteAccountAsync([FromQuery] string userId)
+        {
+            try
+            {
+                await this._accountService.DeleteAccountAsync(userId);
+
                 return Ok();
             }
             catch (NotFoundException)

@@ -24,6 +24,8 @@
             public const string REFRESH_ACCESS_TOKEN_ROUTE = "refresh-access-token";
 
             public const string SEND_RESET_PASSWORD_EMAIL_ROUTE = "send-reset-password-email";
+
+            public const string DELETE_ACCOUNT_ROUTE = "delete-account";
         }
 
         public static class TasksControllerRoutes

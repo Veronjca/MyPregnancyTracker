@@ -27,7 +27,9 @@ import { SidenavComponent } from "./sidenav/sidenav.component";
 import { ProfilePageComponent } from './child-pages/profile-page/profile-page.component';
 import { ContactUsPageComponent } from './child-pages/contact-us-page/contact-us-page.component';
 import { MyTasksPageComponent } from './child-pages/my-tasks-page/my-tasks-page.component';
-import { DialogComponent } from './child-pages/dialog/dialog.component';
+import { AdditionalInfoDialogComponent } from './child-pages/additional-info-dialog/additional-info-dialog.component';
+import { DeleteAccountDialogComponent } from './child-pages/delete-account-dialog/delete-account-dialog.component';
+import { ForumPageComponent } from './child-pages/forum-page/forum-page.component';
 
 registerLocaleData(bg);
 @NgModule({
@@ -39,7 +41,9 @@ registerLocaleData(bg);
         ProfilePageComponent,
         ContactUsPageComponent,
         MyTasksPageComponent,
-        DialogComponent,
+        AdditionalInfoDialogComponent,
+        DeleteAccountDialogComponent,
+        ForumPageComponent,
     ], 
     imports: [
         CommonModule, 
@@ -49,7 +53,12 @@ registerLocaleData(bg);
                 {path: '', component: DashboardPageComponent},
                 {path: 'profile', component: ProfilePageComponent},
                 {path: 'contact-us', component: ContactUsPageComponent},
-                {path: 'my-tasks', component: MyTasksPageComponent}
+                {path: 'my-tasks', component: MyTasksPageComponent},
+                {
+                    path: 'forum',
+                    component: ForumPageComponent,
+                    loadChildren: () => import('./child-pages/forum-page/forum.module').then(module => module.ForumModule)
+                }
             ]
         }]),
         MatCardModule,

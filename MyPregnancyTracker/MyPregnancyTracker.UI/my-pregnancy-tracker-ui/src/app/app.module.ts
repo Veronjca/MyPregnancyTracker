@@ -20,6 +20,8 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatListModule} from '@angular/material/list';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 import { HomePageComponent } from './home-page/home-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
@@ -65,7 +67,9 @@ registerLocaleData(bg);
     MatSidenavModule,
     MatListModule,
     MatTooltipModule,
-    NgbModule
+    NgbModule,
+    MatDialogModule,
+    MatProgressSpinnerModule
   ],
   providers: [
     {

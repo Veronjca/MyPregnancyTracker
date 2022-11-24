@@ -14,6 +14,7 @@ import * as loginPageConstants from '../shared/constants/login-page.constants';
 })
 export class LoginPageComponent implements OnInit {
   loginPageConstants = loginPageConstants;
+  spinnerFlag = false;
   
   loginForm = new FormGroup({
     email: new FormControl("", [Validators.required, Validators.email]),
@@ -39,6 +40,8 @@ export class LoginPageComponent implements OnInit {
       password: this.loginForm.value.password!
     }
 
+    this.spinnerFlag = true;
+
     this.accountsService.loginUser(this.loginRequest)
     .pipe(filter(x => !!x), first())
     .subscribe(response => {
@@ -53,6 +56,8 @@ export class LoginPageComponent implements OnInit {
 
       let userId = sessionStorage.getItem('userId');
       this.userService.setGestationalWeek(userId!).pipe(first()).subscribe();
+
+      this.spinnerFlag = false;
     });
   }
 }

@@ -5,26 +5,30 @@
   bottom: 25%;
   background: white;
   display: inline-flex;
+
 }
 
 .sidenav-content {
   display: flex;
-  height: 100%;
-  left: 25%;
   align-items: flex-start;
   justify-content: flex-start;
+  margin-left: 11px;
 }
 
 .drawer {
   height: fit-content;
   width: fit-content;
-  padding: 20px;
+  padding: 10px;
   border: 2px solid #F48FB1;
   border-radius: 25px;
 }
 
 button{
   border: 0;
+}
+
+.delete-account-button{
+  color: red;
 }
 
 .button-wrapper{
