@@ -16,10 +16,12 @@
         ChildUpbringing = 12,
         FreeTime = 13,
         GiftIdeas = 14,
-        ChitChat = 15,
-        Pets = 16,
+        Pets = 15,
+        SOS = 16,
         SportAndDiet = 17,
-        SOS = 18,
-        Other = 19
+        ChitChat = 18,
+        Aromatherapy = 19,
+        Shopping = 20,
+        Other = 21
     }
 }

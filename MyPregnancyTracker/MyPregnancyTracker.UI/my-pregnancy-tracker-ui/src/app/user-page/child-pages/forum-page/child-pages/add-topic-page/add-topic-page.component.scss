@@ -1,0 +1,19 @@
+mat-dialog-actions, h2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.mat-form-fields-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+mat-form-field{
+    width: 300px;
+    textarea{
+        min-height: 200px;
+    }
+}

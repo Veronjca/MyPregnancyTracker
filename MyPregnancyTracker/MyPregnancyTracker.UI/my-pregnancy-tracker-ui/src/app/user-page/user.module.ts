@@ -20,7 +20,6 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
 
-import { PaginatorComponent } from "./paginator/paginator.component";
 import { DashboardPageComponent } from "./child-pages/dashboard-page/dashboard-page.component";
 import { UserPageComponent } from "./user-page.component";
 import { SidenavComponent } from "./sidenav/sidenav.component";
@@ -35,7 +34,6 @@ registerLocaleData(bg);
 @NgModule({
     declarations: [ 
         UserPageComponent,   
-        PaginatorComponent,   
         DashboardPageComponent,
         SidenavComponent,
         ProfilePageComponent,

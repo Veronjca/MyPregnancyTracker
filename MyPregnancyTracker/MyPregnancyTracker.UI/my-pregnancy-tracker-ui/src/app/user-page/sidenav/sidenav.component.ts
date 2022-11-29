@@ -17,7 +17,7 @@ export class SidenavComponent implements OnInit {
   constructor(private router: Router,
     private dialog: MatDialog) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {  
   }
 
   navigateToProfilePage(){

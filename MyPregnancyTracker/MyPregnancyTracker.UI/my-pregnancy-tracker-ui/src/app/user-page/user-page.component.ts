@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, of } from 'rxjs';
 import { AccountsService } from '../services/accounts.service';
 import * as userPageConstants from '../shared/constants/user-page.constants';
 
@@ -16,7 +17,7 @@ export class UserPageComponent implements OnInit {
   constructor(private accountService: AccountsService,
     private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {   
   }
 
   logout(): void{
@@ -24,12 +25,16 @@ export class UserPageComponent implements OnInit {
     this.router.navigate(['/']);
   }
 
-  navigateToUserPage(){
+  navigateToDashboardPage(){
     this.router.navigate(['/user', this.userId]);
   }
 
   navigateToForumPage(){
     this.router.navigate(['/user', this.userId, 'forum']);
+  }
+
+  get showSidenav(): Observable<boolean>{
+    return of(this.router.url.includes('forum'));     
   }
 }
 

@@ -11,7 +11,7 @@
       mat-icon-button
       matTooltip="начало"
       matTooltipClass="tooltip-background"
-      (click)="navigateToUserPage()"
+      (click)="navigateToDashboardPage()"
     >
       <mat-icon>home</mat-icon>
     </button>
@@ -38,5 +38,5 @@
     </button>
   </mat-toolbar>
 </div>
-<app-sidenav></app-sidenav>
+<app-sidenav *ngIf="!(showSidenav | async)"></app-sidenav>
 <router-outlet></router-outlet>

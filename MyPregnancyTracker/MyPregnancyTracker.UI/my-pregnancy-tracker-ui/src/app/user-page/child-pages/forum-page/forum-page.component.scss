@@ -1,0 +1,25 @@
+.categories-container{
+    display: block;
+    width: inherit;
+    border: 0;
+    text-align: inherit;
+}
+
+.main-container{
+    width: 100%;
+    border: 8px inset #F48FB1;
+    text-align: center;
+}
+
+.add-button-container{
+    position: absolute;
+    top: 90%;
+    right: 0;
+    width: 100px;
+    transform: translateY(-50%);
+}
+
+.topic{
+    margin: 5px;
+    min-width: 198.9px;
+}
