@@ -3,6 +3,7 @@ using MyPregnancyTracker.Services.Services.AccountService;
 using MyPregnancyTracker.Services.Services.EmailService;
 using MyPregnancyTracker.Services.Services.GestationalWeekService;
 using MyPregnancyTracker.Services.Services.TasksService;
+using MyPregnancyTracker.Services.Services.TopicsService;
 using MyPregnancyTracker.Services.Services.UserService;
 
 namespace MyPregnancyTracker.Services
@@ -20,6 +21,8 @@ namespace MyPregnancyTracker.Services
             services.AddScoped<IUserService, UserService>();
 
             services.AddScoped<IGestationalWeekService, GestationalWeekService>();
+
+            services.AddScoped<ITopicsService, TopicsService>();
         }
     }
 }

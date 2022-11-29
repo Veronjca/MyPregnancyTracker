@@ -2,6 +2,7 @@
 using MyPregnancyTracker.Data.Models;
 using MyPregnancyTracker.Services.Models.AccountsModels;
 using MyPregnancyTracker.Services.Models.TasksModels;
+using MyPregnancyTracker.Services.Models.TopicsModels;
 
 namespace MyPregnancyTracker.Services.Profiles
 {

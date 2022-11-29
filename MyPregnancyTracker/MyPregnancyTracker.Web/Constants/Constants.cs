@@ -58,6 +58,15 @@
 
             public const string GET_ONE = "get-one";
         }
+
+        public static class TopicsControllerRoutes
+        {
+            public const string TOPICS_ROUTE = "api/topics";
+
+            public const string GET_ALL_TOPICS_ROUTE = "get-all";
+
+            public const string ADD_TOPIC_ROUTE = "add-topic";
+        }
         public static class Error
         {
             public const string INVALID_LOGIN = "Invalid credentials!";

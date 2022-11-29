@@ -1,1 +1,19 @@
+<div class="main-container">
+  <div class="categories-container">
+    <button
+      class="topic"
+      (click)="navigateToTopics(category)"
+      color="primary"
+      mat-stroked-button
+      *ngFor="let category of keys()"
+    >
+      {{ category | uppercase }}
+    </button>
+  </div>
+</div>
+<div class="add-button-container">
+  <button color="primary" mat-fab (click)="openDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
 <router-outlet></router-outlet>

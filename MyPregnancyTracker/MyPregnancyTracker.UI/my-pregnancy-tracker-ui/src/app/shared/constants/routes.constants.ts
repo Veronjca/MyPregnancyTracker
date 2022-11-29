@@ -24,3 +24,7 @@ export const SET_GESTATIONAL_WEEK_ENDPOINT = `${environment.baseUrlApi}/api/user
 
 //Gestational week controller endpoints.
 export const GET_ALL_ENDPOINT = `${environment.baseUrlApi}/api/gestational-week/get-all`;
+
+//Topics controller endpoints.
+export const GET_ALL_TOPICS_ENDPOINT = `${environment.baseUrlApi}/api/topics/get-all`;
+export const ADD_TOPIC_ENDPOINT = `${environment.baseUrlApi}/api/topics/add-topic`;
