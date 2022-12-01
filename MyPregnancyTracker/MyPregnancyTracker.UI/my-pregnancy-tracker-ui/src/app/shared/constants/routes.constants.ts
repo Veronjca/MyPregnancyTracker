@@ -27,4 +27,11 @@ export const GET_ALL_ENDPOINT = `${environment.baseUrlApi}/api/gestational-week/
 
 //Topics controller endpoints.
 export const GET_ALL_TOPICS_ENDPOINT = `${environment.baseUrlApi}/api/topics/get-all`;
+export const GET_TOPIC_ENDPOINT = `${environment.baseUrlApi}/api/topics/get-one`;
 export const ADD_TOPIC_ENDPOINT = `${environment.baseUrlApi}/api/topics/add-topic`;
+export const GET_USER_TOPICS_ENDPOINT = `${environment.baseUrlApi}/api/topics/get-user-topics`;
+export const DELETE_TOPIC_ENDPOINT = `${environment.baseUrlApi}/api/topics/delete-topic`;
+export const EDIT_TOPIC_ENDPOINT = `${environment.baseUrlApi}/api/topics/edit-topic`;
+
+//Comments controller endpoints.
+export const GET_ALL_COMMENTS_ENDPOINT = `${environment.baseUrlApi}/api/comments/get-all`;

@@ -1,0 +1,27 @@
+.card {
+    border: 2px solid #F48FB1;
+    border-radius: 25px;
+    margin-bottom: 30px;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+  }
+
+  .topic-header{
+    justify-content: center;
+    color: #ff4081;  
+  }
+
+  mat-card-actions{
+    display: flex;
+    justify-content: right;
+  }
+
+  .comments-button{
+    border: 0;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    color: #ff4081;  
+  }
+
+  .delete-button{
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    border: 0;
+  }

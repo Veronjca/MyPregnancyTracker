@@ -130,7 +130,7 @@ namespace MyPregnancyTracker.Services.Services.AccountService
 
             if (user.RefreshTokenExpirationDate < DateTime.UtcNow || user.RefreshToken != refreshAccessTokenDto.RefreshToken)
             {
-                throw new UnauthorizedAccessException(SESSION_EXPIRED);
+                throw new UnauthorizedAccessException();
             }
 
             //TODO: Test if claims exists when access token is expired.
