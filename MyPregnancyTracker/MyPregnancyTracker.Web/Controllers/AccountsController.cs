@@ -169,7 +169,7 @@ namespace MyPregnancyTracker.Web.Controllers
             }
             catch (UnauthorizedAccessException ex)
             {
-                return Forbid(ex.Message);
+                return Forbid();
             }
             catch(NotFoundException)
             {

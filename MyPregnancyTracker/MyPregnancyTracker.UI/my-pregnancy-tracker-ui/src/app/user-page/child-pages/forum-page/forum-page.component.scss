@@ -3,6 +3,13 @@
     width: inherit;
     border: 0;
     text-align: inherit;
+
+    h2{
+        font-size: 41px;
+        font-family: "Comic Sans MS", "Comic Sans", cursive;
+        color: #ff4081;
+    }
+    
 }
 
 .main-container{
@@ -21,5 +28,6 @@
 
 .topic{
     margin: 5px;
-    min-width: 198.9px;
+    min-width: 194.9px;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
 }

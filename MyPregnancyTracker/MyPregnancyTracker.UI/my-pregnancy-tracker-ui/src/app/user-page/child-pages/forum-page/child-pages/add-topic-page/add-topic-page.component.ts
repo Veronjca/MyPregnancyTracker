@@ -1,6 +1,7 @@
 import { DialogRef } from '@angular/cdk/dialog';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { first } from 'rxjs';
 import { AddTopicModel } from 'src/app/models/add-topic.model';
 import { Categories } from 'src/app/models/categories.enum';
@@ -25,7 +26,8 @@ export class AddTopicPageComponent implements OnInit {
   });
 
   constructor(private dialogRef: DialogRef<AddTopicPageComponent>,
-    private topicsService: TopicsService) { }
+    private topicsService: TopicsService,
+    private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -46,7 +48,12 @@ export class AddTopicPageComponent implements OnInit {
       category: Number(category)
     }
 
-    this.topicsService.addTopic(this.addTopicModel).pipe(first()).subscribe();
+    this.topicsService.addTopic(this.addTopicModel).pipe(first()).subscribe(response => { 
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/user', this.userId, 'forum', 'topics'], {queryParams: {category}});
+      });
+    });
+    
     this.dialogRef.close();
   }
 }

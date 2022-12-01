@@ -13,11 +13,36 @@ export class TopicsService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllTopics(categoryId: number): Observable<TopicModel[]>{
+  getTopic(topicId: number): Observable<TopicModel>{
     let queryParams = new HttpParams();
-    queryParams = queryParams.append("categoryId", categoryId);
+    queryParams = queryParams.append("topicId", topicId);
+
+    return this.httpClient.get<TopicModel>(routes.GET_TOPIC_ENDPOINT,  {params: queryParams});
+  }
+
+  getAllTopics(category: number): Observable<TopicModel[]>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("category", category);
 
     return this.httpClient.get<TopicModel[]>(routes.GET_ALL_TOPICS_ENDPOINT,  {params: queryParams});
+  }
+
+  getUserTopics(userId: string): Observable<TopicModel[]>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("userId", userId);
+
+    return this.httpClient.get<TopicModel[]>(routes.GET_USER_TOPICS_ENDPOINT,  {params: queryParams});
+  }
+
+  deleteTopic(topicId: number): Observable<any>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append("topicId", topicId);
+
+    return this.httpClient.get<TopicModel[]>(routes.DELETE_TOPIC_ENDPOINT,  {params: queryParams});
+  }
+
+  editTopic(model: TopicModel): Observable<any>{
+    return this.httpClient.put<any>(this.routes.EDIT_TOPIC_ENDPOINT, model);
   }
 
   addTopic(model: AddTopicModel): Observable<any>{

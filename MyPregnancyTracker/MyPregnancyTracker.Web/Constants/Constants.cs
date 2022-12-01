@@ -65,7 +65,24 @@
 
             public const string GET_ALL_TOPICS_ROUTE = "get-all";
 
+            public const string GET_ONE_TOPIC_ROUTE = "get-one";
+
             public const string ADD_TOPIC_ROUTE = "add-topic";
+
+            public const string GET_USER_TOPICS_ROUTE = "get-user-topics";
+
+            public const string DELETE_TOPIC_ROUTE = "delete-topic";
+
+            public const string EDIT_TOPIC_ROUTE = "edit-topic";
+
+        }
+
+        public static class CommentsControllerRoutes
+        {
+            public const string COMMENTS_ROUTE = "api/comments";
+
+            public const string GET_ALL_COMMENTS_ROUTE = "get-all";
+
         }
         public static class Error
         {

@@ -10,13 +10,15 @@ import { SendResetPasswordEmailRequest } from '../models/send-reset-password-ema
 import { ResetPasswordRequest } from '../models/reset-password-request.model';
 import { LoginResponse } from '../models/login-response.model';
 import { RegisterResponse } from '../models/register-response.model';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountsService {
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient,
+    private router: Router) { }
 
   confirmEmail(model: ConfirmEmailRequest): Observable<any>{
     return this.httpClient.post<any>(routes.CONFIRM_EMAIL_ENDPOINT, model);
@@ -51,5 +53,6 @@ export class AccountsService {
 
   logout(): void{
     sessionStorage.clear();
+    this.router.navigate(['/login']);
   }
 }

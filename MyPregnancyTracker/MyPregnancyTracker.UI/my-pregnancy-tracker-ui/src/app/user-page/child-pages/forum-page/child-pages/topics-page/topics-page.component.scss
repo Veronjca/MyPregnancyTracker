@@ -1,0 +1,25 @@
+mat-header-cell, mat-cell {
+    justify-content: center; 
+    font-family: "Comic Sans MS", "Comic Sans", cursive; 
+  }
+
+  mat-header-cell{
+    color: #ff4081;  
+    font-family: "Comic Sans MS", "Comic Sans", cursive; 
+    font-size: large;
+  }
+
+  mat-row:hover mat-cell{
+    cursor: pointer;
+    background-color: rgba(255, 64, 128, 0.1);
+  }
+
+  .no-posts-to-show{
+    margin-top: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ff4081;  
+    font-family: "Comic Sans MS", "Comic Sans", cursive; 
+    font-size: 50px;
+  }

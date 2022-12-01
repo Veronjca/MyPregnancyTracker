@@ -19,6 +19,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 import { DashboardPageComponent } from "./child-pages/dashboard-page/dashboard-page.component";
 import { UserPageComponent } from "./user-page.component";
@@ -73,7 +74,8 @@ registerLocaleData(bg);
         MatDatepickerModule,
         MatCheckboxModule,
         MatDialogModule,
-        MatListModule
+        MatListModule,
+        MatButtonToggleModule
     ], 
     schemas:[CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [],
