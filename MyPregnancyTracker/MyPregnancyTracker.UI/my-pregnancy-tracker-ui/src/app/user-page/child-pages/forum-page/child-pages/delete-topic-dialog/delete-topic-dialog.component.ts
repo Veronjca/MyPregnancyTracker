@@ -36,7 +36,7 @@ export class DeleteTopicDialogComponent implements OnInit {
   onSubmit(){
     const category = this.category;
     
-    this.topicsService.deleteTopic(this.topicId).pipe(first()).subscribe(response => {
+    this.topicsService.deleteTopic(this.topicId, this.userId!).pipe(first()).subscribe(response => {
       this.dialogRef.close();  
       this.router.navigate(['/user', this.userId, 'forum', 'topics'], {queryParams: {category: category}});
     });    

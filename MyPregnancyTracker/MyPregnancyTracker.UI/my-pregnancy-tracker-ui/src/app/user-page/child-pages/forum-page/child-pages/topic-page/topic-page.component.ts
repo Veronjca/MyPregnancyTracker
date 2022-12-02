@@ -8,6 +8,7 @@ import { TopicModel } from 'src/app/models/topic.model';
 import { CommentsService } from 'src/app/services/comments.service';
 import { TopicsService } from 'src/app/services/topics.service';
 import * as topicPageConstants from '../../../../../shared/constants/topic-page.constants';
+import { AddCommentDialogComponent } from '../add-comment-dialog/add-comment-dialog.component';
 import { DeleteTopicDialogComponent } from '../delete-topic-dialog/delete-topic-dialog.component';
 import { EditTopicBottomSheetComponent } from '../edit-topic-bottom-sheet/edit-topic-bottom-sheet.component';
 
@@ -73,6 +74,16 @@ export class TopicPageComponent implements OnInit {
 
   openEditModal(){
     this.bottomSheet.open(EditTopicBottomSheetComponent, {data: {topic: this.topic}});
+  }
+
+  openAddCommentDialog(){
+    const config = new MatDialogConfig();
+    config.data = {
+      topicId: this.topicId,
+      userId: this.userId
+    }
+
+    this.matDialog.open(AddCommentDialogComponent, config);
   }
 }
 

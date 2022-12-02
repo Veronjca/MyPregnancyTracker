@@ -35,3 +35,4 @@ export const EDIT_TOPIC_ENDPOINT = `${environment.baseUrlApi}/api/topics/edit-to
 
 //Comments controller endpoints.
 export const GET_ALL_COMMENTS_ENDPOINT = `${environment.baseUrlApi}/api/comments/get-all`;
+export const ADD_COMMENT_ENDPOINT = `${environment.baseUrlApi}/api/comments/add-comment`;
