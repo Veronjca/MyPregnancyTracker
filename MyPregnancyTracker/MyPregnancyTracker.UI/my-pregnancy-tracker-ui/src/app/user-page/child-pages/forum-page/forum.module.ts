@@ -22,6 +22,7 @@ import { AddTopicPageComponent } from './child-pages/add-topic-page/add-topic-pa
 import { TopicPageComponent } from './child-pages/topic-page/topic-page.component';
 import { DeleteTopicDialogComponent } from './child-pages/delete-topic-dialog/delete-topic-dialog.component';
 import { EditTopicBottomSheetComponent } from './child-pages/edit-topic-bottom-sheet/edit-topic-bottom-sheet.component';
+import { AddCommentDialogComponent } from './child-pages/add-comment-dialog/add-comment-dialog.component';
 
 
 
@@ -31,7 +32,8 @@ import { EditTopicBottomSheetComponent } from './child-pages/edit-topic-bottom-s
     AddTopicPageComponent,
     TopicPageComponent,
     DeleteTopicDialogComponent,
-    EditTopicBottomSheetComponent
+    EditTopicBottomSheetComponent,
+    AddCommentDialogComponent
   ],
   imports: [
     CommonModule,

@@ -4,3 +4,6 @@ export const PUBLISHED_ON= 'Публикувано на:';
 export const AUTHOR = 'Автор:';
 export const DELETE_TOPIC = 'Изтрий тази тема';
 export const EDIT_TOPIC = 'Редактирай тази тема';
+export const ADD_COMMENT = 'Добави коментар';
+export const EDIT_COMMENT = 'Редактирай';
+export const DELETE_COMMENT = 'Изтрий';

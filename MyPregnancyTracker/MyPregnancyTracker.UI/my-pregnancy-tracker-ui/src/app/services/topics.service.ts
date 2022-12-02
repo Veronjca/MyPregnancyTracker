@@ -34,11 +34,12 @@ export class TopicsService {
     return this.httpClient.get<TopicModel[]>(routes.GET_USER_TOPICS_ENDPOINT,  {params: queryParams});
   }
 
-  deleteTopic(topicId: number): Observable<any>{
+  deleteTopic(topicId: number, userId: string): Observable<any>{
     let queryParams = new HttpParams();
     queryParams = queryParams.append("topicId", topicId);
+    queryParams = queryParams.append("userId", userId);
 
-    return this.httpClient.get<TopicModel[]>(routes.DELETE_TOPIC_ENDPOINT,  {params: queryParams});
+    return this.httpClient.delete<any>(routes.DELETE_TOPIC_ENDPOINT,  {params: queryParams});
   }
 
   editTopic(model: TopicModel): Observable<any>{

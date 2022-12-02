@@ -1,0 +1,17 @@
+mat-form-field{
+    width: 300px;
+    textarea{
+        min-height: 200px;
+    }
+}
+
+mat-dialog-actions, h2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h2{
+    color: #ff4081; 
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}

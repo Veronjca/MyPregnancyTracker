@@ -83,6 +83,14 @@
 
             public const string GET_ALL_COMMENTS_ROUTE = "get-all";
 
+            public const string ADD_COMMENT_ROUTE = "add-comment";
+
+            public const string DELETE_COMMENT_ROUTE = "delete-comment";
+
+            public const string EDIT_COMMENT_ROUTE = "edit-comment";
+
+            public const string GET_USER_COMMENTS_ROUTE = "get-user-comments";
+
         }
         public static class Error
         {

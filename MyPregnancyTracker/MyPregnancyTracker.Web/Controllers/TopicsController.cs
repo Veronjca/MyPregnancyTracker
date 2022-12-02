@@ -36,7 +36,7 @@ namespace MyPregnancyTracker.Web.Controllers
 
         [HttpPost]
         [Route(ADD_TOPIC_ROUTE)]
-        public async Task<IActionResult> AddTopicAsync([FromBody] AddTopicDto addTopicDto)
+        public async Task<IActionResult> AddAsync([FromBody] AddTopicDto addTopicDto)
         {
             var result = await this._topicsService.AddTopicAsync(addTopicDto);
 
@@ -64,11 +64,11 @@ namespace MyPregnancyTracker.Web.Controllers
             }                    
         }
 
-        [HttpGet]
+        [HttpDelete]
         [Route(DELETE_TOPIC_ROUTE)]
-        public async Task<IActionResult> DeleteTopicAsync([FromQuery] int topicId)
+        public async Task<IActionResult> DeleteAsync([FromQuery] int topicId, [FromQuery] string userId)
         {
-            var result = await this._topicsService.DeleteTopicAsync(topicId);
+            var result = await this._topicsService.DeleteTopicAsync(topicId, userId);
 
             if (!result)
             {
@@ -80,7 +80,7 @@ namespace MyPregnancyTracker.Web.Controllers
 
         [HttpPut]
         [Route(EDIT_TOPIC_ROUTE)]
-        public async Task<IActionResult> EditTopicAsync([FromBody]TopicDto topicDto)
+        public async Task<IActionResult> EditAsync([FromBody]TopicDto topicDto)
         {
             var result = await this._topicsService.EditTopicAsync(topicDto);
 

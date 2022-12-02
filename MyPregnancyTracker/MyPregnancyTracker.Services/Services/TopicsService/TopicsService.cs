@@ -15,7 +15,6 @@ namespace MyPregnancyTracker.Services.Services.TopicsService
         private readonly IRepository<Topic> _topicsRepository;
         private readonly IConfiguration _configuration;
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly IMapper _mapper;
         private readonly IDataProtector _dataProtector;
 
         public TopicsService(IRepository<Topic> topicsRepository,
@@ -27,7 +26,6 @@ namespace MyPregnancyTracker.Services.Services.TopicsService
             this._topicsRepository = topicsRepository;
             this._configuration = configuration;
             this._userManager = userManager;
-            this._mapper = mapper;
             this._dataProtector = dataProtectionProvider.CreateProtector(this._configuration["DataProtectorKey"]);
         }
 
@@ -60,7 +58,7 @@ namespace MyPregnancyTracker.Services.Services.TopicsService
             var topics = await this._topicsRepository
                         .GetAll()
                         .Include(t => t.User)
-                        .Where(t => (int)t.TopicCategory == category && t.DeletedOn == null)
+                        .Where(t => (int)t.TopicCategory == category && !t.DeletedOn.HasValue)
                         .Select(t => new TopicDto
                         {
                             Id = t.Id.ToString(),
@@ -80,7 +78,7 @@ namespace MyPregnancyTracker.Services.Services.TopicsService
         {
             var topic = await this._topicsRepository.GetAll()
                        .Include(t => t.User)
-                       .Where(t => t.Id == topicId && t.DeletedOn == null)
+                       .Where(t => t.Id == topicId && !t.DeletedOn.HasValue)
                        .Select(t => new TopicDto
                        {
                            Id = t.Id.ToString(),
@@ -108,7 +106,7 @@ namespace MyPregnancyTracker.Services.Services.TopicsService
 
             var topics = await this._topicsRepository.GetAll()
                        .Include(t => t.User)
-                       .Where(t => t.UserId == unprotectedUserId && t.DeletedOn == null)
+                       .Where(t => t.UserId == unprotectedUserId && !t.DeletedOn.HasValue)
                        .Select(t => new TopicDto
                        {
                            Id = t.Id.ToString(),
@@ -124,11 +122,13 @@ namespace MyPregnancyTracker.Services.Services.TopicsService
             return topics;
         }
 
-        public async Task<bool> DeleteTopicAsync(int topicId)
+        public async Task<bool> DeleteTopicAsync(int topicId, string userId)
         {
+            var unprotectedUserId = int.Parse(this._dataProtector.Unprotect(userId));
+
             var topic = await this._topicsRepository
                 .GetAll()
-                .Where(t => t.Id == topicId)
+                .Where(t => t.Id == topicId && t.UserId == unprotectedUserId)
                 .FirstOrDefaultAsync();
 
             if(topic == null)
@@ -142,11 +142,13 @@ namespace MyPregnancyTracker.Services.Services.TopicsService
             return true;
         }
 
-        public async Task<bool> EditTopicAsync(TopicDto topicDto)
+        public async Task<bool> EditTopicAsync(TopicDto topicDto)   
         {
+            var unprotectedUserId = int.Parse(this._dataProtector.Unprotect(topicDto.UserId));
+
             var topic = await this._topicsRepository
                 .GetAll()
-                .Where(t => t.Id == int.Parse(topicDto.Id) && t.DeletedOn == null)
+                .Where(t => t.Id == int.Parse(topicDto.Id) && !t.DeletedOn.HasValue && t.UserId == unprotectedUserId)
                 .FirstOrDefaultAsync();
 
             if(topic == null)
