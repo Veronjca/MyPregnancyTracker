@@ -1,0 +1,20 @@
+<div class="main-container">
+  <div class="categories-container">
+    <h2>{{ forumPageConstants.CATEGORIES_TITLE }}</h2>
+    <button
+      mat-stroked-button
+      class="topic"
+      color="primary"
+      (click)="navigateToTopics(category)"
+      *ngFor="let category of keys()"
+    >
+      {{ category | uppercase }}
+    </button>
+  </div>
+</div>
+<div class="add-button-container" *ngIf="!(showAddButton | async)">
+  <button color="primary" mat-fab (click)="openDialog()">
+    <mat-icon>add</mat-icon>
+  </button>
+</div>
+<router-outlet></router-outlet>

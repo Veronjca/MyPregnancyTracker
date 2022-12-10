@@ -1,0 +1,52 @@
+.card {
+    width: 400px;
+    border: 2px solid #F48FB1;
+    border-radius: 25px;
+    margin-bottom: 30px;
+  }
+
+  .navigation-controls{
+    height: inherit;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin: 20px;
+    
+    mat-icon{
+      font-size: 25px;
+    }
+  }
+
+  .card-container{
+    display: flex;
+    margin: auto;
+    padding: 10px;   
+  }
+
+  p{
+    max-height: 150px;
+    overflow-y: scroll;
+  }
+
+  button{
+    border: 0;
+  }
+
+  .actions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  mat-card-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+  }
+
+  mat-card-content{
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+  }
+  
+  

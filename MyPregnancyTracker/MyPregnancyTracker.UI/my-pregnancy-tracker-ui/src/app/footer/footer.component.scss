@@ -1,0 +1,15 @@
+footer{
+    background-color: rgba(244, 143, 177, 0.2);
+    height: auto;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #e02b5e;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}

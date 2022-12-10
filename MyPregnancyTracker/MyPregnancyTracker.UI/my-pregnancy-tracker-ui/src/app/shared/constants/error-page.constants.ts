@@ -1,0 +1,1 @@
+export const SOMETHING_WENT_WRONG = 'Нещо се обърка!';

@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>
+  <strong>{{ constants.CREATE_TOPIC }}</strong>
+</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="addTopicForm">
+    <div class="mat-form-fields-container">
+      <mat-form-field appearance="outline">
+        <mat-label>{{ constants.CHOOSE_CATEGORY }}</mat-label>
+        <mat-select formControlName="category">
+          <mat-option [value]="category" *ngFor="let category of keys()">{{
+            category
+          }}</mat-option>
+        </mat-select>
+        <mat-error
+          *ngIf="addTopicForm.controls['category'].hasError('required')"
+          >{{ constants.REQUIRED_FIELD }}</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ constants.TOPIC_TITLE }}</mat-label>
+        <input formControlName="title" matInput />
+        <mat-error
+          *ngIf="addTopicForm.controls['title'].hasError('required')"
+          >{{ constants.REQUIRED_FIELD }}</mat-error
+        >
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{ constants.DESCRIPTION }}</mat-label>
+        <textarea formControlName="content" matInput> </textarea>
+        <mat-error
+          *ngIf="addTopicForm.controls['content'].hasError('required')"
+          >{{ constants.REQUIRED_FIELD }}</mat-error
+        >
+        <mat-error
+          *ngIf="addTopicForm.controls['content'].hasError('maxLength')"
+          >{{ constants.EXCEEDED_LENGTH }}</mat-error
+        >
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="addTopic()"
+    [disabled]="!addTopicForm.valid"
+  >
+    {{ constants.CREATE }}
+  </button>
+</mat-dialog-actions>

@@ -1,0 +1,22 @@
+.logout-button{
+    position: absolute;
+    right: 2%;
+}
+
+.space{
+    height: auto;
+    display: inline-block;
+}
+.user-name-container{
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
+.background{
+    background: url('../../assets/images/user-page-background.png') no-repeat center center fixed;
+    top: 0;
+    background-size: 100%;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}

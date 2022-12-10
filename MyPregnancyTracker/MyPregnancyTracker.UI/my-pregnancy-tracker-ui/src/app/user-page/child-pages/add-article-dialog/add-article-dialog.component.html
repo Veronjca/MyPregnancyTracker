@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>
+  <strong>{{ addArticleDialogConstants.TITLE }}</strong>
+</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="addArticleForm">
+    <div class="mat-form-fields-container">
+      <!-- Article title form field -->
+      <mat-form-field appearance="outline">
+        <mat-label>{{ addArticleDialogConstants.ARTICLE_TITLE }}</mat-label>
+        <input formControlName="title" matInput />
+        <mat-error
+          *ngIf="addArticleForm.controls['title'].hasError('required')"
+          >{{ addArticleDialogConstants.REQUIRED_FIELD }}</mat-error
+        >
+      </mat-form-field>
+
+      <!-- Article content form field -->
+      <mat-form-field appearance="outline">
+        <mat-label>{{ addArticleDialogConstants.CONTENT }}</mat-label>
+        <textarea formControlName="content" matInput> </textarea>
+        <mat-error
+          *ngIf="addArticleForm.controls['content'].hasError('required')"
+          >{{ addArticleDialogConstants.REQUIRED_FIELD }}</mat-error
+        >
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="addArticle()"
+    [disabled]="!addArticleForm.valid"
+  >
+    {{ addArticleDialogConstants.ADD }}
+  </button>
+</mat-dialog-actions>

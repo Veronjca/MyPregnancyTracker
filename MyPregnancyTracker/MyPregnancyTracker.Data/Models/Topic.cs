@@ -1,10 +1,11 @@
-﻿using MyPregnancyTracker.Data.Constants;
+﻿using static MyPregnancyTracker.Data.Constants.ValidationConstants.Topic;
 using MyPregnancyTracker.Data.Enums;
 using System.ComponentModel.DataAnnotations;
+using MyPregnancyTracker.Data.Models.Contracts;
 
 namespace MyPregnancyTracker.Data.Models
 {
-    public class Topic
+    public class Topic : IAuditInfo
     {
         public Topic()
         {
@@ -21,7 +22,7 @@ namespace MyPregnancyTracker.Data.Models
         public TopicCategoryEnum TopicCategory { get; set; }
 
         [Required]
-        [MaxLength(ValidationConstants.TOPIC_CONTENT_MAX_LENGTH)]
+        [MaxLength(TOPIC_CONTENT_MAX_LENGTH)]
         public string Content { get; set; }
 
         public bool IsDeleted { get; set; }
@@ -30,14 +31,12 @@ namespace MyPregnancyTracker.Data.Models
 
         public DateTime? ModifiedOn { get; set; }
 
-        public DateTime? DeleteOn { get; set; }
-
-        public int CommentId { get; set; }
+        public DateTime? DeletedOn { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
 
         public int UserId { get; set; }
 
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
     }
 }

@@ -1,0 +1,188 @@
+<div class="profile-card-container">
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title>{{ userEmail }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="profileForm">
+        <!-- Input field for first and last name -->
+        <mat-accordion
+          #accordion="matAccordion"
+          class="accordion"
+          [multi]="true"
+        >
+          <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{
+                  profilePageConstants.FIRST_NAME_AND_LAST_NAME
+                }}</mat-panel-title
+              >
+              <mat-panel-description>
+                {{ profileForm.controls.firstName.value }}
+                {{ profileForm.controls.lastName.value }}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ profilePageConstants.FIRST_NAME }}</mat-label>
+              <input matInput formControlName="firstName" />
+              <mat-error
+                *ngIf="profileForm.controls['firstName'].hasError('required')"
+              >
+                {{ profilePageConstants.FIELD_IS_REQUIRED }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ profilePageConstants.LAST_NAME }}</mat-label>
+              <input matInput formControlName="lastName" />
+              <mat-error
+                *ngIf="profileForm.controls['lastName'].hasError('required')"
+              >
+                {{ profilePageConstants.FIELD_IS_REQUIRED }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-action-row>
+              <button mat-button color="primary" (click)="nextStep()">
+                {{ profilePageConstants.NEXT_STEP }}
+              </button>
+            </mat-action-row>
+          </mat-expansion-panel>
+
+          <!-- Input field for height -->
+          <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ profilePageConstants.HEIGHT_TITLE }}</mat-panel-title
+              >
+              <mat-panel-description *ngIf="profileForm.valid">
+                {{ profileForm.controls.height.value }}cm
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ profilePageConstants.HEIGHT }}</mat-label>
+              <input matInput formControlName="height" />
+              <mat-error
+                *ngIf="profileForm.controls['height'].hasError('pattern')"
+              >
+                {{ profilePageConstants.INVALID_WEIGHT_OR_HEIGHT }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-action-row>
+              <button mat-button color="primary" (click)="prevStep()">
+                {{ profilePageConstants.PREVIOUS_STEP }}
+              </button>
+              <button mat-button color="primary" (click)="nextStep()">
+                {{ profilePageConstants.NEXT_STEP }}
+              </button>
+            </mat-action-row>
+          </mat-expansion-panel>
+
+          <!-- Input field for weight-->
+          <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ profilePageConstants.WEIGHT_TITLE }}</mat-panel-title
+              >
+              <mat-panel-description *ngIf="profileForm.valid">
+                {{ profileForm.controls.weight.value }}kg
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ profilePageConstants.WEIGHT }}</mat-label>
+              <input matInput formControlName="weight" />
+              <mat-error
+                *ngIf="profileForm.controls['weight'].hasError('pattern')"
+              >
+                {{ profilePageConstants.INVALID_WEIGHT_OR_HEIGHT }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-action-row>
+              <button mat-button color="primary" (click)="prevStep()">
+                {{ profilePageConstants.PREVIOUS_STEP }}
+              </button>
+              <button mat-button color="primary" (click)="nextStep()">
+                {{ profilePageConstants.NEXT_STEP }}
+              </button>
+            </mat-action-row>
+          </mat-expansion-panel>
+
+          <!-- Input field for birthdate -->
+          <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ profilePageConstants.BIRHT_DATE_TITLE }}</mat-panel-title
+              >
+              <mat-panel-description>
+                {{ profileForm.controls.birthDate.value | date }}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <mat-form-field appearance="outline">
+              <mat-label>{{ profilePageConstants.BIRHT_DATE }}</mat-label>
+              <input
+                matInput
+                [matDatepicker]="datepicker"
+                formControlName="birthDate"
+              />
+              <mat-datepicker-toggle
+                matSuffix
+                [for]="datepicker"
+              ></mat-datepicker-toggle>
+              <mat-datepicker #datepicker> </mat-datepicker>
+            </mat-form-field>
+
+            <mat-action-row>
+              <button mat-button color="primary" (click)="prevStep()">
+                {{ profilePageConstants.PREVIOUS_STEP }}
+              </button>
+              <button mat-button color="primary" (click)="nextStep()">
+                {{ profilePageConstants.NEXT_STEP }}
+              </button>
+            </mat-action-row>
+          </mat-expansion-panel>
+
+          <!-- Input field for due date-->
+          <mat-expansion-panel [expanded]="step === 4" (opened)="setStep(4)">
+            <mat-expansion-panel-header>
+              <mat-panel-title>
+                {{ profilePageConstants.DUE_DATE_TITLE }}</mat-panel-title
+              >
+              <mat-panel-description>
+                {{ dueDate | date: "longDate" }}
+              </mat-panel-description>
+            </mat-expansion-panel-header>
+
+            <p>
+              <strong>{{ profilePageConstants.DUE_DATE }}</strong
+              >: {{ dueDate | date: "longDate" }}
+            </p>
+
+            <mat-action-row>
+              <button mat-button color="primary" (click)="prevStep()">
+                {{ profilePageConstants.PREVIOUS_STEP }}
+              </button>
+            </mat-action-row>
+          </mat-expansion-panel>
+        </mat-accordion>
+      </form>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <button
+        [disabled]="!profileForm.valid"
+        mat-raised-button
+        color="primary"
+        (click)="updateUserProfile()"
+      >
+        {{ profilePageConstants.SAVE }}
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

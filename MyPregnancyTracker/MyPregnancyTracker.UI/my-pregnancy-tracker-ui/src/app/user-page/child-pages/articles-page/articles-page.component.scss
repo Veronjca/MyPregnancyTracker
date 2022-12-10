@@ -1,0 +1,78 @@
+.title-container{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin-top: 1%;
+    padding: 1%;
+
+    h3{
+        font-size: 50px;
+        font-family: "Comic Sans MS", "Comic Sans", cursive;
+        color: #ff4081;
+    }
+}
+
+.card{
+    width: 70%;
+    margin: auto;
+    border: 2px solid #F48FB1;
+    border-radius: 25px;
+    margin-bottom: 30px;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
+.paginator-container{
+    display: flex;
+    justify-content: center;
+
+    mat-paginator{
+        margin-bottom: 15px;
+    }
+    
+}
+
+mat-card-header{
+    display: flex;
+    justify-content: center;
+    color: #ff4081;
+}
+
+.article-content{
+    overflow-y: hidden;
+    font-size: 16px;
+    white-space: pre-wrap;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+
+}
+
+.delete-button{
+    border: 0;
+  }
+
+.article-action-buttons-container{   
+    display: flex;
+    justify-content: flex-end;
+
+    button{
+      margin-top: 7%;
+      font-family: "Comic Sans MS", "Comic Sans", cursive;
+    }
+}
+
+.reaction-buttons-container{
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.actions-main-container{    
+    display: flex;
+    align-items: self-end;
+}
+
+.add-button-container{
+    position: absolute;
+    left: 2%;
+    top: 12%;
+}

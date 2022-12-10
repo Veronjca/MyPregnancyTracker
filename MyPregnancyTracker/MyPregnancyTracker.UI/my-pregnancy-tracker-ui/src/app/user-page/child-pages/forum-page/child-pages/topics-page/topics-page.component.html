@@ -1,0 +1,62 @@
+<div>
+  <mat-table
+    matSort
+    (matSortChange)="sortData($event)"
+    *ngIf="dataSource.data.length > 0"
+    [dataSource]="dataSource"
+    class="mat-elevation-z8"
+  >
+    <ng-container [matColumnDef]="'title'">
+      <mat-header-cell color="primary" *matHeaderCellDef>{{
+        topicPageConstants.TITLE
+      }}</mat-header-cell>
+      <mat-cell *matCellDef="let topic">{{ topic.title }}</mat-cell>
+    </ng-container>
+
+    <ng-container [matColumnDef]="'author'">
+      <mat-header-cell *matHeaderCellDef>{{
+        topicPageConstants.AUTHOR
+      }}</mat-header-cell>
+      <mat-cell *matCellDef="let topic">{{ topic.userName }}</mat-cell>
+    </ng-container>
+
+    <ng-container [matColumnDef]="'createdOn'">
+      <mat-header-cell
+        *matHeaderCellDef
+        [arrowPosition]="'after'"
+        mat-sort-header
+        >{{ topicPageConstants.CREATEDON }}</mat-header-cell
+      >
+      <mat-cell *matCellDef="let topic">{{
+        topic.createdOn | date : "longDate"
+      }}</mat-cell>
+    </ng-container>
+
+    <ng-container [matColumnDef]="'category'">
+      <mat-header-cell *matHeaderCellDef>{{
+        topicPageConstants.CATEGORY
+      }}</mat-header-cell>
+      <mat-cell *matCellDef="let topic">{{ categoryString }}</mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row
+      *matRowDef="let row; columns: displayedColumns"
+      (click)="navigateToTopicPage(row)"
+    ></mat-row>
+  </mat-table>
+
+  <mat-paginator
+    *ngIf="dataSource.data.length > 0"
+    color="warn"
+    [pageSize]="5"
+    showFirstLastButtons
+    [length]="paginatorLength"
+    (page)="onPageChange()"
+  >
+  </mat-paginator>
+
+  <div class="no-posts-to-show" *ngIf="dataSource.data.length == 0">
+    <p>{{ topicPageConstants.NO_TOPICS_TO_SHOW }}</p>
+  </div>
+</div>

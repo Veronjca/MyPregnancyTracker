@@ -1,0 +1,21 @@
+<div class="card-container">
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title
+        ><strong>{{ myTasksPageConstants.MY_TASKS }}</strong></mat-card-title
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <div class="tasks-container">
+        <ul *ngFor="let task of allTasks">
+          <mat-checkbox
+            #checkbox="matCheckbox"
+            [checked]="task.selected"
+            (change)="onChange(checkbox, task.id)"
+            >{{ task.content }}</mat-checkbox
+          >
+        </ul>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

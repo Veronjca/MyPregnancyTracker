@@ -1,0 +1,184 @@
+<mat-card *ngIf="topic" class="card">
+  <!-- Topic section -->
+
+  <mat-card-header class="topic-header">
+    <mat-card-title>{{ topic.title }}</mat-card-title>
+    <mat-card-subtitle
+      >{{ topicPageConstants.AUTHOR }} {{ topic.userName }}</mat-card-subtitle
+    >
+    <mat-card-subtitle>
+      {{ topicPageConstants.PUBLISHED_ON }}
+      {{ topic.createdOn | date : "longDate" }}</mat-card-subtitle
+    >
+  </mat-card-header>
+
+  <mat-card-content>{{ topic.content }}</mat-card-content>
+
+  <mat-card-actions>
+    <button
+      class="comments-button"
+      mat-stroked-button
+      (click)="expandComments()"
+    >
+      {{
+        changeCommentsButtonArrow
+          ? topicPageConstants.HIDE_COMMENTS
+          : topicPageConstants.SHOW_COMMENTS
+      }}
+      <mat-icon>{{
+        changeCommentsButtonArrow ? "expand_less" : "expand_more"
+      }}</mat-icon>
+    </button>
+
+    <button
+      color="primary"
+      mat-raised-button
+      *ngIf="showActionButtons"
+      (click)="openEditTopicModal()"
+    >
+      {{ topicPageConstants.EDIT_TOPIC }}
+    </button>
+
+    <button
+      color="warn"
+      class="delete-button"
+      mat-raised-button
+      *ngIf="showActionButtons"
+      (click)="toggleDeleteTopicDialog()"
+    >
+      {{ topicPageConstants.DELETE_TOPIC }}
+    </button>
+  </mat-card-actions>
+
+  <!-- Comments section -->
+
+  <div *ngIf="showCommentsSection" class="comments-container">
+    <div *ngIf="dataSource.data">
+      <mat-card class="card" *ngFor="let comment of dataSource.data">
+        <mat-card-header>
+          <mat-card-subtitle
+            >{{ topicPageConstants.AUTHOR }}
+            {{ comment.userName }}</mat-card-subtitle
+          >
+          <mat-card-subtitle>
+            {{ topicPageConstants.PUBLISHED_ON }}
+            {{ comment.createdOn | date : "longDate" }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>{{ comment.content }}</mat-card-content>
+        <mat-card-actions>
+          <!-- Like reaction container -->
+
+          <div class="reaction-button-container">
+            <button
+              mat-icon-button
+              matTooltip="Харесване"
+              matTooltipClass="tooltip-background"
+              color="primary"
+              (click)="onReactionClick('Like', comment)"
+            >
+              <span class="material-icons">
+                {{ isOutlined("Like", comment) | async }}</span
+              >
+            </button>
+            <span>{{ getReactionCount(comment, "Like") | async }}</span>
+          </div>
+
+          <!-- Love reaction container -->
+          <div class="reaction-button-container">
+            <button
+              mat-icon-button
+              matTooltip="Любов"
+              matTooltipClass="tooltip-background"
+              color="primary"
+              (click)="onReactionClick('Love', comment)"
+            >
+              <span class="material-icons">
+                {{ isOutlined("Love", comment) | async }}
+              </span>
+            </button>
+            <span>{{ getReactionCount(comment, "Love") | async }}</span>
+          </div>
+
+          <!-- Laugh reaction container -->
+          <div class="reaction-button-container">
+            <button
+              mat-icon-button
+              matTooltip="Смях"
+              matTooltipClass="tooltip-background"
+              color="primary"
+              (click)="onReactionClick('Laugh', comment)"
+            >
+              <span [ngClass]="isOutlined('Laugh', comment) | async">
+                emoji_emotions
+              </span>
+            </button>
+            <span>{{ getReactionCount(comment, "Laugh") | async }}</span>
+          </div>
+
+          <!-- Sad reaction container -->
+          <div class="reaction-button-container">
+            <button
+              mat-icon-button
+              matTooltip="Тъга"
+              matTooltipClass="tooltip-background"
+              color="primary"
+              (click)="onReactionClick('Sad', comment)"
+            >
+              <span [ngClass]="isOutlined('Sad', comment) | async">
+                sentiment_dissatisfied
+              </span>
+            </button>
+            <span>{{ getReactionCount(comment, "Sad") | async }}</span>
+          </div>
+
+          <div
+            *ngIf="isUserComment(comment)"
+            class="comment-action-buttons-container"
+          >
+            <button
+              color="primary"
+              mat-raised-button
+              (click)="openEditCommentBottomSheet(comment)"
+            >
+              {{ topicPageConstants.EDIT_COMMENT }}
+            </button>
+
+            <button
+              color="warn"
+              class="delete-button"
+              mat-raised-button
+              (click)="openDeleteCommentDialog(comment)"
+            >
+              {{ topicPageConstants.DELETE_COMMENT }}
+            </button>
+          </div>
+        </mat-card-actions>
+      </mat-card>
+
+      <mat-paginator
+        *ngIf="dataSource.data.length > 0"
+        color="warn"
+        [pageSize]="5"
+        showFirstLastButtons
+        [length]="paginatorLength"
+        (page)="onPageChange()"
+      >
+      </mat-paginator>
+    </div>
+
+    <div class="no-comments-to-show" *ngIf="dataSource.data.length == 0">
+      <p>{{ topicPageConstants.NO_COMMENTS_TO_SHOW }}</p>
+    </div>
+
+    <div class="add-comment-button-container">
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="openAddCommentDialog()"
+      >
+        {{ topicPageConstants.ADD_COMMENT }}
+      </button>
+    </div>
+  </div>
+</mat-card>

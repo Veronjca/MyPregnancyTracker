@@ -1,0 +1,75 @@
+@use '@angular/material' as mat;
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@include mat.core();
+
+$my-primary: mat.define-palette(mat.$pink-palette, A200);
+$my-accent: mat.define-palette(mat.$pink-palette, A100);
+
+// The "warn" palette is optional and defaults to red if not specified.
+$my-warn: mat.define-palette(mat.$red-palette);
+
+$my-theme: mat.define-light-theme((
+ color: (
+   primary: $my-primary,
+   accent: $my-accent,
+   warn: $my-warn,
+ )
+));     
+@include mat.core-theme($my-theme);
+@include mat.button-theme($my-theme);
+@include mat.all-component-themes($my-theme);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-drawer-inner-container::-webkit-scrollbar {
+  display: none;
+}
+
+.tooltip-background{
+  background-color: pink;
+  color: black !important ;
+}
+
+.mat-paginator-page-size{
+  display: none !important;
+}
+
+.mat-expansion-indicator::after{
+  color: #ff4081;
+}
+
+main{
+  overflow-y: auto;
+}
+
+.mat-checkbox-background, .mat-checkbox-frame {
+  border-radius: 70% !important;
+}
+
+app-dashboard-page{
+  position: relative;
+  display: flex;
+  margin-top: -20%;
+}
+
+.mat-checkbox-layout{
+  white-space: normal !important;
+}
+
+.mat-paginator {
+  .mat-button-wrapper{
+    color: #ff4081;
+  }
+
+  .mat-button-disabled{
+    .mat-button-wrapper{
+      color: grey !important;
+    }
+    
+  }
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

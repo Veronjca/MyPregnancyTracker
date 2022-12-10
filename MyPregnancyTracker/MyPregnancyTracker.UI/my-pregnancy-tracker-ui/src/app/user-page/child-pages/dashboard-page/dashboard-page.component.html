@@ -1,0 +1,92 @@
+<div class="card-container">
+  <div class="navigation-controls">
+    <button
+      (click)="prev()"
+      mat-fab
+      matTooltip="предишна"
+      matTooltipClass="tooltip-background"
+    >
+      <mat-icon color="primary">chevron_left</mat-icon>
+    </button>
+  </div>
+
+  <mat-card class="card">
+    <mat-card-header>
+      <mat-card-title
+        ><strong
+          >{{
+            gestationalWeeks.length > 0
+              ? gestationalWeeks[index].gestationalAge
+              : ""
+          }}
+          {{ dashboardConstants.GESTATIONAL_WEEK }}</strong
+        ></mat-card-title
+      >
+    </mat-card-header>
+    <img
+      mat-card-image
+      src="../../../../assets/images/gestational-week-pictures/gestational-week-{{
+        gestationalWeeks.length > 0 ? gestationalWeeks[index].gestationalAge : 1
+      }}.jpg"
+      alt="fetus photo"
+    />
+    <mat-card-content>
+      <p>
+        {{
+          gestationalWeeks.length > 0 ? gestationalWeeks[index].babyContent : ""
+        }}
+      </p>
+    </mat-card-content>
+    <mat-card-actions class="actions">
+      <button
+        mat-stroked-button
+        (click)="
+          openDialog(
+            motherTitle,
+            motherPictureUrl,
+            gestationalWeeks[index].motherContent
+          )
+        "
+      >
+        {{ dashboardConstants.MOTHER }}
+        <mat-icon color="primary">pregnant_woman</mat-icon>
+      </button>
+      <button
+        mat-stroked-button
+        (click)="
+          openDialog(
+            nutritionTitle,
+            nutritionPictureUrl,
+            gestationalWeeks[index].nutritionContent
+          )
+        "
+      >
+        {{ dashboardConstants.NUTRITION }}
+        <mat-icon color="primary">dinner_dining</mat-icon>
+      </button>
+      <button
+        mat-stroked-button
+        (click)="
+          openDialog(
+            adivecesTitle,
+            advicesPictureUrl,
+            gestationalWeeks[index].advicesContent
+          )
+        "
+      >
+        {{ dashboardConstants.ADVICES }}
+        <mat-icon color="primary">list_alt</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  <div class="navigation-controls">
+    <button
+      (click)="next()"
+      mat-fab
+      matTooltip="следваща"
+      matTooltipClass="tooltip-background"
+    >
+      <mat-icon color="primary">chevron_right</mat-icon>
+    </button>
+  </div>
+</div>

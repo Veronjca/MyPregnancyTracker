@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>
+  <strong>{{ addCommentDialogConstants.TITLE }}</strong>
+</h2>
+
+<mat-dialog-content>
+  <form>
+    <div class="mat-form-fields-container">
+      <mat-form-field appearance="outline">
+        <mat-label>{{ addCommentDialogConstants.CONTENT }}</mat-label>
+        <textarea [formControl]="addCommentFormControl" matInput> </textarea>
+        <mat-error *ngIf="addCommentFormControl.hasError('required')">{{
+          addCommentDialogConstants.REQUIRED_FIELD
+        }}</mat-error>
+        <mat-error *ngIf="addCommentFormControl.hasError('maxLength')">{{
+          addCommentDialogConstants.EXCEEDED_LENGTH
+        }}</mat-error>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="addComment()"
+    [disabled]="!addCommentFormControl.valid"
+  >
+    {{ addCommentDialogConstants.CREATE }}
+  </button>
+</mat-dialog-actions>

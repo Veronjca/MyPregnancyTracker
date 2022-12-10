@@ -1,0 +1,64 @@
+<div class="background"></div>
+<div *ngIf="spinnerFlag" class="spinner-container">
+  <mat-spinner></mat-spinner>
+</div>
+<div class="form-container">
+  <p class="title">
+    <strong>{{ loginPageConstants.FORM_TITLE }}</strong>
+  </p>
+  <form [formGroup]="loginForm">
+    <div class="mat-form-fields-wrapper">
+      <mat-form-field appearance="outline">
+        <mat-label>{{ loginPageConstants.EMAIL_INPUT_FIELD_TITLE }}</mat-label>
+        <input
+          type="email"
+          matInput
+          formControlName="email"
+          placeholder="Ex. pat@example.com"
+        />
+        <mat-error
+          *ngIf="
+            loginForm.controls['email'].hasError('email') &&
+            !loginForm.controls['email'].hasError('required')
+          "
+        >
+          {{ loginPageConstants.INVALID_EMAIL }}
+        </mat-error>
+        <mat-error *ngIf="loginForm.controls['email'].hasError('required')">
+          {{ loginPageConstants.REQUIRED_FIELD }}
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>{{
+          loginPageConstants.PASSWORD_INPUT_FIELD_TITLE
+        }}</mat-label>
+        <input type="password" matInput formControlName="password" />
+        <mat-error *ngIf="loginForm.controls['password'].hasError('required')">
+          {{ loginPageConstants.REQUIRED_FIELD }}
+        </mat-error>
+        <mat-error
+          *ngIf="
+            !loginForm.controls['password'].hasError('required') &&
+            loginForm.controls['password'].hasError('pattern')
+          "
+        >
+          {{ loginPageConstants.INVALID_PASSWORD }}
+        </mat-error>
+      </mat-form-field>
+      <button
+        mat-raised-button
+        [disabled]="!loginForm.valid"
+        (click)="login()"
+        color="primary"
+      >
+        {{ loginPageConstants.LOGIN }}
+      </button>
+    </div>
+  </form>
+  <div class="nav-container">
+    <a routerLink="/forgotten-password">{{
+      loginPageConstants.FORGOTTEN_PASSWORD
+    }}</a>
+    <a routerLink="/register">{{ loginPageConstants.DONT_HAVE_AN_ACCOUNT }}</a>
+  </div>
+</div>

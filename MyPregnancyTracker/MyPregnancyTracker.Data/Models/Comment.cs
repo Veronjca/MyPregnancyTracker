@@ -1,9 +1,10 @@
-﻿using MyPregnancyTracker.Data.Constants;
+﻿using static MyPregnancyTracker.Data.Constants.ValidationConstants.Comment;
 using System.ComponentModel.DataAnnotations;
+using MyPregnancyTracker.Data.Models.Contracts;
 
 namespace MyPregnancyTracker.Data.Models
 {
-    public class Comment
+    public class Comment : IAuditInfo
     {
         public Comment()
         {
@@ -14,7 +15,7 @@ namespace MyPregnancyTracker.Data.Models
         public int Id { get; set; }
 
         [Required]
-        [MaxLength(ValidationConstants.COMMENT_CONTENT_MAX_LENGTH)]
+        [MaxLength(COMMENT_CONTENT_MAX_LENGTH)]
         public string Content { get; set; }
 
         public bool IsDeleted { get; set; }
@@ -27,13 +28,11 @@ namespace MyPregnancyTracker.Data.Models
 
         public int UserId { get; set; }
 
-        public User User { get; set; }
+        public ApplicationUser User { get; set; }
 
         public int TopicId { get; set; }
 
         public Topic Topic { get; set; }
-
-        public int ReactionId { get; set; }
 
         public virtual ICollection<Reaction> Reactions { get; set; }
     }

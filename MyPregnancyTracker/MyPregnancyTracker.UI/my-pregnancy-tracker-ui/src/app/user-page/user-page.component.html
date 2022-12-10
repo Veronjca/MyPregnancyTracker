@@ -1,0 +1,53 @@
+<div class="background"></div>
+<div class="user-toolbar-container">
+  <mat-toolbar color="primary">
+    <span class="user-name-container">
+      {{ userName + userPageConstants.GREETING }}
+    </span>
+
+    <div class="space"></div>
+
+    <button
+      mat-icon-button
+      matTooltip="начало"
+      matTooltipClass="tooltip-background"
+      (click)="navigateToDashboardPage()"
+    >
+      <mat-icon>home</mat-icon>
+    </button>
+
+    <div class="space"></div>
+
+    <button
+      mat-icon-button
+      matTooltip="форум"
+      matTooltipClass="tooltip-background"
+      (click)="navigateToForumPage()"
+    >
+      <mat-icon>forum</mat-icon>
+    </button>
+
+    <div class="space"></div>
+
+    <button
+      mat-icon-button
+      matTooltip="статии"
+      matTooltipClass="tooltip-background"
+      (click)="navigateToArticlesPage()"
+    >
+      <mat-icon>newspaper</mat-icon>
+    </button>
+
+    <button
+      mat-icon-button
+      matTooltip="излизане"
+      matTooltipClass="tooltip-background"
+      class="logout-button"
+      (click)="logout()"
+    >
+      <mat-icon>logout</mat-icon>
+    </button>
+  </mat-toolbar>
+</div>
+<app-sidenav *ngIf="!(showSidenav | async)"></app-sidenav>
+<router-outlet></router-outlet>

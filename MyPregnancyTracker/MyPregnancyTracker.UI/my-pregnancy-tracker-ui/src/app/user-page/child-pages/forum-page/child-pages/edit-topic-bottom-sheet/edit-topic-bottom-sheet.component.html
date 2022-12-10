@@ -1,0 +1,20 @@
+<div class="main-container">
+  <div>
+    <h2>{{ constants.BOTTOM_SHEET_TITLE }}</h2>
+  </div>
+  <div>
+    <form>
+      <div class="mat-form-fields-container">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ constants.DESCRIPTION }}</mat-label>
+          <textarea [formControl]="editTopicForm" matInput> </textarea>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div>
+    <button mat-raised-button color="primary" (click)="editTopic()">
+      {{ constants.SAVE_CHANGES }}
+    </button>
+  </div>
+</div>
