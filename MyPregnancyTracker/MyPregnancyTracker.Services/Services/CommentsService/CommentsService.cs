@@ -79,13 +79,14 @@ namespace MyPregnancyTracker.Services.Services.CommentsService
             }
 
             comment.DeletedOn = DateTime.UtcNow;
+            comment.IsDeleted = true;
             await this._commentsRepository.SaveChangesAsync();
             return true;
         }
 
-        public async Task<bool> EditAsync(EditCommentDto commentDto)
+        public async Task<bool> EditAsync(EditCommentDto commentDto, string userId)
         {
-            var unprotectedUserId = int.Parse(this._dataProtector.Unprotect(commentDto.UserId));
+            var unprotectedUserId = int.Parse(this._dataProtector.Unprotect(userId));
 
             var comment = await this._commentsRepository
                 .GetAll()
@@ -104,11 +105,11 @@ namespace MyPregnancyTracker.Services.Services.CommentsService
             return true;
         }
 
-        public async Task<List<CommentDto>> GetAllAsync(int topicId)
+        public async Task<GetAllCommentsResponseDto> GetAllAsync(GetAllCommentsRequestDto getAllCommentsRequest)
         {
             var topic = await this._topicsResporitory
                 .GetAll()
-                .Where(t => t.Id == topicId)
+                .Where(t => t.Id == getAllCommentsRequest.TopicId)
                 .FirstOrDefaultAsync();
 
             if(topic == null)
@@ -120,7 +121,7 @@ namespace MyPregnancyTracker.Services.Services.CommentsService
                 .GetAll()
                 .Include(c => c.Reactions)
                 .Include(c => c.User)
-                .Where(c => c.TopicId == topicId && !c.DeletedOn.HasValue)  
+                .Where(c => c.TopicId == getAllCommentsRequest.TopicId && !c.DeletedOn.HasValue)  
                 .Select(c => new CommentDto
                 {
                     Id = c.Id,
@@ -129,16 +130,25 @@ namespace MyPregnancyTracker.Services.Services.CommentsService
                     UserId = this._dataProtector.Protect(c.UserId.ToString()),
                     UserName = c.User.UserName,
                     Reactions = c.Reactions
+                    .Where(r => r.IsDeleted == false)
                     .Select(r => new ReactionDto
                     {
-                        Id = r.Id,
-                        Type = r.ReactionType
+                        Type = r.ReactionType.ToString(),
+                        CommentId = r.CommentId
+                        
                     })
                     .ToList()
                 })
                 .ToListAsync();
 
-            return comments;
+            return new GetAllCommentsResponseDto
+            {
+                Comments = comments
+                .Skip(getAllCommentsRequest.Skip)
+                .Take(getAllCommentsRequest.Take)
+                .ToList(),
+                CommentsCount = comments.Count
+            };
         }
 
         public async Task<List<CommentDto>> GetUserCommentsAsync(string userId, int topicId)
@@ -153,7 +163,7 @@ namespace MyPregnancyTracker.Services.Services.CommentsService
 
             var topic = await this._topicsResporitory
                 .GetAll()
-                .Where(t => t.Id == topicId && !t.DeletedOn.HasValue && t.UserId == unprotectedUserId)
+                .Where(t => t.Id == topicId && !t.DeletedOn.HasValue)
                 .FirstOrDefaultAsync();
 
             if(topic == null)
@@ -172,10 +182,11 @@ namespace MyPregnancyTracker.Services.Services.CommentsService
                     CreatedOn = c.CreatedOn,    
                     Id = c.Id,
                     Reactions = c.Reactions
+                    .Where(r => r.IsDeleted == false)
                     .Select(r => new ReactionDto
                     {
-                        Id = r.Id,
-                        Type = r.ReactionType
+                        Type = r.ReactionType.ToString(),
+                        CommentId = r.CommentId
                     })
                     .ToList(),
                     UserId = this._dataProtector.Protect(c.UserId.ToString()),

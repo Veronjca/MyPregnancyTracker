@@ -7,9 +7,9 @@ namespace MyPregnancyTracker.Services.Services.TopicsService
         /// <summary>
         /// Gets all topics for the specified category, as asynchronous operation.
         /// </summary>
-        /// <param name="category">The number representation of category.</param>
-        /// <returns>Returns a collection of mapped topics.</returns>
-        Task<List<TopicDto>> GetAllAsync(int category);
+        /// <param name="getAllTopicsRequest">The model that holds the request info.</param>
+        /// <returns>Returns a model that holds paged and ordered topics.</returns>
+        Task<GetAllTopicsResponseDto> GetAllAsync(GetAllTopicsRequestDto getAllTopicsRequest);
 
         /// <summary>
         /// Gets topic by id, as asynchronous operation.
@@ -44,8 +44,9 @@ namespace MyPregnancyTracker.Services.Services.TopicsService
         /// Edits the specified topic, as asynchronous operation.
         /// </summary>
         /// <param name="topicDto">The model that holds the new info.</param>
+        /// <param name="userId">The id of the user that initialize the edit request.</param>
         /// <returns><see langword="true"/> if the operation succeeded else <see langword="false"/>.</returns>
-        Task<bool> EditTopicAsync(TopicDto topicDto);
+        Task<bool> EditTopicAsync(TopicDto topicDto, string userId);
 
     }
 }

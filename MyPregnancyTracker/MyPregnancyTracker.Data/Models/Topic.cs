@@ -33,8 +33,6 @@ namespace MyPregnancyTracker.Data.Models
 
         public DateTime? DeletedOn { get; set; }
 
-        public int CommentId { get; set; }
-
         public virtual ICollection<Comment> Comments { get; set; }
 
         public int UserId { get; set; }

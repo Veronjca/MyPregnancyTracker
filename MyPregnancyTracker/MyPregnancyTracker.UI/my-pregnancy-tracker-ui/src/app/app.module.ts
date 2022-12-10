@@ -34,6 +34,8 @@ import { PostResetPasswordPageComponent } from './post-reset-password-page/post-
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { FooterComponent } from './footer/footer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ErrorPageComponent } from './error-page/error-page.component';
+import { ErrorInterceptor } from './interceptors/error.interceptor';
 
 registerLocaleData(bg);
 
@@ -48,7 +50,8 @@ registerLocaleData(bg);
     ForgottenPasswordComponent,
     ResetPasswordPageComponent,
     PostResetPasswordPageComponent,
-    FooterComponent
+    FooterComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
@@ -72,6 +75,11 @@ registerLocaleData(bg);
     MatProgressSpinnerModule
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

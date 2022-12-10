@@ -1,15 +1,21 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { HttpClient} from '@angular/common/http';
 import * as routes from '../shared/constants/routes.constants';
 import { RefreshAccessTokenResponse } from '../models/refresh-access-token-response.model';
 import { RefreshAccessTokenRequest } from '../models/refresh-access-token-request.models';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  jwtHelper: JwtHelperService = new JwtHelperService();
+
+  get isAdmin(): Observable<boolean>{
+    return of(this.isUserAdmin());
+  }
 
   constructor(private httpClient: HttpClient,
     private router: Router) { }
@@ -36,5 +42,12 @@ export class AuthService {
     };  
     
     return false
+  }
+
+  private isUserAdmin(): boolean{
+    const token = this.getAccessToken();
+    let decodedToken = this.jwtHelper.decodeToken(token);
+
+    return decodedToken.role.includes('admin');
   }
 }

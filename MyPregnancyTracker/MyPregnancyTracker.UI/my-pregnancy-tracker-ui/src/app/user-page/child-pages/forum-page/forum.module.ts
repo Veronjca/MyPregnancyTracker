@@ -15,6 +15,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {MatSortModule} from '@angular/material/sort';
 
 
 import { TopicsPageComponent } from './child-pages/topics-page/topics-page.component';
@@ -23,6 +24,8 @@ import { TopicPageComponent } from './child-pages/topic-page/topic-page.componen
 import { DeleteTopicDialogComponent } from './child-pages/delete-topic-dialog/delete-topic-dialog.component';
 import { EditTopicBottomSheetComponent } from './child-pages/edit-topic-bottom-sheet/edit-topic-bottom-sheet.component';
 import { AddCommentDialogComponent } from './child-pages/add-comment-dialog/add-comment-dialog.component';
+import { DeleteCommentDialogComponent } from './child-pages/delete-comment-dialog/delete-comment-dialog.component';
+import { EditCommentBottomSheetComponent } from './child-pages/edit-comment-bottom-sheet/edit-comment-bottom-sheet.component';
 
 
 
@@ -33,7 +36,9 @@ import { AddCommentDialogComponent } from './child-pages/add-comment-dialog/add-
     TopicPageComponent,
     DeleteTopicDialogComponent,
     EditTopicBottomSheetComponent,
-    AddCommentDialogComponent
+    AddCommentDialogComponent,
+    DeleteCommentDialogComponent,
+    EditCommentBottomSheetComponent
   ],
   imports: [
     CommonModule,
@@ -56,7 +61,8 @@ import { AddCommentDialogComponent } from './child-pages/add-comment-dialog/add-
     MatIconModule,
     MatButtonToggleModule,
     MatTooltipModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatSortModule
   ]
 })
 export class ForumModule { }

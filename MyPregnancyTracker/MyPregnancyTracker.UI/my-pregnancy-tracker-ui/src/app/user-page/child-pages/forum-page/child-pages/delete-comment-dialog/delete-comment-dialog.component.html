@@ -1,0 +1,13 @@
+<mat-dialog-content
+  ><strong>{{
+    deleteCommentDialogConstants.ARE_YOU_SURE
+  }}</strong></mat-dialog-content
+>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="onSubmit()">
+    {{ deleteCommentDialogConstants.I_AM_SURE }}
+  </button>
+  <button mat-raised-button color="primary" (click)="onDecline()">
+    {{ deleteCommentDialogConstants.DECLINE }}
+  </button>
+</mat-dialog-actions>

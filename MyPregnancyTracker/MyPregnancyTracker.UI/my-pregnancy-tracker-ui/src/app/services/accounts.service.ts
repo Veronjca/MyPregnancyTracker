@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ConfirmEmailRequest } from '../models/confirm-email.model';
 import * as routes from '../shared/constants/routes.constants';
 import { RegisterRequest } from '../models/register-request.model';

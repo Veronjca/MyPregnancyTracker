@@ -15,13 +15,13 @@ namespace MyPregnancyTracker.Web.Controllers
             this._commentsService = commentsService;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route(GET_ALL_COMMENTS_ROUTE)]
-        public async Task<IActionResult> GetAllAsync([FromQuery] int topicId)
+        public async Task<IActionResult> GetAllAsync([FromBody] GetAllCommentsRequestDto getAllCommentsRequest)
         {
             try
             {
-                var comments = await _commentsService.GetAllAsync(topicId);
+                var comments = await _commentsService.GetAllAsync(getAllCommentsRequest);
 
                 return Ok(comments);
             }
@@ -61,9 +61,10 @@ namespace MyPregnancyTracker.Web.Controllers
 
         [HttpPut]
         [Route(EDIT_COMMENT_ROUTE)]
-        public async Task<IActionResult> EditAsync([FromBody] EditCommentDto commentDto)
+        public async Task<IActionResult> EditAsync([FromBody] EditCommentDto commentDto, [FromQuery]
+        string userId)
         {
-           var result = await this._commentsService.EditAsync(commentDto);
+           var result = await this._commentsService.EditAsync(commentDto, userId);
 
             if (!result)
             {
@@ -79,9 +80,9 @@ namespace MyPregnancyTracker.Web.Controllers
         {
             try
             {
-                await this._commentsService.GetUserCommentsAsync(userId, topicId);
+                var comments = await this._commentsService.GetUserCommentsAsync(userId, topicId);
 
-                return Ok();
+                return Ok(comments);
             }
             catch (NotFoundException)
             {

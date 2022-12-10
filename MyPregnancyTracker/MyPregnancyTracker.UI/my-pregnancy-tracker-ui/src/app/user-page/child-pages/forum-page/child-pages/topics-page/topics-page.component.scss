@@ -23,3 +23,8 @@ mat-header-cell, mat-cell {
     font-family: "Comic Sans MS", "Comic Sans", cursive; 
     font-size: 50px;
   }
+
+  mat-paginator{
+    display: flex;
+    justify-content: center;
+  }

@@ -1,4 +1,4 @@
 export interface ReactionModel{
-    id: string,
-    type: string,   
+    type: string,
+    commentId: number
 }

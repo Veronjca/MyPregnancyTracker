@@ -57,5 +57,19 @@ app-dashboard-page{
 .mat-checkbox-layout{
   white-space: normal !important;
 }
+
+.mat-paginator {
+  .mat-button-wrapper{
+    color: #ff4081;
+  }
+
+  .mat-button-disabled{
+    .mat-button-wrapper{
+      color: grey !important;
+    }
+    
+  }
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

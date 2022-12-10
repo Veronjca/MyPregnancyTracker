@@ -16,11 +16,11 @@ namespace MyPregnancyTracker.Web.Controllers
             this._topicsService = topicsService;
         }
 
-        [HttpGet]
+        [HttpPost]
         [Route(GET_ALL_TOPICS_ROUTE)]
-        public async Task<IActionResult> GetAllAsync([FromQuery] int category)
+        public async Task<IActionResult> GetAllAsync([FromBody] GetAllTopicsRequestDto getAllTopicsRequest)
         {
-            var topics = await this._topicsService.GetAllAsync(category);
+            var topics = await this._topicsService.GetAllAsync(getAllTopicsRequest);
 
             return Ok(topics);
         }
@@ -80,9 +80,9 @@ namespace MyPregnancyTracker.Web.Controllers
 
         [HttpPut]
         [Route(EDIT_TOPIC_ROUTE)]
-        public async Task<IActionResult> EditAsync([FromBody]TopicDto topicDto)
+        public async Task<IActionResult> EditAsync([FromBody]TopicDto topicDto, [FromQuery]string userId)
         {
-            var result = await this._topicsService.EditTopicAsync(topicDto);
+            var result = await this._topicsService.EditTopicAsync(topicDto, userId);
 
             if (!result)
             {

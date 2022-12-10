@@ -50,7 +50,7 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             var user = this._mapper.Map<ApplicationUser>(registerDto);
 
             var result = await this._userManager.CreateAsync(user, registerDto.Password);
-            //await _userManager.AddToRoleAsync(user, "user");
+            await _userManager.AddToRoleAsync(user, "user");
 
             return result;
         }
