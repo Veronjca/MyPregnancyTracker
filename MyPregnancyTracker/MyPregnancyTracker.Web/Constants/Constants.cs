@@ -92,6 +92,33 @@
             public const string GET_USER_COMMENTS_ROUTE = "get-user-comments";
 
         }
+
+        public static class ReactionsControllerRoutes
+        {
+            public const string REACTIONS_ROUTE = "api/reactions";
+
+            public const string ADD_REACTION_ROUTE = "add-reaction";
+
+            public const string DELETE_REACTION_ROUTE = "delete-reaction";
+
+            public const string GET_USER_REACTIONS_ROUTE = "get-user-reactions";
+        }
+
+        public static class ArticlesControllerRoutes
+        {
+            public const string ARTICLES_ROUTE = "api/articles";
+
+            public const string GET_ALL_ARTICLES_ROUTE = "get-all";
+
+            public const string DELETE_ARTICLE_ROUTE = "delete-article";
+
+            public const string EDIT_ARTICLE_ROUTE = "edit-article";
+
+            public const string ADD_REACTION_ROUTE = "add-reaction";
+
+            public const string ADD_ARTICLE_ROUTE = "add-article";
+
+        }
         public static class Error
         {
             public const string INVALID_LOGIN = "Invalid credentials!";

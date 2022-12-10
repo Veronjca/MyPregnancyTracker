@@ -1,0 +1,34 @@
+<div class="main-container">
+  <div class="title-container">
+    <h2>{{ editArticleBottomSheetConstants.TITLE }}</h2>
+  </div>
+  <div>
+    <form [formGroup]="editArticleForm">
+      <div class="mat-form-fields-container">
+        <!-- Edit title form field -->
+        <mat-form-field appearance="outline">
+          <mat-label>{{
+            editArticleBottomSheetConstants.ARTICLE_TITLE
+          }}</mat-label>
+          <input formControlName="title" matInput />
+        </mat-form-field>
+
+        <!-- Edit content form field -->
+        <mat-form-field appearance="outline">
+          <mat-label>{{ editArticleBottomSheetConstants.CONTENT }}</mat-label>
+          <textarea formControlName="content" matInput> </textarea>
+        </mat-form-field>
+      </div>
+    </form>
+  </div>
+  <div class="button-container">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="editArticle()"
+      [disabled]="!editArticleForm.valid"
+    >
+      {{ editArticleBottomSheetConstants.SAVE_CHANGES }}
+    </button>
+  </div>
+</div>

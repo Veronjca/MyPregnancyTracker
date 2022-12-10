@@ -1,5 +1,7 @@
 <div>
   <mat-table
+    matSort
+    (matSortChange)="sortData($event)"
     *ngIf="dataSource.data.length > 0"
     [dataSource]="dataSource"
     class="mat-elevation-z8"
@@ -19,11 +21,14 @@
     </ng-container>
 
     <ng-container [matColumnDef]="'createdOn'">
-      <mat-header-cell *matHeaderCellDef>{{
-        topicPageConstants.CREATEDON
-      }}</mat-header-cell>
+      <mat-header-cell
+        *matHeaderCellDef
+        [arrowPosition]="'after'"
+        mat-sort-header
+        >{{ topicPageConstants.CREATEDON }}</mat-header-cell
+      >
       <mat-cell *matCellDef="let topic">{{
-        topic.createdOn | date: "longDate"
+        topic.createdOn | date : "longDate"
       }}</mat-cell>
     </ng-container>
 
@@ -40,6 +45,16 @@
       (click)="navigateToTopicPage(row)"
     ></mat-row>
   </mat-table>
+
+  <mat-paginator
+    *ngIf="dataSource.data.length > 0"
+    color="warn"
+    [pageSize]="5"
+    showFirstLastButtons
+    [length]="paginatorLength"
+    (page)="onPageChange()"
+  >
+  </mat-paginator>
 
   <div class="no-posts-to-show" *ngIf="dataSource.data.length == 0">
     <p>{{ topicPageConstants.NO_TOPICS_TO_SHOW }}</p>

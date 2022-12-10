@@ -11,9 +11,11 @@ import { RegisterPageComponent } from './register-page/register-page.component';
 import { ResetPasswordPageComponent } from './reset-password-page/reset-password-page.component';
 import { AuthGuard} from './guards/auth.guard';
 import { IsSignedInGuard } from './guards/is-signed-in.guard';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 const routes: Routes = [
   {path:"", component: HomePageComponent, canActivate: [IsSignedInGuard]},
+  {path:"error", component: ErrorPageComponent},
   {path:"login", component: LoginPageComponent, canActivate: [IsSignedInGuard]},
   {path:"register", component: RegisterPageComponent, canActivate: [IsSignedInGuard]},
   {path:"confirm-email", component: ConfirmEmailPageComponent, canActivate: [IsSignedInGuard]},

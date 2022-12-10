@@ -72,6 +72,14 @@ export class RegisterPageComponent implements OnInit {
       this.confirmPassword?.setErrors(null);
     }
   }
+
+  openTermsAndConditions(){
+    window.open(
+      '../../assets/terms-and-conditions.html',
+      '_blank',
+      'status=0,scrollbars=1,resizable=1,location=1'
+    );
+  }
 }
 
 

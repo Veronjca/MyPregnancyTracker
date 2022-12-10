@@ -9,11 +9,12 @@ namespace MyPregnancyTracker.Data.Models
         public int Id { get; set; }
 
         [Required]
+        public string Title { get; set; }
+
+        [Required]
         public string Content { get; set; }
 
-        public int Likes { get; set; }
-
-        public int Dislikes { get; set; }
+        public ICollection<UserArticle> UsersArticles { get; set; }
 
         public bool IsDeleted { get; set; }
 

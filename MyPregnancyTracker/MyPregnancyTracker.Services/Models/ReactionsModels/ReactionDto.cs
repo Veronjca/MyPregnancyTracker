@@ -5,8 +5,7 @@ namespace MyPregnancyTracker.Services.Models.ReactionsModels
 {
     public class ReactionDto
     {
-        public int Id { get; set; }
-
-        public ReactionTypeEnum Type { get; set; }
+        public int CommentId { get; set; }
+        public string Type { get; set; }
     }
 }

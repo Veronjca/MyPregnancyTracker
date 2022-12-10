@@ -36,3 +36,18 @@ export const EDIT_TOPIC_ENDPOINT = `${environment.baseUrlApi}/api/topics/edit-to
 //Comments controller endpoints.
 export const GET_ALL_COMMENTS_ENDPOINT = `${environment.baseUrlApi}/api/comments/get-all`;
 export const ADD_COMMENT_ENDPOINT = `${environment.baseUrlApi}/api/comments/add-comment`;
+export const GET_USER_COMMENTS_ENDPOINT = `${environment.baseUrlApi}/api/comments/get-user-comments`;
+export const EDIT_COMMENT_ENDPOINT = `${environment.baseUrlApi}/api/comments/edit-comment`;
+export const DELETE_COMMENT_ENDPOINT = `${environment.baseUrlApi}/api/comments/delete-comment`;
+
+//Reactions controller endpoints.
+export const GET_USER_REACTIONS_ENDPOINT = `${environment.baseUrlApi}/api/reactions/get-user-reactions`;
+export const ADD_REACTION_ENDPOINT = `${environment.baseUrlApi}/api/reactions/add-reaction`;
+export const DELETE_REACTION_ENDPOINT = `${environment.baseUrlApi}/api/reactions/delete-reaction`;
+
+//Articles controller endpoints.
+export const GET_ALL_ARTICLES_ENDPOINT = `${environment.baseUrlApi}/api/articles/get-all`;
+export const DELETE_ARTICLE_ENDPOINT = `${environment.baseUrlApi}/api/articles/delete-article`;
+export const EDIT_ARTICLE_ENDPOINT = `${environment.baseUrlApi}/api/articles/edit-article`;
+export const ADD_REACTION_TO_ARTICLE_ENDPOINT = `${environment.baseUrlApi}/api/articles/add-reaction`;
+export const ADD_ARTICLE_ENDPOINT = `${environment.baseUrlApi}/api/articles/add-article`;

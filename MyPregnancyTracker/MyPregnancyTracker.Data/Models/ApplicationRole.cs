@@ -4,6 +4,5 @@ namespace MyPregnancyTracker.Data.Models
 {
     public class ApplicationRole : IdentityRole<int>
     {
-
     }
 }

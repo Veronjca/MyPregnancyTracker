@@ -102,7 +102,7 @@
       </mat-form-field>
       <div class="terms-of-agreement-container">
         <mat-checkbox color="primary" formControlName="acceptTACCheckbox">
-          <a routerLink="">{{
+          <a (click)="openTermsAndConditions()" href="#" target="_blank">{{
             registerPageConstants.TERMS_OF_AGREEMENT_HYPERLINK
           }}</a>
         </mat-checkbox>

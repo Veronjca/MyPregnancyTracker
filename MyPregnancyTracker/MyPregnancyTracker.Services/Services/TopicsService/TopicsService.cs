@@ -53,12 +53,12 @@ namespace MyPregnancyTracker.Services.Services.TopicsService
             return true;
         }
 
-        public async Task<List<TopicDto>> GetAllAsync(int category)
-        {
+        public async Task<GetAllTopicsResponseDto> GetAllAsync(GetAllTopicsRequestDto getAllTopicsRequest)
+        {            
             var topics = await this._topicsRepository
                         .GetAll()
                         .Include(t => t.User)
-                        .Where(t => (int)t.TopicCategory == category && !t.DeletedOn.HasValue)
+                        .Where(t => (int)t.TopicCategory == getAllTopicsRequest.Category && !t.DeletedOn.HasValue)
                         .Select(t => new TopicDto
                         {
                             Id = t.Id.ToString(),
@@ -71,7 +71,23 @@ namespace MyPregnancyTracker.Services.Services.TopicsService
                         })
                         .ToListAsync();
 
-            return topics;
+            if (getAllTopicsRequest.IsDescendingOrder)
+            {
+                topics = topics.OrderByDescending(x => x.CreatedOn).ToList();
+            }
+            else
+            {
+                topics = topics.OrderBy(x => x.CreatedOn).ToList();
+            }
+
+            return new GetAllTopicsResponseDto
+            {
+                Topics = topics
+                        .Skip(getAllTopicsRequest.Skip)
+                        .Take(getAllTopicsRequest.Take)
+                        .ToList(),
+                TopicsCount = topics.Count
+            };
         }
 
         public async Task<TopicDto> GetOneAsync(int topicId)
@@ -137,14 +153,15 @@ namespace MyPregnancyTracker.Services.Services.TopicsService
             }
 
             topic.DeletedOn = DateTime.UtcNow;
+            topic.IsDeleted = true;
             await this._topicsRepository.SaveChangesAsync();
 
             return true;
         }
 
-        public async Task<bool> EditTopicAsync(TopicDto topicDto)   
+        public async Task<bool> EditTopicAsync(TopicDto topicDto, string userId)   
         {
-            var unprotectedUserId = int.Parse(this._dataProtector.Unprotect(topicDto.UserId));
+            var unprotectedUserId = int.Parse(this._dataProtector.Unprotect(userId));
 
             var topic = await this._topicsRepository
                 .GetAll()

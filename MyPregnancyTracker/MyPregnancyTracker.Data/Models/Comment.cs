@@ -34,8 +34,6 @@ namespace MyPregnancyTracker.Data.Models
 
         public Topic Topic { get; set; }
 
-        public int ReactionId { get; set; }
-
         public virtual ICollection<Reaction> Reactions { get; set; }
     }
 }

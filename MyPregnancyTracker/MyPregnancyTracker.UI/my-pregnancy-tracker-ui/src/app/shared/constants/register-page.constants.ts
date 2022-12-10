@@ -9,7 +9,7 @@ export const CONFIRM_PASSWORD = 'Потвърждаване на парола';
 export const SEND = 'Напред';
 export const CHOOSE_A_DATE = 'Дата на първия ден на последната менструация';
 export const DATE_FORMAT = 'MM/DD/YYYY';
-export const TERMS_OF_AGREEMENT_HYPERLINK = 'Общи условия и Политиката за поверителност';
+export const TERMS_OF_AGREEMENT_HYPERLINK = 'Декларация за Поверителност и Условия за Ползване';
 export const HAVE_AN_ACCOUNT = 'Вече имате регистрация?';
 
 //Erros text content constants.

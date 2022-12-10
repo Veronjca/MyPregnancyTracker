@@ -20,6 +20,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatListModule} from '@angular/material/list';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
 
 import { DashboardPageComponent } from "./child-pages/dashboard-page/dashboard-page.component";
 import { UserPageComponent } from "./user-page.component";
@@ -30,6 +31,10 @@ import { MyTasksPageComponent } from './child-pages/my-tasks-page/my-tasks-page.
 import { AdditionalInfoDialogComponent } from './child-pages/additional-info-dialog/additional-info-dialog.component';
 import { DeleteAccountDialogComponent } from './child-pages/delete-account-dialog/delete-account-dialog.component';
 import { ForumPageComponent } from './child-pages/forum-page/forum-page.component';
+import { ArticlesPageComponent } from './child-pages/articles-page/articles-page.component';
+import { DeleteArticleDialogComponent } from './child-pages/delete-article-dialog/delete-article-dialog.component';
+import { EditArticleBottomSheetComponent } from './child-pages/edit-article-bottom-sheet/edit-article-bottom-sheet.component';
+import { AddArticleDialogComponent } from './child-pages/add-article-dialog/add-article-dialog.component';
 
 registerLocaleData(bg);
 @NgModule({
@@ -43,6 +48,10 @@ registerLocaleData(bg);
         AdditionalInfoDialogComponent,
         DeleteAccountDialogComponent,
         ForumPageComponent,
+        ArticlesPageComponent,
+        DeleteArticleDialogComponent,
+        EditArticleBottomSheetComponent,
+        AddArticleDialogComponent,
     ], 
     imports: [
         CommonModule, 
@@ -57,7 +66,8 @@ registerLocaleData(bg);
                     path: 'forum',
                     component: ForumPageComponent,
                     loadChildren: () => import('./child-pages/forum-page/forum.module').then(module => module.ForumModule)
-                }
+                },
+                {path: 'articles', component: ArticlesPageComponent}
             ]
         }]),
         MatCardModule,
@@ -75,7 +85,8 @@ registerLocaleData(bg);
         MatCheckboxModule,
         MatDialogModule,
         MatListModule,
-        MatButtonToggleModule
+        MatButtonToggleModule,
+        MatBottomSheetModule
     ], 
     schemas:[CUSTOM_ELEMENTS_SCHEMA],
     bootstrap: [],

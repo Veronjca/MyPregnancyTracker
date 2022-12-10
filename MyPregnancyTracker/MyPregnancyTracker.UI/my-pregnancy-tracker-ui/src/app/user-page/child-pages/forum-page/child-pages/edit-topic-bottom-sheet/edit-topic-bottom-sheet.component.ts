@@ -12,6 +12,7 @@ import * as constants from '../../../../../shared/constants/edit-topic-bottom-sh
 })
 export class EditTopicBottomSheetComponent implements OnInit {
   topicModel!: TopicModel;
+  userId = sessionStorage.getItem('userId');
   constants = constants;
   editTopicForm: FormControl = new FormControl('');
 
@@ -27,7 +28,7 @@ export class EditTopicBottomSheetComponent implements OnInit {
 
   editTopic(){
     this.topicModel.content = this.editTopicForm.value;
-    this.topicsService.editTopic(this.topicModel).subscribe();
+    this.topicsService.editTopic(this.topicModel, this.userId!).subscribe();
     this.bottomSheetRef.dismiss();
   }
 }

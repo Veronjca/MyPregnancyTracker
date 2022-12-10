@@ -52,15 +52,11 @@ namespace MyPregnancyTracker.Data.Models
 
         public virtual ICollection<ApplicationUserMyPregnancyTrackerTask> ApplicationUsersMyPregnancyTrackerTasks { get; set; }
 
-        public int CommentId { get; set; }
+        public ICollection<UserArticle> UsersArticles { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
 
-        public int TopicId { get; set; }
-
         public virtual ICollection<Topic> Topics { get; set; }
-
-        public int ReactionId { get; set; }
 
         public virtual ICollection<Reaction> Reactions { get; set; }
 

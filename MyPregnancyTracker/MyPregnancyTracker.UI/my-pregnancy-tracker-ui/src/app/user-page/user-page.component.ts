@@ -33,8 +33,12 @@ export class UserPageComponent implements OnInit {
     this.router.navigate(['/user', this.userId, 'forum']);
   }
 
+  navigateToArticlesPage(){
+    this.router.navigate(['/user', this.userId, 'articles']);
+  }
+
   get showSidenav(): Observable<boolean>{
-    return of(this.router.url.includes('forum'));     
+    return of(this.router.url.includes('forum') || this.router.url.includes('articles'));     
   }
 }
 

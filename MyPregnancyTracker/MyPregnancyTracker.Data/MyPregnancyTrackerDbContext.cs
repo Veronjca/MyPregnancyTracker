@@ -104,8 +104,13 @@ namespace MyPregnancyTracker.Data
             builder.Entity<ApplicationUserMyPregnancyTrackerTask>()
                 .HasKey(x => new { x.MyPregnancyTrackerTaskId, x.ApplicationUserId });
 
+            builder.Entity<UserArticle>()
+                .HasKey(x => new { x.ArticleId, x.ApplicationUserId });
+
             builder.ApplyConfiguration(new GestationalWeekConfiguration());
             builder.ApplyConfiguration(new MyPregnancyTrackerTaskConfiguration());
+            builder.ApplyConfiguration(new ArticlesConfiguration());
+            builder.ApplyConfiguration(new ApplicationRolesConfiguration());
         }
         private void ApplyAuditInfoRules()
         {
