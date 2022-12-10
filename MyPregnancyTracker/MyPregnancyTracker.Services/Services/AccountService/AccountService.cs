@@ -77,11 +77,12 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             {
                 throw new UnauthorizedAccessException(INCORRECT_PASSWORD);
             }
-            var days = (DateTime.UtcNow - user.ModifiedOn).Value.TotalDays;
+            var days = (DateTime.UtcNow - user.DeletedOn).Value.TotalDays;
 
             if(user.IsDeleted && days <= 30)
             {
                 user.IsDeleted = false;
+                user.DeletedOn = null;
             }
             else if (user.IsDeleted)
             {
@@ -225,6 +226,7 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             }
 
             user.IsDeleted = true;
+            user.DeletedOn = DateTime.UtcNow;
             this._usersRepository.Update(user);
             await this._usersRepository.SaveChangesAsync();
         }
