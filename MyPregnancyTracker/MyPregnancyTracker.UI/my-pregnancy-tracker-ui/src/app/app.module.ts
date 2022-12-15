@@ -36,6 +36,7 @@ import { FooterComponent } from './footer/footer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
+import { ErrorDialogComponent } from './error-dialog/error-dialog.component';
 
 registerLocaleData(bg);
 
@@ -51,7 +52,8 @@ registerLocaleData(bg);
     ResetPasswordPageComponent,
     PostResetPasswordPageComponent,
     FooterComponent,
-    ErrorPageComponent
+    ErrorPageComponent,
+    ErrorDialogComponent
   ],
   imports: [
     BrowserModule,

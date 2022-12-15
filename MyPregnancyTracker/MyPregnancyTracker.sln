@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32901.215
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPregnancyTracker.Web", "MyPregnancyTracker.Web\MyPregnancyTracker.Web.csproj", "{00EF489F-E754-41AD-9AE5-BCC28A8430ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPregnancyTracker.Web", "MyPregnancyTracker.Web\MyPregnancyTracker.Web.csproj", "{00EF489F-E754-41AD-9AE5-BCC28A8430ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPregnancyTracker.Data", "MyPregnancyTracker.Data\MyPregnancyTracker.Data.csproj", "{E758AB54-1526-4C6E-BBF0-35E157542266}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPregnancyTracker.Data", "MyPregnancyTracker.Data\MyPregnancyTracker.Data.csproj", "{E758AB54-1526-4C6E-BBF0-35E157542266}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPregnancyTracker.Services", "MyPregnancyTracker.Services\MyPregnancyTracker.Services.csproj", "{99C12AB1-3141-4F7B-AE65-1967BAFE12DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyPregnancyTracker.Services", "MyPregnancyTracker.Services\MyPregnancyTracker.Services.csproj", "{99C12AB1-3141-4F7B-AE65-1967BAFE12DA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyPregnancyTracker.Tests", "MyPregnancyTracker.Tests\MyPregnancyTracker.Tests.csproj", "{D36FB6B1-92BE-454A-A6D5-C1A6C892C1D5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{99C12AB1-3141-4F7B-AE65-1967BAFE12DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{99C12AB1-3141-4F7B-AE65-1967BAFE12DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{99C12AB1-3141-4F7B-AE65-1967BAFE12DA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D36FB6B1-92BE-454A-A6D5-C1A6C892C1D5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D36FB6B1-92BE-454A-A6D5-C1A6C892C1D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D36FB6B1-92BE-454A-A6D5-C1A6C892C1D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D36FB6B1-92BE-454A-A6D5-C1A6C892C1D5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
