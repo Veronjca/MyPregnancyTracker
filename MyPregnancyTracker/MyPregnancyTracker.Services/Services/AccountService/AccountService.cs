@@ -77,7 +77,7 @@ namespace MyPregnancyTracker.Services.Services.AccountService
             {
                 throw new UnauthorizedAccessException(INCORRECT_PASSWORD);
             }
-            var days = (DateTime.UtcNow - user.DeletedOn).Value.TotalDays;
+            var days = (DateTime.UtcNow - (user.DeletedOn.HasValue ? user.DeletedOn : DateTime.UtcNow)).Value.TotalDays;
 
             if(user.IsDeleted && days <= 30)
             {
