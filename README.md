@@ -34,6 +34,16 @@ This project is used for educational purposes only.
 
 ## User Page 
 <p>The user page is initialized on the gestational week you are currently in.</p>
+<p>Using buttons marked with #1 you can slide through all of the gestational weeks.</p>
+<p>Upon hitting logout button (marked with #2) you will exit the application and redirected to the home page. </p>
 
 <img height="500em" src="https://i.ibb.co/4P9mXSr/user-Page-Marked-Up.png" alt="user-Page-Marked-Up" />
+
+
+
+### Functionality and child pages
+
+Button marked with #3 toggles side navigation, see below.
+
+<img src="https://i.ibb.co/8nwrgq7/side-Nav-Marked-Up.png" alt="side-Nav-Marked-Up" />
 
