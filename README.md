@@ -1,4 +1,4 @@
-# MyPregnancyTracker
+# My Pregnancy Tracker
 This project is used for educational purposes only.
 <p><strong>Sources used:</strong></p>
 <ul>
