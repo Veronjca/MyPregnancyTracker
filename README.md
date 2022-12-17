@@ -71,7 +71,7 @@ This project is used for educational purposes only.
 
 <img src="https://i.ibb.co/1sgdQfs/delete-Profile-Page.png" alt="delete-Profile-Page" />
 
-<p><ins>Buttons marked with #7,#8 and #9 opens up modals which contains gestational week specific content.</ins></p>
+<p><ins><strong>Buttons marked with #7,#8 and #9 opens up modals which contains gestational week specific content.</strong></ins></p>
 <p><strong>Button marked with #7 leads to mother page.</strong></p>
 
 <p>In this page you can find some information about changes in your body during pregnancy, symptoms and so on.</p>
@@ -86,4 +86,17 @@ This project is used for educational purposes only.
 
 <p>Here are some advices considering the selected gestational week.</p>
 <img src="https://i.ibb.co/1ZHzGdp/advices-Page.png" alt="advices-Page" />
+
+## Forum Page
+<p><strong>When you click on the button marked with #5 from user page you will open forum page.</strong></p>
+
+<p>Here you can choose the category of the topics you want to see.</p>
+<p>The topics table has paginator with 5 topics per page.</p>
+<p>Also you are able to sort topics by creation date. </p>
+
+<img height="500em" src="https://i.ibb.co/fGv9YdN/forum-Page.png" alt="forum-Page" />
+
+<p>If you click on the "+" button on the bottom right corner it will open a form where you can submit your topic for the chosen category.</p>
+
+<img src="https://i.ibb.co/K0pGLHV/add-Category-Button.png" alt="add-Category-Button" />
 
