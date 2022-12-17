@@ -43,7 +43,13 @@ This project is used for educational purposes only.
 
 ### Functionality and child pages
 
-Button marked with #3 toggles side navigation, see below.
+<p><strong>Button marked with #3 toggles side navigation, see below.</strong></p>
 
 <img src="https://i.ibb.co/8nwrgq7/side-Nav-Marked-Up.png" alt="side-Nav-Marked-Up" />
+
+<p><strong>Upon clicking on button marked with #10 you will see profile page.</strong></p>
+
+<p>Here you can add some additional info such as: first and last name, height, weight and birth date. Also you can check your due date.</p>
+
+<img src="https://i.ibb.co/yQYqmxs/profile-Page.png" alt="profile-Page" />
 
