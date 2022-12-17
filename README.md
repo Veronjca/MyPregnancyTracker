@@ -101,3 +101,26 @@ This project is used for educational purposes only.
 <p><img src="https://i.ibb.co/K0pGLHV/add-Category-Button.png" alt="add-Category-Button" />
 <img height="500em" src="https://i.ibb.co/g7v4TLy/add-Category-Form.png" alt="add-Category-Form"/></p>
 
+## Topic Page
+<p>On the topic page you will find more information about the topic, such as: title, author, date of creation and comments.</p>
+<p>On the topics of your own you will find buttons to edit(marked with #2) or delete(marked with #3) the topic.</p>
+
+<img height="500em" src="https://i.ibb.co/XFnTY67/topic-Page-Marked-Up.png" alt="topic-Page-Marked-Up" />
+
+<p><strong>Upon clicking button marked with #1 you will collapse the topic comments.</strong></p>
+<p>The comments have paginator with 5 comments per page.</p>
+
+<img height="500em" src="https://i.ibb.co/9nPm85k/comments-Page.png" alt="comments-Page" />
+
+<p>You can also add reaction to every single comment.</p>
+<p>Reactions are:</p>
+<ul>
+  <li>Like</li>
+  <li>Love</li>
+  <li>Laugh</li>
+  <li>Sad</li>
+</ul>
+
+<img src="https://i.ibb.co/0rGzsTy/reactions.png" alt="reactions"/>
+  
+
