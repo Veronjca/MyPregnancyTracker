@@ -71,3 +71,8 @@ This project is used for educational purposes only.
 
 <img src="https://i.ibb.co/1sgdQfs/delete-Profile-Page.png" alt="delete-Profile-Page" />
 
+<p><strong>Button marked with #7 leads to mother page.</strong></p>
+
+<p>In this page you can find some information about changes in your body during pregnancy, symptoms and so on.</p>
+<img height="500em" src="https://i.ibb.co/qRSyMBm/mother-Page.png" alt="mother-Page" />
+
