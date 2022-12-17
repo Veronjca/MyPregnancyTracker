@@ -139,7 +139,7 @@ This project is used for educational purposes only.
 <img height="500em" src="https://i.ibb.co/Wg7vkX0/articles-Page1.png" alt="articles-Page1"/>
 <img height="500em" src="https://i.ibb.co/T88YJ4g/articles-Page2.png" alt="articles-Page2"/>
 
-# Technical documentation
+# Technical Documentation
 <pre>
 1. Clone the repo and open the MyPregnancyTracker.Web.sln project file in the MyPregnancyTracker.Web folder.
 2. Initialize following user secrets for the project:
@@ -156,5 +156,47 @@ This project is used for educational purposes only.
 6. Enjoy!
 </pre>
 
+# Tech Stack
+# API
+<ul>
+  <li>ASP.NET Core 6.0</li>
+  <li>AutoMapper version="12.0.0"</li>
+  <li>Microsoft.AspNetCore.Authentication.JwtBearer version="6.0.9"</li>
+  <li>SendGrid version="9.28.1"</li>
+  <li>Microsoft.AspNetCore.Identity version="6.0.9"</li>
+  <li>EntityFrameworkCore version="6.0.9"</li>
+  <li>Swashbuckle.AspNetCore.Swagger version="6.4.0"</li>
+</ul>
+
+# Front End
+<ul>
+  <li>Angular 14.2.4</li>
+  <li>Material 14.2.3</li>
+  <li>rxjs 7.5.7</li>
+  <li>TypeScript 4.7.4</li>
+  <li>JwtHelper </li>
+</ul>
+
+# Database
+<ul>
+  <li>MSSql Server </li>
+</ul>
+
+# Tests
+<ul>
+  <li>Microsoft.EntityFrameworkCore.InMemory version="7.0.0" </li>
+  <li>Microsoft.NET.Test.Sdk version="17.1.0" </li>
+  <li>Moq version="4.18.3" </li>
+  <li>NUnit version="3.13.3" </li>
+  <li>NUnit3TestAdapter version="4.2.1" </li>
+  <li>NUnit.Analyzers version="3.3.0" </li>
+  <li>coverlet.collector version="3.1.2" </li>
+</ul>
+
+# Git Tools
+<ul>
+  <li>GitHub</li>
+  <li>Tortoise Git</li>
+</ul>
   
 
