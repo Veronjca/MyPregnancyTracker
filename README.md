@@ -59,9 +59,15 @@ This project is used for educational purposes only.
 
 <img src="https://i.ibb.co/YQmTQ0R/contact-Us-Page.png" alt="contact-Us-Page" />
 
-<p><strong> Buttons marked with #12 leads to tasks page.</strong></p>
+<p><strong> Button marked with #12 leads to tasks page.</strong></p>
 
 <p>Here you can find different tasks for every single gestational week.</p>
 <p>You can mark them as done upon clicking ot the checkbox before each of them.</p>
 <img src="https://i.ibb.co/Y8nWXzY/tasks-Page.png" alt="tasks-Page" />
+
+<p><strong>#13 expands user settings where you can delete your account.</strong></p>
+
+<p>Note that if you try to login 30 days after deletion, your account will be restored automatically.</p>
+
+<img src="https://i.ibb.co/1sgdQfs/delete-Profile-Page.png" alt="delete-Profile-Page" />
 
