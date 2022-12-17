@@ -53,3 +53,9 @@ This project is used for educational purposes only.
 
 <img src="https://i.ibb.co/yQYqmxs/profile-Page.png" alt="profile-Page" />
 
+<p><strong>Button marked with #11 leads to contact us page.</strong></p>
+
+<p>Here you can see our email. Don't hesitate to contact us at any time.</p>
+
+<img src="https://i.ibb.co/YQmTQ0R/contact-Us-Page.png" alt="contact-Us-Page" />
+
