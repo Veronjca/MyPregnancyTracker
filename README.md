@@ -71,6 +71,7 @@ This project is used for educational purposes only.
 
 <img src="https://i.ibb.co/1sgdQfs/delete-Profile-Page.png" alt="delete-Profile-Page" />
 
+<p><ins>Buttons marked with #7,#8 and #9 opens up modals which contains gestational week specific content.</ins></p>
 <p><strong>Button marked with #7 leads to mother page.</strong></p>
 
 <p>In this page you can find some information about changes in your body during pregnancy, symptoms and so on.</p>
@@ -80,4 +81,9 @@ This project is used for educational purposes only.
 
 <p>Here you can find some useful information of how to manage your diet during pregnancy. What to eat and what to avoid with given choices of healthy food.</p>
 <img height="500em" src="https://i.ibb.co/zRsyCN6/nutrition-Page.png" alt="nutrition-Page" />
+
+<p><strong>Button marked with #9 leads to advices page.</strong></p>
+
+<p>Here are some advices considering the selected gestational week.</p>
+<img src="https://i.ibb.co/1ZHzGdp/advices-Page.png" alt="advices-Page" />
 
