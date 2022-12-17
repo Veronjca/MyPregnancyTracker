@@ -108,6 +108,8 @@ This project is used for educational purposes only.
 <img height="500em" src="https://i.ibb.co/XFnTY67/topic-Page-Marked-Up.png" alt="topic-Page-Marked-Up" />
 
 <p><strong>Upon clicking button marked with #1 you will collapse the topic comments.</strong></p>
+
+<p>Every author is able to delete or edit their comments with the provided action buttons on the comment card.</p>
 <p>The comments have paginator with 5 comments per page.</p>
 
 <img height="500em" src="https://i.ibb.co/9nPm85k/comments-Page.png" alt="comments-Page" />
@@ -122,5 +124,11 @@ This project is used for educational purposes only.
 </ul>
 
 <img src="https://i.ibb.co/0rGzsTy/reactions.png" alt="reactions"/>
+
+<p><strong>In the end of the comment table you will find button to add a new comment.</strong></p>
+
+<p><img src="https://i.ibb.co/98C6sxd/add-Comment-Button.png" alt="add-Comment-Button"/>
+<img height="500em" src="https://i.ibb.co/93dHH2Q/add-Comment-Form.png" alt="add-Comment-Form" /></p>
+
   
 
