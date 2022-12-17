@@ -76,3 +76,8 @@ This project is used for educational purposes only.
 <p>In this page you can find some information about changes in your body during pregnancy, symptoms and so on.</p>
 <img height="500em" src="https://i.ibb.co/qRSyMBm/mother-Page.png" alt="mother-Page" />
 
+<p><strong>Button marked with #8 leads to nutrition page.</strong></p>
+
+<p>Here you can find some useful information of how to manage your diet during pregnancy. What to eat and what to avoid with given choices of healthy food.</p>
+<img height="500em" src="https://i.ibb.co/zRsyCN6/nutrition-Page.png" alt="nutrition-Page" />
+
