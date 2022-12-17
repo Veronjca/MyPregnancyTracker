@@ -139,6 +139,22 @@ This project is used for educational purposes only.
 <img height="500em" src="https://i.ibb.co/Wg7vkX0/articles-Page1.png" alt="articles-Page1"/>
 <img height="500em" src="https://i.ibb.co/T88YJ4g/articles-Page2.png" alt="articles-Page2"/>
 
+# Technical documentation
+<pre>
+1. Clone the repo and open the MyPregnancyTracker.Web.sln project file in the MyPregnancyTracker.Web folder.
+2. Initialize following user secrets for the project:
+  The Keys needed for the project to work properly are:
+  -"SendGridApiKey"
+  -"JwtSecretKey"
+  -"User"
+  -"Password"
+  -"ConnectionString"
+  -"DataProtectorKey"
+3. Register in https://sendgrid.com/ with free account and get the API key that's been given to you(don't give it to anyone else). Add the key to the "SendGridApiKey" secret.
+4. Open the frontend project located in MyPregnancyTracker.UI folder with VS Code and run the "ng serve -o" command in the terminal. This will serve the front end project and will be opened on port 4200.
+5. Start the Web project under the IIS Express profile.
+6. Enjoy!
+</pre>
 
   
 
