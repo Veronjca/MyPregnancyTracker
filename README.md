@@ -98,5 +98,6 @@ This project is used for educational purposes only.
 
 <p>If you click on the "+" button on the bottom right corner it will open a form where you can submit your topic for the chosen category.</p>
 
-<img src="https://i.ibb.co/K0pGLHV/add-Category-Button.png" alt="add-Category-Button" />
+<p><img src="https://i.ibb.co/K0pGLHV/add-Category-Button.png" alt="add-Category-Button" />
+<img height="500em" src="https://i.ibb.co/g7v4TLy/add-Category-Form.png" alt="add-Category-Form"/></p>
 
