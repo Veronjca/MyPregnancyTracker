@@ -130,5 +130,15 @@ This project is used for educational purposes only.
 <p><img src="https://i.ibb.co/98C6sxd/add-Comment-Button.png" alt="add-Comment-Button"/>
 <img height="500em" src="https://i.ibb.co/93dHH2Q/add-Comment-Form.png" alt="add-Comment-Form" /></p>
 
+## Articles Page
+<p>On the articles page are published some very informative articles.</p>
+<p>When you finish reading an article you can give your feedback if it was useful for you.</p>
+<p>Admins have the ability to add, delete or edit an article.</p>
+<p>Also articles have paginator with 1 article per page.</p>
+
+<img height="500em" src="https://i.ibb.co/Wg7vkX0/articles-Page1.png" alt="articles-Page1"/>
+<img height="500em" src="https://i.ibb.co/T88YJ4g/articles-Page2.png" alt="articles-Page2"/>
+
+
   
 
