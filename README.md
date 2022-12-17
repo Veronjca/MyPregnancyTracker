@@ -157,7 +157,7 @@ This project is used for educational purposes only.
 </pre>
 
 # Tech Stack
-# API
+## API
 <ul>
   <li>ASP.NET Core 6.0</li>
   <li>AutoMapper version="12.0.0"</li>
@@ -168,7 +168,7 @@ This project is used for educational purposes only.
   <li>Swashbuckle.AspNetCore.Swagger version="6.4.0"</li>
 </ul>
 
-# Front End
+## Front End
 <ul>
   <li>Angular 14.2.4</li>
   <li>Material 14.2.3</li>
@@ -177,12 +177,12 @@ This project is used for educational purposes only.
   <li>JwtHelper </li>
 </ul>
 
-# Database
+## Database
 <ul>
   <li>MSSql Server </li>
 </ul>
 
-# Tests
+## Tests
 <ul>
   <li>Microsoft.EntityFrameworkCore.InMemory version="7.0.0" </li>
   <li>Microsoft.NET.Test.Sdk version="17.1.0" </li>
@@ -193,7 +193,7 @@ This project is used for educational purposes only.
   <li>coverlet.collector version="3.1.2" </li>
 </ul>
 
-# Git Tools
+## Git Tools
 <ul>
   <li>GitHub</li>
   <li>Tortoise Git</li>
