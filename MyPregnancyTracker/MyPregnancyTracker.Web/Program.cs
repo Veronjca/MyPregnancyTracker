@@ -59,7 +59,7 @@ builder.Services
         IssuerSigningKey = new SymmetricSecurityKey(jwtKey),
         ValidateIssuer = false,
         ValidateAudience = false,
-        ValidateLifetime = true
+        ValidateLifetime = true 
     };
 });
 
