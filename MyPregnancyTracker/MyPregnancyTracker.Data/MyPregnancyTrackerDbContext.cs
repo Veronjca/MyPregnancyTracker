@@ -1,16 +1,20 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Elasticsearch.Net;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MyPregnancyTracker.Data.Configuration;
 using MyPregnancyTracker.Data.Models;
 using MyPregnancyTracker.Data.Models.Contracts;
+using Nest;
 
 namespace MyPregnancyTracker.Data
 {
     public class MyPregnancyTrackerDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, int>
     {
-        public MyPregnancyTrackerDbContext(DbContextOptions<MyPregnancyTrackerDbContext> options)
+        private IElasticLowLevelClient _elasticClient;
+        public MyPregnancyTrackerDbContext(DbContextOptions<MyPregnancyTrackerDbContext> options, IElasticLowLevelClient elasticClient)
             : base(options)
         {
+            this._elasticClient = elasticClient;
         }
 
         public override int SaveChanges()
@@ -109,7 +113,7 @@ namespace MyPregnancyTracker.Data
 
             builder.ApplyConfiguration(new GestationalWeekConfiguration());
             builder.ApplyConfiguration(new MyPregnancyTrackerTaskConfiguration());
-            builder.ApplyConfiguration(new ArticlesConfiguration());
+            builder.ApplyConfiguration(new ArticlesConfiguration(this._elasticClient));
             builder.ApplyConfiguration(new ApplicationRolesConfiguration());
         }
         private void ApplyAuditInfoRules()

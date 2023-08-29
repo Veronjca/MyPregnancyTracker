@@ -30,9 +30,11 @@ export class PostRegisterPageComponent implements OnInit {
     this.resendConfirmationEmailRequest = {
     email: this.email
     }
-    
+
     this.accountsService.resendConfirmationEmail(this.resendConfirmationEmailRequest)
-          .subscribe(response => this.router.navigate(['/login']));
+          .subscribe(response => {
+            this.router.navigate(['/login'])
+          });
 
   }
 }

@@ -158,14 +158,14 @@ namespace MyPregnancyTracker.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "ecf5ef1c-7284-47c8-ac76-c339a7e2c058",
+                            ConcurrencyStamp = "29c2d75e-2a5b-4e13-866d-d78052d8cf22",
                             Name = "admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "7bbf04ce-9ee2-46e4-8e37-678ea3e88657",
+                            ConcurrencyStamp = "c58d1280-608b-45b2-809a-1c762f06bc6d",
                             Name = "user",
                             NormalizedName = "USER"
                         });
