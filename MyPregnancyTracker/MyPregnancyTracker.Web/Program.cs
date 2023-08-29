@@ -11,8 +11,6 @@ using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using MyPregnancyTracker.Services;
-using MyPregnancyTracker.Services.EmailSender;
-using IEmailSender = MyPregnancyTracker.Services.EmailSender.IEmailSender;
 using MyPregnancyTracker.Services.Config;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -59,7 +57,7 @@ builder.Services
         IssuerSigningKey = new SymmetricSecurityKey(jwtKey),
         ValidateIssuer = false,
         ValidateAudience = false,
-        ValidateLifetime = true 
+        ValidateLifetime = true
     };
 });
 
@@ -73,15 +71,16 @@ builder.Services.AddDataProtection();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 builder.Services.AddServiceLayer();
-builder.Services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
-builder.Services.AddTransient<IEmailSender>(options => new SendGridEmailSender(builder.Configuration["SendGridApiKey"]));
+builder.Services.AddRepository();
+builder.Services.AddEmailSender(builder.Configuration);
+builder.Services.AddElasticsearch(builder.Configuration);
 
 builder.Services.AddSwaggerGen(opt =>
 {
-    opt.SwaggerDoc("v1", new OpenApiInfo 
-    { 
-        Version = "v1", 
-        Title = "MyPregnancyTracker.Api", 
+    opt.SwaggerDoc("v1", new OpenApiInfo
+    {
+        Version = "v1",
+        Title = "MyPregnancyTracker.Api",
         Description = "Api for MyPregnancyTracker web app.Personal information source about pregnancy and all about it.",
     });
 

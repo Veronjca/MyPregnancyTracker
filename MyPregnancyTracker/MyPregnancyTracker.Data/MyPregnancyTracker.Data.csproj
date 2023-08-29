@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -7,11 +7,13 @@
   </PropertyGroup>
 	
 	<ItemGroup>
+		<PackageReference Include="Elasticsearch.Net" Version="7.10.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.9" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.9" />
 		<PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.9" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.9" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.9" />
+		<PackageReference Include="NEST" Version="7.10.0" />
 	</ItemGroup>
 	
 	<ItemGroup>
