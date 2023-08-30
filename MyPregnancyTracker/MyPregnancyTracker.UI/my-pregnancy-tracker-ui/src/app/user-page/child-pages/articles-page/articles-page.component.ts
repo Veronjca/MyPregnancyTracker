@@ -38,7 +38,7 @@ export class ArticlesPageComponent implements OnInit {
     this.getAllArticlesRequest = {
       userId: this.userId!,
       skip: 0,
-      take: 1
+      take: 3
     }
 
     this.getAllArticles(this.getAllArticlesRequest);

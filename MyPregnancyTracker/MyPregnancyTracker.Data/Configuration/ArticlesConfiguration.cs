@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using MyPregnancyTracker.Data.Models;
-using Nest;
 
 namespace MyPregnancyTracker.Data.Configuration
 {

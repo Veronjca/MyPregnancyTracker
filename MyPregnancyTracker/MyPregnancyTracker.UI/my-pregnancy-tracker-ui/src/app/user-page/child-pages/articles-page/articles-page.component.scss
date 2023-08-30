@@ -76,3 +76,28 @@ mat-card-header{
     left: 2%;
     top: 12%;
 }
+
+.search-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    mat-form-field{
+        width: 50%;
+
+        .inner-container{
+            display: flex;
+
+            .search-button{
+                &:hover{background-color: rgba(244, 143, 177, 0.3);}
+            }
+        }
+    }
+}
+
+.truncate{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;     
+    max-width: 60%;
+}

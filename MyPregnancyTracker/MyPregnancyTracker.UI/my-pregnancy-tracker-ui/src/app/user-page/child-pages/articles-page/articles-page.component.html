@@ -8,6 +8,29 @@
     <mat-icon>add</mat-icon>
   </button>
 </div>
+
+<div class="search-container">
+  <mat-form-field appearance="outline">
+    <div class="inner-container">
+      <input
+        matInput
+        [placeholder]="articlesPageConstants.SEARCH_PLACEHOLDER"
+      />
+      <button mat-icon-button color="primary" class="search-button">
+        <mat-icon>search</mat-icon>
+      </button>
+    </div>
+  </mat-form-field>
+</div>
+
+<mat-list>
+  <mat-list-item *ngFor="let article of dataSource.data">
+    <span matListItemTitle>{{ article.title }}</span>
+    <span matListItemLine class="truncate">{{ article.content }}</span>
+  </mat-list-item>
+</mat-list>
+
+<!-- 
 <mat-card class="card" *ngFor="let article of dataSource.data">
   <mat-card-header
     ><strong>{{ article.title }}</strong></mat-card-header
@@ -17,10 +40,10 @@
   </mat-card-content>
   <mat-card-actions>
     <div class="actions-main-container">
-      <!-- Reaction buttons container -->
+
       <div class="reaction-buttons-container">
         <span>{{ articlesPageConstants.WAS_THE_ARTICLE_USEFUL }}</span>
-        <!-- Like reaction container -->
+
         <div class="reaction-button-container">
           <button
             mat-icon-button
@@ -38,7 +61,7 @@
           <span>{{ article.likesCount }}</span>
         </div>
 
-        <!-- Dislike reaction container -->
+   
         <div class="reaction-button-container">
           <button
             mat-icon-button
@@ -61,7 +84,7 @@
         </div>
       </div>
 
-      <!-- Action buttons container -->
+
       <div
         *ngIf="authService.isAdmin | async"
         class="article-action-buttons-container"
@@ -96,3 +119,4 @@
   >
   </mat-paginator>
 </div>
+-->
