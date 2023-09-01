@@ -1,0 +1,78 @@
+<!-- <mat-card class="card">
+  <mat-card-header
+    ><strong>{{ article.title }}</strong></mat-card-header
+  >
+  <mat-card-content>
+    <pre class="article-content">{{ article.content }}</pre>
+  </mat-card-content>
+  <mat-card-actions>
+    <div class="actions-main-container">
+
+      <div class="reaction-buttons-container">
+        <span>{{ articlesPageConstants.WAS_THE_ARTICLE_USEFUL }}</span>
+
+        <div class="reaction-button-container">
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="addReaction(true, article)"
+          >
+            <span
+              [ngClass]="
+                article.isLiked ? 'material-icons' : 'material-icons-outlined'
+              "
+            >
+              thumb_up
+            </span>
+          </button>
+          <span>{{ article.likesCount }}</span>
+        </div>
+
+   
+        <div class="reaction-button-container">
+          <button
+            mat-icon-button
+            color="primary"
+            (click)="addReaction(false, article)"
+          >
+            <span
+              [ngClass]="
+                article.isLiked
+                  ? 'material-icons-outlined'
+                  : article.isLiked == null
+                  ? 'material-icons-outlined'
+                  : 'material-icons'
+              "
+            >
+              thumb_down
+            </span>
+          </button>
+          <span>{{ article.dislikesCount }}</span>
+        </div>
+      </div>
+
+
+      <div
+        *ngIf="authService.isAdmin | async"
+        class="article-action-buttons-container"
+      >
+        <button
+          color="primary"
+          mat-raised-button
+          (click)="openEditArticleBottomSheet(article)"
+        >
+          {{ articlesPageConstants.EDIT_ARTICLE }}
+        </button>
+
+        <button
+          color="warn"
+          class="delete-button"
+          mat-raised-button
+          (click)="openDeleteArticleDialog(article)"
+        >
+          {{ articlesPageConstants.DELETE_ARTICLE }}
+        </button>
+      </div>
+    </div>
+  </mat-card-actions>
+</mat-card> -->

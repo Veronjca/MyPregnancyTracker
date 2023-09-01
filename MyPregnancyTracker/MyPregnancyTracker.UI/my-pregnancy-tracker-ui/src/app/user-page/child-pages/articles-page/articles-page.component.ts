@@ -1,10 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AfterViewChecked, Component, OnInit, ViewChild } from '@angular/core';
+import { filter, first } from 'rxjs';
+
+import { MatDialog, MatDialogConfig} from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { filter, first } from 'rxjs';
-import { AddReactionToArticleRequest } from 'src/app/models/add-reaction-to-article-request.model';
+import { MatBottomSheet, MatBottomSheetConfig } from '@angular/material/bottom-sheet';
+
 import { ArticleModel } from 'src/app/models/article.model';
 import { GetAllArticlesRequest } from 'src/app/models/get-all-articles-request.models';
 import { ArticlesService } from 'src/app/services/articles.service';
@@ -14,12 +15,13 @@ import { AddArticleDialogComponent } from '../add-article-dialog/add-article-dia
 import { DeleteArticleDialogComponent } from '../delete-article-dialog/delete-article-dialog.component';
 import { EditArticleBottomSheetComponent } from '../edit-article-bottom-sheet/edit-article-bottom-sheet.component';
 
+
 @Component({
   selector: 'app-articles-page',
   templateUrl: './articles-page.component.html',
   styleUrls: ['./articles-page.component.scss']
 })
-export class ArticlesPageComponent implements OnInit {
+export class ArticlesPageComponent implements OnInit, AfterViewChecked {
   articlesPageConstants = articlesPageConstants;
   userId = sessionStorage.getItem('userId');
   paginatorLength: number = 0;
@@ -38,10 +40,29 @@ export class ArticlesPageComponent implements OnInit {
     this.getAllArticlesRequest = {
       userId: this.userId!,
       skip: 0,
-      take: 1
+      take: 5
     }
 
     this.getAllArticles(this.getAllArticlesRequest);
+  }
+
+  ngAfterViewChecked(): void {
+    if(!!this.paginator){
+      const paginatorIntl = this.paginator._intl;
+      paginatorIntl.nextPageLabel = 'Следваща страница';
+      paginatorIntl.previousPageLabel = 'Предишна страница';
+      paginatorIntl.lastPageLabel = 'Последна страница';
+      paginatorIntl.firstPageLabel = 'Първа страница';
+    }
+  }
+
+  private getAllArticles(model: GetAllArticlesRequest){
+    this.articlesService.getAllArticles(model)
+    .pipe(filter(x => !!x), first())
+    .subscribe(response => {
+      this.dataSource.data = response.articles,
+      this.paginatorLength = response.articlesCount;
+    })
   }
 
   onPageChange(){
@@ -54,16 +75,6 @@ export class ArticlesPageComponent implements OnInit {
     this.getAllArticles(this.getAllArticlesRequest);
   }
 
-  openEditArticleBottomSheet(article: ArticleModel){
-    let config = new MatBottomSheetConfig();
-    config.data = {
-      userId: this.userId,
-      article: article
-    }
-
-    this.bottomSheet.open(EditArticleBottomSheetComponent, config);
-  }
-
   openDeleteArticleDialog(article: ArticleModel){
     let config = new MatDialogConfig();
     config.data = {
@@ -74,27 +85,14 @@ export class ArticlesPageComponent implements OnInit {
     this.dialog.open(DeleteArticleDialogComponent, config);
   }
 
-  private getAllArticles(model: GetAllArticlesRequest){
-    this.articlesService.getAllArticles(model)
-    .pipe(filter(x => !!x), first())
-    .subscribe(response => {
-      this.dataSource.data = response.articles,
-      this.paginatorLength = response.articlesCount;
-    })
-  }
+  openEditArticleBottomSheet(article: ArticleModel){
+    let config = new MatBottomSheetConfig();
+    config.data = {
+      userId: this.userId,
+      article: article
+    }
 
-  addReaction(isLiked: boolean, article: ArticleModel){
-    const addReactionToArticleRequest: AddReactionToArticleRequest = {
-      isLiked: article.isLiked == isLiked ? null : isLiked,
-      skip: this.paginator.pageSize * this.paginator.pageIndex,
-      take: this.paginator.pageSize,
-      articleId: article.id,
-      userId: this.userId!
-    };
-
-    this.articlesService.addReaction(addReactionToArticleRequest)
-    .pipe(first())
-    .subscribe(response => this.dataSource.data = response.articles);
+    this.bottomSheet.open(EditArticleBottomSheetComponent, config);
   }
 
   openAddArticleDialog(){

@@ -27,8 +27,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   display: none;
 }
 
-.tooltip-background{
-  background-color: pink;
+.mdc-tooltip__surface{
+  background-color: pink !important;
   color: black !important ;
 }
 
@@ -44,8 +44,14 @@ main{
   overflow-y: auto;
 }
 
-.mat-checkbox-background, .mat-checkbox-frame {
+.mdc-checkbox__background{
   border-radius: 70% !important;
+  height: 20px;
+  width: 20px;
+}
+
+.mdc-checkbox__checkmark{
+  color: white !important;
 }
 
 app-dashboard-page{
@@ -60,7 +66,7 @@ app-dashboard-page{
 
 .mat-paginator {
   .mat-button-wrapper{
-    color: #ff4081;
+    color: #ff4081 !important;
   }
 
   .mat-button-disabled{
@@ -69,6 +75,19 @@ app-dashboard-page{
     }
     
   }
+}
+
+.mdc-text-field:hover {
+  will-change: auto !important;
+  position: inherit !important;
+  border: 1px solid #ff4081 !important;
+  border-radius: 4px;
+}
+
+mat-list-item{
+  height: auto !important;
+  max-width: 70% !important;
+  align-self: center !important;
 }
 
 html, body { height: 100%; }

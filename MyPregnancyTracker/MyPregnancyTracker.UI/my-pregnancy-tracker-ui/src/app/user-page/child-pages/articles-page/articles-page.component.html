@@ -8,88 +8,32 @@
     <mat-icon>add</mat-icon>
   </button>
 </div>
-<mat-card class="card" *ngFor="let article of dataSource.data">
-  <mat-card-header
-    ><strong>{{ article.title }}</strong></mat-card-header
-  >
-  <mat-card-content>
-    <pre class="article-content">{{ article.content }}</pre>
-  </mat-card-content>
-  <mat-card-actions>
-    <div class="actions-main-container">
-      <!-- Reaction buttons container -->
-      <div class="reaction-buttons-container">
-        <span>{{ articlesPageConstants.WAS_THE_ARTICLE_USEFUL }}</span>
-        <!-- Like reaction container -->
-        <div class="reaction-button-container">
-          <button
-            mat-icon-button
-            color="primary"
-            (click)="addReaction(true, article)"
-          >
-            <span
-              [ngClass]="
-                article.isLiked ? 'material-icons' : 'material-icons-outlined'
-              "
-            >
-              thumb_up
-            </span>
-          </button>
-          <span>{{ article.likesCount }}</span>
-        </div>
 
-        <!-- Dislike reaction container -->
-        <div class="reaction-button-container">
-          <button
-            mat-icon-button
-            color="primary"
-            (click)="addReaction(false, article)"
-          >
-            <span
-              [ngClass]="
-                article.isLiked
-                  ? 'material-icons-outlined'
-                  : article.isLiked == null
-                  ? 'material-icons-outlined'
-                  : 'material-icons'
-              "
-            >
-              thumb_down
-            </span>
-          </button>
-          <span>{{ article.dislikesCount }}</span>
-        </div>
+<div class="search-container">
+  <div class="inner-container">
+    <input [placeholder]="articlesPageConstants.SEARCH_PLACEHOLDER" />
+    <button mat-icon-button color="primary" class="search-button">
+      <mat-icon class="icon-display">search</mat-icon>
+    </button>
+  </div>
+</div>
+
+<mat-list>
+  <div class="articles-wrapper">
+    <mat-list-item *ngFor="let article of dataSource.data">
+      <div class="article-preview">
+        <span matListItemTitle>{{ article.title }}</span>
+        <span matListItemLine>{{ article.content }}</span>
       </div>
+    </mat-list-item>
+  </div>
+</mat-list>
 
-      <!-- Action buttons container -->
-      <div
-        *ngIf="authService.isAdmin | async"
-        class="article-action-buttons-container"
-      >
-        <button
-          color="primary"
-          mat-raised-button
-          (click)="openEditArticleBottomSheet(article)"
-        >
-          {{ articlesPageConstants.EDIT_ARTICLE }}
-        </button>
-
-        <button
-          color="warn"
-          class="delete-button"
-          mat-raised-button
-          (click)="openDeleteArticleDialog(article)"
-        >
-          {{ articlesPageConstants.DELETE_ARTICLE }}
-        </button>
-      </div>
-    </div>
-  </mat-card-actions>
-</mat-card>
 <div class="paginator-container">
   <mat-paginator
+    hidePageSize
     *ngIf="dataSource.data.length > 0"
-    [pageSize]="1"
+    [pageSize]="5"
     showFirstLastButtons
     [length]="paginatorLength"
     (page)="onPageChange()"

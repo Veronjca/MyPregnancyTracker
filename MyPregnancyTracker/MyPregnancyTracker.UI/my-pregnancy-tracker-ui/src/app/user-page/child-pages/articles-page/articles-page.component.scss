@@ -27,8 +27,7 @@
 
     mat-paginator{
         margin-bottom: 15px;
-    }
-    
+    }    
 }
 
 mat-card-header{
@@ -75,4 +74,55 @@ mat-card-header{
     position: absolute;
     left: 2%;
     top: 12%;
+}
+
+.search-container{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+        .inner-container{
+            display: flex;
+            justify-content: space-between;
+            width: 60%;
+            border-radius: 20px;
+            padding: 20px;
+            border: 3px solid #F48FB1;
+        
+            .search-button{
+                .icon-display {
+                    transform: scale(1.5);
+                }
+                
+                &:hover{background-color: rgba(244, 143, 177, 0.3);}
+            }
+
+            &:focus-within{      
+                border: 3px solid #ff4081 !important;
+            }
+        }
+}
+
+input{
+    border: none;
+    width: 70%;
+
+    &:focus-visible{
+        outline: none;
+    }
+}
+
+.article-preview{
+    border: 3px solid #ff4081;
+    border-radius: 6px;
+    padding: 3px 10px 10px 10px;
+    &:hover{
+        background-color: rgba(244, 143, 177, 0.3); 
+        cursor: pointer;
+    }    
+}
+
+.articles-wrapper{
+    display: flex;
+    flex-direction: column;
 }
