@@ -1,0 +1,1 @@
+export const WAS_THE_ARTICLE_USEFUL = 'Беше ли полезна тази статия?';

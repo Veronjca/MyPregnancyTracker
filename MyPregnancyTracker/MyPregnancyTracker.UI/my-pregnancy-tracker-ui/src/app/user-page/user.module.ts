@@ -35,6 +35,7 @@ import { ArticlesPageComponent } from './child-pages/articles-page/articles-page
 import { DeleteArticleDialogComponent } from './child-pages/delete-article-dialog/delete-article-dialog.component';
 import { EditArticleBottomSheetComponent } from './child-pages/edit-article-bottom-sheet/edit-article-bottom-sheet.component';
 import { AddArticleDialogComponent } from './child-pages/add-article-dialog/add-article-dialog.component';
+import { ArticlePageComponent } from './child-pages/article-page/article-page.component';
 
 registerLocaleData(bg);
 @NgModule({
@@ -52,6 +53,7 @@ registerLocaleData(bg);
         DeleteArticleDialogComponent,
         EditArticleBottomSheetComponent,
         AddArticleDialogComponent,
+        ArticlePageComponent,
     ], 
     imports: [
         CommonModule, 
