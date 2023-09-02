@@ -51,3 +51,4 @@ export const DELETE_ARTICLE_ENDPOINT = `${environment.baseUrlApi}/api/articles/d
 export const EDIT_ARTICLE_ENDPOINT = `${environment.baseUrlApi}/api/articles/edit-article`;
 export const ADD_REACTION_TO_ARTICLE_ENDPOINT = `${environment.baseUrlApi}/api/articles/add-reaction`;
 export const ADD_ARTICLE_ENDPOINT = `${environment.baseUrlApi}/api/articles/add-article`;
+export const GET_ONE_ENDPOINT = `${environment.baseUrlApi}/api/articles/get-one`;

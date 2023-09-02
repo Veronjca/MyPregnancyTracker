@@ -36,7 +36,7 @@ namespace MyPregnancyTracker.Services.Services.ReactionsService
             this._commentsService = commentsService;
             this._dataProtector = dataProtectionProvider.CreateProtector(this._configuration["DataProtectorKey"]);
         }
-        public async Task<AddDeleteReactionResponseDto> AddAsync(AddDeleteReactionRequestDto addDeleteReactionRequest)
+        public async Task<AddDeleteReactionResponseDto> AddToCommentAsync(AddDeleteReactionRequestDto addDeleteReactionRequest)
         {
             var unprotectedUserId = this._dataProtector.Unprotect(addDeleteReactionRequest.UserId);
             var user = await this._userManager.FindByIdAsync(unprotectedUserId);
@@ -85,7 +85,7 @@ namespace MyPregnancyTracker.Services.Services.ReactionsService
             };
         }
 
-        public async Task<AddDeleteReactionResponseDto> DeleteAsync(AddDeleteReactionRequestDto addDeleteReactionRequest)
+        public async Task<AddDeleteReactionResponseDto> DeleteFromCommentAsync(AddDeleteReactionRequestDto addDeleteReactionRequest)
         {
             var unprotectedUserId = this._dataProtector.Unprotect(addDeleteReactionRequest.UserId);
             var user = await this._userManager.FindByIdAsync(unprotectedUserId);

@@ -45,7 +45,7 @@ namespace MyPregnancyTracker.Tests
                 .Where(r => r.CommentId == addDeleteReactionRequest.CommentId && r.UserId == 1 && r.ReactionType == Enum.Parse<ReactionTypeEnum>(addDeleteReactionRequest.ReactionType))
                 .Count() + 1;
 
-            var result = await this._reactionsService.AddAsync(addDeleteReactionRequest);
+            var result = await this._reactionsService.AddToCommentAsync(addDeleteReactionRequest);
 
             var actualReactionCount = context.Set<Reaction>()
                 .Where(r => r.CommentId == addDeleteReactionRequest.CommentId && r.UserId == 1 && r.ReactionType == Enum.Parse<ReactionTypeEnum>(addDeleteReactionRequest.ReactionType))
@@ -70,7 +70,7 @@ namespace MyPregnancyTracker.Tests
                 UserId = MOCK_USER_ID
             };
 
-            var result = await this._reactionsService.DeleteAsync(addDeleteReactionRequest);
+            var result = await this._reactionsService.DeleteFromCommentAsync(addDeleteReactionRequest);
 
             var updatedReaction = context.Set<Reaction>()
               .FirstOrDefault(r => r.CommentId == addDeleteReactionRequest.CommentId && r.UserId == 1 && r.ReactionType == Enum.Parse<ReactionTypeEnum>(addDeleteReactionRequest.ReactionType));

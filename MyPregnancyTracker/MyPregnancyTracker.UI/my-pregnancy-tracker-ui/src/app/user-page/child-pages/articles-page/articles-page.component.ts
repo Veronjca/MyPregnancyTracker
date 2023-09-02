@@ -14,6 +14,7 @@ import * as articlesPageConstants from '../../../shared/constants/articles-page.
 import { AddArticleDialogComponent } from '../add-article-dialog/add-article-dialog.component';
 import { DeleteArticleDialogComponent } from '../delete-article-dialog/delete-article-dialog.component';
 import { EditArticleBottomSheetComponent } from '../edit-article-bottom-sheet/edit-article-bottom-sheet.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -34,13 +35,14 @@ export class ArticlesPageComponent implements OnInit, AfterViewChecked {
   constructor(private articlesService: ArticlesService,
     private dialog: MatDialog,
     private bottomSheet: MatBottomSheet,
-    public authService: AuthService) { }
+    public authService: AuthService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getAllArticlesRequest = {
       userId: this.userId!,
-      skip: 0,
-      take: 5
+      skip: articlesPageConstants.INIT_SKIP_STEP,
+      take: articlesPageConstants.INIT_TAKE_STEP
     }
 
     this.getAllArticles(this.getAllArticlesRequest);
@@ -49,10 +51,10 @@ export class ArticlesPageComponent implements OnInit, AfterViewChecked {
   ngAfterViewChecked(): void {
     if(!!this.paginator){
       const paginatorIntl = this.paginator._intl;
-      paginatorIntl.nextPageLabel = 'Следваща страница';
-      paginatorIntl.previousPageLabel = 'Предишна страница';
-      paginatorIntl.lastPageLabel = 'Последна страница';
-      paginatorIntl.firstPageLabel = 'Първа страница';
+      paginatorIntl.nextPageLabel = articlesPageConstants.PAGINATOR_NEXT_PAGE;
+      paginatorIntl.previousPageLabel = articlesPageConstants.PAGINATOR_PREVIOUS_PAGE;
+      paginatorIntl.lastPageLabel = articlesPageConstants.PAGINATOR_LAST_PAGE;
+      paginatorIntl.firstPageLabel = articlesPageConstants.PAGINATOR_FIRST_PAGE;
     }
   }
 
@@ -97,5 +99,9 @@ export class ArticlesPageComponent implements OnInit, AfterViewChecked {
 
   openAddArticleDialog(){
     this.dialog.open(AddArticleDialogComponent);
+  }
+
+  navigateToArticlePage(articleId: number){
+    this.router.navigate(["user", this.userId, "articles", articleId]);
   }
 }

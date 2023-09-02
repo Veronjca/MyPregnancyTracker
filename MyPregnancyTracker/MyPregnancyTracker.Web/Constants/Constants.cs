@@ -118,6 +118,8 @@
 
             public const string ADD_ARTICLE_ROUTE = "add-article";
 
+            public const string GET_ONE_ARTICLE_ROUTE = "get-one";
+
         }
         public static class Error
         {
@@ -131,6 +133,11 @@
             public const string SWAGGER_ENDPOINT = "/swagger/v1/swagger.json";
 
             public const string SWAGGER_VERSION = "v1";
+        }
+
+        public static class Role
+        {
+            public const string ADMIN_ROLE = "admin";
         }
     }
 }

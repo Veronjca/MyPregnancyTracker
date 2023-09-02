@@ -64,10 +64,10 @@ export class TopicPageComponent implements OnInit, AfterViewInit, AfterViewCheck
   ngAfterViewChecked(): void {
     if(!!this.paginator){
       const paginatorIntl = this.paginator._intl;
-      paginatorIntl.nextPageLabel = 'Следваща страница';
-      paginatorIntl.previousPageLabel = 'Предишна страница';
-      paginatorIntl.lastPageLabel = 'Последна страница';
-      paginatorIntl.firstPageLabel = 'Първа страница';
+      paginatorIntl.nextPageLabel = topicPageConstants.PAGINATOR_NEXT_PAGE;
+      paginatorIntl.previousPageLabel = topicPageConstants.PAGINATOR_PREVIOUS_PAGE;
+      paginatorIntl.lastPageLabel = topicPageConstants.PAGINATOR_LAST_PAGE;
+      paginatorIntl.firstPageLabel = topicPageConstants.PAGINATOR_FIRST_PAGE;
     }
   }
 
@@ -87,8 +87,8 @@ export class TopicPageComponent implements OnInit, AfterViewInit, AfterViewCheck
 
     this.getAllCommentsRequest = {
       topicId: this.topicId,
-      skip: 0,
-      take: 5
+      skip: topicPageConstants.INIT_SKIP_STEP,
+      take: topicPageConstants.INIT_TAKE_STEP
     };
 
     this.commentsService.getAll(this.getAllCommentsRequest)

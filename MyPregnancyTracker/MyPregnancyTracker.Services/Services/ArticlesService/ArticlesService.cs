@@ -52,7 +52,7 @@ namespace MyPregnancyTracker.Services.Services.ArticlesService
             return true;
         }
 
-        public async Task<AddReactionToArticleResponseDto> AddReactionAsync(AddReactionToArticleRequestDto addReactionToArticleRequest)
+        public async Task<ArticleDto> AddReactionAsync(AddReactionToArticleRequestDto addReactionToArticleRequest)
         {
             var unprotectedUserId = this._dataProtector.Unprotect(addReactionToArticleRequest.UserId);
             var user = await this._userManager.FindByIdAsync(unprotectedUserId);
@@ -94,21 +94,7 @@ namespace MyPregnancyTracker.Services.Services.ArticlesService
        
             await this._userArticleRepository.SaveChangesAsync();
 
-            var getAllArticlesRequest = new GetAllArticlesRequestDto
-            {
-                UserId = addReactionToArticleRequest.UserId,
-                Skip = addReactionToArticleRequest.Skip,
-                Take = addReactionToArticleRequest.Take
-            };
-
-            var getAllArticlesResponse = await this.GetAllAsync(getAllArticlesRequest);
-
-            var response = new AddReactionToArticleResponseDto
-            {
-                Articles = getAllArticlesResponse.Articles
-            };
-
-            return response;
+            return await this.GetOneByIdAsync(article.Id, addReactionToArticleRequest.UserId); 
         }
 
         public async Task<bool> DeleteAsync(int articleId, string userId)
@@ -186,9 +172,14 @@ namespace MyPregnancyTracker.Services.Services.ArticlesService
                     Id = a.Id,
                     Content = a.Content,
                     Title = a.Title,
-                    IsLiked = a.UsersArticles.Where(ua => ua.ArticleId == a.Id && ua.ApplicationUserId == int.Parse(unprotectedUserId)).FirstOrDefault().IsLiked,
-                    DislikesCount = a.UsersArticles.Where(ua => ua.ArticleId == a.Id && ua.IsLiked.HasValue).Count(ua => !ua.IsLiked.Value),
-                    LikesCount = a.UsersArticles.Where(ua => ua.ArticleId == a.Id && ua.IsLiked.HasValue).Count(ua => ua.IsLiked.Value)
+                    IsLiked = a.UsersArticles
+                        .FirstOrDefault(ua => ua.ArticleId == a.Id && ua.ApplicationUserId == int.Parse(unprotectedUserId)).IsLiked,
+                    DislikesCount = a.UsersArticles
+                        .Where(ua => ua.ArticleId == a.Id && ua.IsLiked.HasValue)
+                        .Count(ua => !ua.IsLiked.Value),
+                    LikesCount = a.UsersArticles
+                        .Where(ua => ua.ArticleId == a.Id && ua.IsLiked.HasValue)
+                        .Count(ua => ua.IsLiked.Value)
                 })
                 .ToListAsync();
 
@@ -201,6 +192,42 @@ namespace MyPregnancyTracker.Services.Services.ArticlesService
                 ArticlesCount = articles.Count
             };
 
+        }
+
+        public async Task<ArticleDto> GetOneByIdAsync(int articleId, string userId)
+        {
+            var unprotectedUserId = this._dataProtector.Unprotect(userId);
+            var user = await this._userManager.FindByIdAsync(unprotectedUserId);
+
+            if(user == null)
+            {
+                throw new NotFoundException();
+            }
+
+            var article = await this._articlesRepository
+                .GetAll()
+                .Include(a => a.UsersArticles)
+                .FirstOrDefaultAsync(a => a.Id == articleId && !a.DeletedOn.HasValue);
+                
+            return new ArticleDto
+            {
+                Id = article.Id,  
+                Content = article.Content,
+                Title = article.Title,
+                IsLiked = article.UsersArticles?
+                    .FirstOrDefault(ua => ua.ArticleId == articleId && ua.ApplicationUserId == int.Parse(unprotectedUserId))?.IsLiked,
+                DislikesCount = article.UsersArticles
+                    .Where(ua => ua.ArticleId == articleId && ua.IsLiked.HasValue)
+                    .Count(ua => !ua.IsLiked.Value),
+                LikesCount = article.UsersArticles
+                    .Where(ua => ua.ArticleId == articleId && ua.IsLiked.HasValue)
+                    .Count(ua => ua.IsLiked.Value)                  
+            };
+        }
+
+        public Task<IEnumerable<ArticleDto>> SearchAsync(string searchTerm)
+        {
+            throw new NotImplementedException();
         }
     }
 }

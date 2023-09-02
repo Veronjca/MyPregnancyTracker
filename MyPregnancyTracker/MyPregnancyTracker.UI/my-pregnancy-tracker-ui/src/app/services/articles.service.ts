@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AddArticleRequest } from '../models/add-article-request.model';
 import { AddReactionToArticleRequest } from '../models/add-reaction-to-article-request.model';
-import { AddReactionToArticleResponse } from '../models/add-reaction-to-article-response.model';
 import { ArticleModel } from '../models/article.model';
 import { EditArticleRequest } from '../models/edit-article-request.model';
 import { GetAllArticlesRequest } from '../models/get-all-articles-request.models';
@@ -22,6 +21,14 @@ export class ArticlesService {
     return this.httpClient.post<GetAllArticlesResponse>(this.routes.GET_ALL_ARTICLES_ENDPOINT, model);
   }
 
+  getOne(articleId: number, userId: string): Observable<ArticleModel>{
+    let queryParams = new HttpParams();
+    queryParams = queryParams.append('articleId', articleId);
+    queryParams = queryParams.append('userId', userId);
+
+    return this.httpClient.get<ArticleModel>(this.routes.GET_ONE_ENDPOINT, {params: queryParams});
+  }
+
   deleteArticle(articleId: number, userId: string): Observable<any>{
     let queryParams = new HttpParams();
     queryParams = queryParams.append('articleId', articleId);
@@ -37,8 +44,8 @@ export class ArticlesService {
     return this.httpClient.put<any>(this.routes.EDIT_ARTICLE_ENDPOINT, model, {params: queryParams});
   }
 
-  addReaction(model: AddReactionToArticleRequest): Observable<AddReactionToArticleResponse>{
-    return this.httpClient.post<AddReactionToArticleResponse>(this.routes.ADD_REACTION_TO_ARTICLE_ENDPOINT, model);
+  addReaction(model: AddReactionToArticleRequest): Observable<ArticleModel>{
+    return this.httpClient.post<ArticleModel>(this.routes.ADD_REACTION_TO_ARTICLE_ENDPOINT, model);
   }
 
   addArticle(model: AddArticleRequest): Observable<any>{

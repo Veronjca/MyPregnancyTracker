@@ -1,4 +1,5 @@
 ﻿using static MyPregnancyTracker.Web.Constants.Constants.ArticlesControllerRoutes;
+using static MyPregnancyTracker.Web.Constants.Constants.Role;
 using MyPregnancyTracker.Services.Services.ArticlesService;
 using Microsoft.AspNetCore.Mvc;
 using MyPregnancyTracker.Services.Models.ArticlesModels;
@@ -33,8 +34,24 @@ namespace MyPregnancyTracker.Web.Controllers
             }
         }
 
+        [HttpGet]
+        [Route(GET_ONE_ARTICLE_ROUTE)]
+        public async Task<IActionResult> GetOneByIdAsync([FromQuery]int articleId, [FromQuery] string userId)
+        {
+            try
+            {
+                var article = await this._articlesService.GetOneByIdAsync(articleId, userId);
+
+                return Ok(article);
+            }
+            catch (NotFoundException)
+            {
+                return BadRequest();
+            }
+        }
+
         [HttpDelete]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = ADMIN_ROLE)]
         [Route(DELETE_ARTICLE_ROUTE)]
         public async Task<IActionResult> DeleteAsync([FromQuery] int articleId, [FromQuery] string userId)
         {
@@ -49,7 +66,7 @@ namespace MyPregnancyTracker.Web.Controllers
         }
 
         [HttpPut]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = ADMIN_ROLE)]
         [Route(EDIT_ARTICLE_ROUTE)]
         public async Task<IActionResult> EditAsync([FromBody] EditArticleRequestDto editArticleRequest, [FromQuery] string userId)
         {
@@ -80,7 +97,7 @@ namespace MyPregnancyTracker.Web.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = ADMIN_ROLE)]
         [Route(ADD_ARTICLE_ROUTE)]
         public async Task<IActionResult> AddArticleAsync([FromBody]AddArticleRequestDto addArticleRequest)
         {

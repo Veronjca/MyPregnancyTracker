@@ -159,7 +159,7 @@
       <mat-paginator
         *ngIf="dataSource.data.length > 0"
         color="warn"
-        [pageSize]="5"
+        [pageSize]="topicPageConstants.INIT_TAKE_STEP"
         showFirstLastButtons
         [length]="paginatorLength"
         (page)="onPageChange()"
