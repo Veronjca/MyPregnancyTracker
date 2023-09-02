@@ -18,11 +18,11 @@ namespace MyPregnancyTracker.Web.Controllers
 
         [HttpPost]
         [Route(ADD_REACTION_ROUTE)]
-        public async Task<IActionResult> AddAsync([FromBody] AddDeleteReactionRequestDto addDeleteReactionRequest)
+        public async Task<IActionResult> AddToCommentAsync([FromBody] AddDeleteReactionRequestDto addDeleteReactionRequest)
         {
             try
             {
-                var result = await this._reactionsService.AddAsync(addDeleteReactionRequest);
+                var result = await this._reactionsService.AddToCommentAsync(addDeleteReactionRequest);
 
                 return Ok(result);
             }
@@ -35,11 +35,11 @@ namespace MyPregnancyTracker.Web.Controllers
 
         [HttpPost]
         [Route(DELETE_REACTION_ROUTE)]
-        public async Task<IActionResult> DeleteAsync([FromBody] AddDeleteReactionRequestDto addDeleteReactionRequest)
+        public async Task<IActionResult> DeleteFromCommentAsync([FromBody] AddDeleteReactionRequestDto addDeleteReactionRequest)
         {
             try
             {
-                var result = await this._reactionsService.DeleteAsync(addDeleteReactionRequest);
+                var result = await this._reactionsService.DeleteFromCommentAsync(addDeleteReactionRequest);
 
                 return Ok(result);
             }

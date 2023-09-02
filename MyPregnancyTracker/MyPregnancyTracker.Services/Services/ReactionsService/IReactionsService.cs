@@ -10,14 +10,14 @@ namespace MyPregnancyTracker.Services.Services.ReactionsService
         /// </summary>
         /// <param name="addDeleteReactionRequest">The model that holds request info.</param>
         /// <returns>A model that holds user reactions and all comments for the topic.</returns>
-        Task<AddDeleteReactionResponseDto> AddAsync(AddDeleteReactionRequestDto addDeleteReactionRequest);
+        Task<AddDeleteReactionResponseDto> AddToCommentAsync(AddDeleteReactionRequestDto addDeleteReactionRequest);
 
         /// <summary>
         /// Sets deleted on property of the specified reaction, as asynchronous operation.
         /// </summary>
         /// <param name="addDeleteReactionRequest">The model that holds request info.</param>
         /// <returns>A model that holds user reactions and all comments for the topic.</returns>
-        Task<AddDeleteReactionResponseDto> DeleteAsync(AddDeleteReactionRequestDto addDeleteReactionRequest);
+        Task<AddDeleteReactionResponseDto> DeleteFromCommentAsync(AddDeleteReactionRequestDto addDeleteReactionRequest);
 
         /// <summary>
         /// Gets all user reactions for the specified comment, as asynchronous operation.

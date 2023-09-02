@@ -1,0 +1,32 @@
+.card{
+    margin: 30px auto;
+    width: 70%;
+    border: 2px solid #F48FB1;
+    border-radius: 25px;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+}
+
+.card-wrapper{
+    padding-bottom: 30px;
+}
+
+mat-card-header{
+    display: flex;
+    justify-content: center;
+    color: #ff4081;
+}
+
+.article-content{
+    overflow-y: hidden;
+    font-size: 16px;
+    white-space: pre-wrap;
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+
+}
+
+.reaction-buttons-container{
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { first } from 'rxjs';
 
 import { AddReactionToArticleRequest } from 'src/app/models/add-reaction-to-article-request.model';
@@ -11,11 +12,18 @@ import * as articlePageConstants from "src/app/shared/constants/article-page.con
   templateUrl: './article-page.component.html',
   styleUrls: ['./article-page.component.scss']
 })
-export class ArticlePageComponent {
+export class ArticlePageComponent implements OnInit{
   userId = sessionStorage.getItem('userId');
+  articleId = this.route.snapshot.params['articleId'];
+  article!: ArticleModel;
   articlePageConstants = articlePageConstants;
 
- constructor(private articlesService: ArticlesService) { }
+ constructor(private articlesService: ArticlesService,
+  private route: ActivatedRoute) { }
+
+  ngOnInit(): void {
+    this.articlesService.getOne(this.articleId, this.userId!).subscribe(article => this.article = article);
+  }
 
 addReaction(isLiked: boolean, article: ArticleModel){
   const addReactionToArticleRequest: AddReactionToArticleRequest = {
@@ -26,7 +34,7 @@ addReaction(isLiked: boolean, article: ArticleModel){
 
   this.articlesService.addReaction(addReactionToArticleRequest)
   .pipe(first())
-  .subscribe();
+  .subscribe(article => this.article = article);
   }
 
 }

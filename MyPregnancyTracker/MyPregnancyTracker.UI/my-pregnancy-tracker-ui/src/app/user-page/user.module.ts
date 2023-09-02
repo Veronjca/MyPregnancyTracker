@@ -69,7 +69,8 @@ registerLocaleData(bg);
                     component: ForumPageComponent,
                     loadChildren: () => import('./child-pages/forum-page/forum.module').then(module => module.ForumModule)
                 },
-                {path: 'articles', component: ArticlesPageComponent}
+                {path: 'articles', component: ArticlesPageComponent},
+                {path: 'articles/:articleId', component: ArticlePageComponent}
             ]
         }]),
         MatCardModule,
